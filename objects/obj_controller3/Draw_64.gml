@@ -151,9 +151,9 @@ draw_set_color(make_color_rgb(110, 110, 110));
 draw_set_alpha(0.65);
 var leg_y = gh - 40;
 if (gamepad_is_connected(0)) {
-    draw_text(16, leg_y, "L-Stick Move  |  A Jump  |  RT/RB Shoot  |  Y Hook");
+    draw_text(16, leg_y, "L-Stick Move/Rope  |  A Jump  |  RT/RB Shoot  |  Y Hook (fire/cancel)");
 } else {
-    draw_text(16, leg_y, "WASD Move  |  Space Jump  |  J/LMB Shoot  |  G Hook");
+    draw_text(16, leg_y, "WASD Move/Rope  |  Space Jump  |  J/LMB Shoot  |  G Hook (fire/cancel)");
 }
 draw_set_alpha(1);
 draw_set_color(c_white);

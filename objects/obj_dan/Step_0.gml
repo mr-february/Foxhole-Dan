@@ -51,41 +51,30 @@ vspd += grav * fall_mult;
 if (vspd > 20) vspd = 20;
 
 // === GRAPPLING HOOK ===
-// G / Y-button to fire; press again to cancel
+// G / Y — fire or cancel.  W/S (or L-stick up/down) — retract / extend rope.
 var key_hook = keyboard_check_pressed(ord("G"));
-if (gp && gamepad_button_check_pressed(0, gp_face4)) key_hook = true;  // Y / Triangle
+if (gp && gamepad_button_check_pressed(0, gp_face4)) key_hook = true;
 
 if (key_hook) {
     if (hook_inst != noone && instance_exists(hook_inst)) {
         instance_destroy(hook_inst);
         hook_inst = noone;
     } else {
-        var _h    = instance_create_layer(x, y - 16, "Instances", obj_hook);
+        var _h       = instance_create_layer(x, y - 16, "Instances", obj_hook);
         _h.direction = aim_dir;
         _h.speed     = 22;
         _h.owner     = id;
         hook_inst    = _h;
+        rope_len     = 0;
     }
 }
 
-if (hook_inst != noone) {
-    if (!instance_exists(hook_inst)) {
-        hook_inst = noone;
-    } else if (hook_inst.lodged) {
-        var _dx   = hook_inst.x - x;
-        var _dy   = hook_inst.y - (y - 16);
-        var _dist = max(point_distance(x, y - 16, hook_inst.x, hook_inst.y), 1);
-        if (_dist > 20) {
-            var _pull = 1.2;
-            hspd += (_dx / _dist) * _pull;
-            vspd += (_dy / _dist) * _pull;
-            var _mag = point_distance(0, 0, hspd, vspd);
-            if (_mag > 16) { hspd = hspd / _mag * 16; vspd = vspd / _mag * 16; }
-        } else {
-            instance_destroy(hook_inst);
-            hook_inst = noone;
-        }
-    }
+if (hook_inst != noone && !instance_exists(hook_inst)) hook_inst = noone;
+
+// Rope length adjustment while swinging (W/S or L-stick vertical)
+if (hook_inst != noone && hook_inst.lodged) {
+    if (key_up)   rope_len = max(48,  rope_len - 3);
+    if (key_down) rope_len = min(680, rope_len + 3);
 }
 
 // === GROUND CHECK ===
@@ -110,6 +99,31 @@ if (place_meeting(x, y + vspd, obj_platform)) {
     vspd = 0;
 }
 y += vspd;
+
+// === ROPE SWING CONSTRAINT ===
+// Enforce Dan's distance to the anchor ≤ rope_len (pendulum physics).
+// Runs after movement so gravity and input contribute to swing momentum.
+if (hook_inst != noone && instance_exists(hook_inst) && hook_inst.lodged && !on_ground) {
+    var _ax   = hook_inst.x;
+    var _ay   = hook_inst.y;
+    var _ddx  = x - _ax;
+    var _ddy  = (y - 16) - _ay;
+    var _dist = sqrt(_ddx * _ddx + _ddy * _ddy);
+    if (rope_len <= 0) rope_len = max(_dist, 48);
+    if (_dist > rope_len && _dist > 1) {
+        var _nx = _ddx / _dist;
+        var _ny = _ddy / _dist;
+        // Reposition Dan onto the rope circle
+        x = _ax + _nx * rope_len;
+        y = (_ay + _ny * rope_len) + 16;
+        // Cancel the outward (rope-stretching) velocity component
+        var _vr = hspd * _nx + vspd * _ny;
+        if (_vr > 0) {
+            hspd -= _vr * _nx;
+            vspd -= _vr * _ny;
+        }
+    }
+}
 
 // Out-of-bounds safety — if Dan falls past the room bottom, snap back to a safe y
 if (y > room_height + 50) {

@@ -29,3 +29,4 @@ flashback_duration = 300;
 flashback_cooldown = 0;
 
 hook_inst = noone;
+rope_len  = 0;

@@ -4,6 +4,10 @@ if (lodged) exit;
 if (instance_position(x, y, obj_platform) != noone) {
     lodged = true;
     speed  = 0;
+    // Seed the rope length from the actual distance at the moment of lodging
+    if (owner != noone && instance_exists(owner)) {
+        owner.rope_len = max(point_distance(owner.x, owner.y - 16, x, y), 48);
+    }
     exit;
 }
 
