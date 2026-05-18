@@ -150,72 +150,91 @@ if (state == 0) {
 // MAIN MENU
 // ═══════════════════════════════════════════════════════
 
-    // Dark panel behind title
-    draw_set_alpha(0.62);
+    // Heavy dark panel — kills background noise behind all text
+    draw_set_alpha(0.88);
     draw_set_color(make_color_rgb(0, 0, 0));
-    draw_rectangle(mid - 520, gh * 0.11, mid + 520, gh * 0.43, false);
+    draw_rectangle(mid - 560, gh * 0.10, mid + 560, gh * 0.44, false);
     draw_set_alpha(1);
 
-    // Amber rule lines
-    draw_set_color(make_color_rgb(190, 130, 25));
-    draw_rectangle(mid - 500, gh * 0.125, mid + 500, gh * 0.129, false);
-    draw_rectangle(mid - 500, gh * 0.405, mid + 500, gh * 0.409, false);
+    // Gold rule lines bordering the panel
+    draw_set_color(make_color_rgb(210, 150, 30));
+    draw_rectangle(mid - 540, gh * 0.112, mid + 540, gh * 0.117, false);
+    draw_rectangle(mid - 540, gh * 0.422, mid + 540, gh * 0.427, false);
 
     draw_set_halign(fa_center);
     draw_set_valign(fa_middle);
 
-    // Era text
-    draw_set_color(make_color_rgb(150, 110, 35));
-    draw_text_transformed(mid, gh * 0.175, "1  9  4  5   ·   C O M B A T   V E T E R A N", 0.82, 0.82, 0);
+    // Era text — brighter so it reads on the dark panel
+    draw_set_color(make_color_rgb(0, 0, 0));
+    draw_text_transformed(mid + 2, gh * 0.158 + 2, "1  9  4  5   ·   C O M B A T   V E T E R A N", 0.84, 0.84, 0);
+    draw_set_color(make_color_rgb(180, 145, 60));
+    draw_text_transformed(mid, gh * 0.158, "1  9  4  5   ·   C O M B A T   V E T E R A N", 0.84, 0.84, 0);
 
-    // Title glow layers
+    // Title glow halo
     for (var _gl = 5; _gl >= 1; _gl--) {
-        draw_set_alpha(0.10 / _gl);
-        draw_set_color(make_color_rgb(255, 180, 0));
-        draw_text_transformed(mid, gh * 0.285, "FOXHOLE  DAN", 4.4 + _gl * 0.4, 4.4 + _gl * 0.4, 0);
+        draw_set_alpha(0.18 / _gl);
+        draw_set_color(make_color_rgb(255, 200, 50));
+        draw_text_transformed(mid, gh * 0.285, "FOXHOLE  DAN", 4.6 + _gl * 0.5, 4.6 + _gl * 0.5, 0);
     }
     draw_set_alpha(1);
 
-    // Title shadow
-    draw_set_color(make_color_rgb(60, 20, 0));
-    draw_text_transformed(mid + 6, gh * 0.285 + 6, "FOXHOLE  DAN", 4.4, 4.4, 0);
+    // Title — thick black shadow first (4 directions for outline effect)
+    draw_set_color(make_color_rgb(0, 0, 0));
+    draw_text_transformed(mid - 5, gh * 0.285,     "FOXHOLE  DAN", 4.6, 4.6, 0);
+    draw_text_transformed(mid + 5, gh * 0.285,     "FOXHOLE  DAN", 4.6, 4.6, 0);
+    draw_text_transformed(mid,     gh * 0.285 - 5, "FOXHOLE  DAN", 4.6, 4.6, 0);
+    draw_text_transformed(mid,     gh * 0.285 + 5, "FOXHOLE  DAN", 4.6, 4.6, 0);
 
-    // Title — bright amber pulse
-    var _tp = 0.88 + sin(t * 1.5) * 0.12;
-    draw_set_color(make_color_rgb(floor(230 * _tp + 22), floor(188 * _tp), floor(55 * _tp)));
-    draw_text_transformed(mid, gh * 0.285, "FOXHOLE  DAN", 4.4, 4.4, 0);
+    // Title — near-white with warm tint, pulsing slightly
+    var _tp = 0.92 + sin(t * 1.5) * 0.08;
+    draw_set_color(make_color_rgb(255, floor(240 * _tp), floor(160 * _tp)));
+    draw_text_transformed(mid, gh * 0.285, "FOXHOLE  DAN", 4.6, 4.6, 0);
 
-    // Tagline
-    draw_set_color(make_color_rgb(165, 142, 85));
-    draw_text_transformed(mid, gh * 0.385, "He survived the war.  The war never left him.", 1.06, 1.06, 0);
+    // Tagline — white with shadow
+    draw_set_color(make_color_rgb(0, 0, 0));
+    draw_text_transformed(mid + 2, gh * 0.388 + 2, "He survived the war.  The war never left him.", 1.08, 1.08, 0);
+    draw_set_color(make_color_rgb(220, 205, 155));
+    draw_text_transformed(mid, gh * 0.388, "He survived the war.  The war never left him.", 1.08, 1.08, 0);
 
     // Separator
-    draw_set_color(make_color_rgb(80, 60, 20));
-    draw_rectangle(mid - 200, gh * 0.46, mid + 200, gh * 0.462, false);
+    draw_set_color(make_color_rgb(100, 75, 25));
+    draw_rectangle(mid - 220, gh * 0.465, mid + 220, gh * 0.467, false);
 
-    // PLAY — big pulse
-    var _pp = 0.72 + abs(sin(t * 1.9)) * 0.28;
+    // Lighter semi-dark strip behind PLAY and CONTROLS
+    draw_set_alpha(0.70);
+    draw_set_color(make_color_rgb(0, 0, 0));
+    draw_rectangle(mid - 420, gh * 0.488, mid + 420, gh * 0.680, false);
+    draw_set_alpha(1);
+
+    // PLAY — shadow then bright white/yellow, pulsing
+    var _pp = 0.78 + abs(sin(t * 1.9)) * 0.22;
+    draw_set_color(make_color_rgb(0, 0, 0));
+    draw_text_transformed(mid + 3, gh * 0.535 + 3, "SPACE  /  START  ──  PLAY", 1.55, 1.55, 0);
     draw_set_alpha(_pp);
-    draw_set_color(make_color_rgb(255, 235, 60));
-    draw_text_transformed(mid, gh * 0.54, "SPACE  /  START  ──  PLAY", 1.50, 1.50, 0);
+    draw_set_color(make_color_rgb(255, 245, 80));
+    draw_text_transformed(mid, gh * 0.535, "SPACE  /  START  ──  PLAY", 1.55, 1.55, 0);
     draw_set_alpha(1);
 
     // Arrow brackets
-    draw_set_color(make_color_rgb(210, 160, 35));
-    draw_text_transformed(mid - 260, gh * 0.54, ">", 1.50, 1.50, 0);
-    draw_text_transformed(mid + 260, gh * 0.54, "<", 1.50, 1.50, 0);
+    draw_set_color(make_color_rgb(255, 200, 40));
+    draw_text_transformed(mid - 285, gh * 0.535, ">", 1.55, 1.55, 0);
+    draw_text_transformed(mid + 285, gh * 0.535, "<", 1.55, 1.55, 0);
 
-    // Controls link
-    draw_set_color(make_color_rgb(120, 108, 62));
-    draw_text_transformed(mid, gh * 0.635, "C  /  X  ──  CONTROLS", 1.10, 1.10, 0);
+    // Controls link — shadow then bright
+    draw_set_color(make_color_rgb(0, 0, 0));
+    draw_text_transformed(mid + 2, gh * 0.632 + 2, "C  /  X  ──  CONTROLS", 1.12, 1.12, 0);
+    draw_set_color(make_color_rgb(190, 175, 110));
+    draw_text_transformed(mid, gh * 0.632, "C  /  X  ──  CONTROLS", 1.12, 1.12, 0);
 
-    // Mature content footer
-    draw_set_color(make_color_rgb(90, 55, 35));
-    draw_rectangle(mid - 400, gh * 0.845, mid + 400, gh * 0.847, false);
-    draw_set_color(make_color_rgb(190, 95, 60));
-    draw_text_transformed(mid, gh * 0.880, "MATURE CONTENT  ·  18+  ·  PTSD  ·  COMBAT  ·  VIOLENCE", 0.80, 0.80, 0);
-    draw_set_color(make_color_rgb(100, 62, 42));
-    draw_text_transformed(mid, gh * 0.935, "Not suitable for children.", 0.72, 0.72, 0);
+    // Mature content footer — dark strip then readable text
+    draw_set_alpha(0.65);
+    draw_set_color(make_color_rgb(0, 0, 0));
+    draw_rectangle(0, gh * 0.840, gw, gh, false);
+    draw_set_alpha(1);
+    draw_set_color(make_color_rgb(210, 110, 70));
+    draw_text_transformed(mid, gh * 0.878, "MATURE CONTENT  ·  18+  ·  PTSD  ·  COMBAT  ·  VIOLENCE", 0.82, 0.82, 0);
+    draw_set_color(make_color_rgb(140, 85, 60));
+    draw_text_transformed(mid, gh * 0.936, "Not suitable for children.", 0.74, 0.74, 0);
 
     draw_set_halign(fa_left);
     draw_set_valign(fa_top);
