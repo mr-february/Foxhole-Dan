@@ -1,5 +1,5 @@
-var gw  = display_get_gui_width();
-var gh  = display_get_gui_height();
+var gw  = 1920;
+var gh  = 768;
 var mid = gw * 0.5;
 var t   = current_time * 0.001;
 
