@@ -1,0 +1,11 @@
+hp           = 100;
+move_spd     = 2;
+vspd         = 0;
+hspd         = 0;
+facing       = -1;
+shoot_timer  = irandom(120) + 60;
+patrol_dir   = choose(1, -1);
+patrol_timer = irandom(90) + 60;
+aggro_range  = 380;
+shoot_range  = 280;
+hit_flash    = 0;
