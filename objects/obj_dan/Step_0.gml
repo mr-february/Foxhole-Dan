@@ -125,11 +125,20 @@ if (hook_inst != noone && instance_exists(hook_inst) && hook_inst.lodged && !on_
     }
 }
 
-// Out-of-bounds safety — if Dan falls past the room bottom, snap back to a safe y
+// Out-of-bounds safety
 if (y > room_height + 50) {
-    y = room_height - 120;
+    // Snap to just above the ground floor (y=2920) so gravity lands Dan on it
+    y    = 2880;
     vspd = 0;
+    hspd = 0;
+    // Cancel any active hook — it's almost certainly detached
+    if (hook_inst != noone && instance_exists(hook_inst)) {
+        instance_destroy(hook_inst);
+        hook_inst = noone;
+    }
 }
+// Clamp horizontal — no walls in Room3, so prevent walking off the edge
+x = clamp(x, 0, room_width);
 
 // === CAMERA FOLLOW with look-ahead ===
 // Room3 uses obj_controller3 for vertical camera — Dan must not interfere
