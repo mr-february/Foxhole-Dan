@@ -45,9 +45,10 @@ if (!crouching) {
 }
 
 // === GRAVITY ===
-// Faster fall on the way down so jump arc feels snappier
-var fall_mult = (vspd > 0) ? 1.3 : 1.0;
-vspd += grav * fall_mult;
+var _swinging = (hook_inst != noone && instance_exists(hook_inst) && hook_inst.lodged && !on_ground);
+var fall_mult  = (vspd > 0) ? (_swinging ? 0.7 : 1.3) : 1.0;
+var grav_mul   = _swinging ? 0.5 : 1.0;   // half gravity while on the rope
+vspd += grav * fall_mult * grav_mul;
 if (vspd > 20) vspd = 20;
 
 // === GRAPPLING HOOK ===
@@ -62,7 +63,7 @@ if (key_hook) {
     } else {
         var _h       = instance_create_layer(x, y - 16, "Instances", obj_hook);
         _h.direction = aim_dir;
-        _h.speed     = 22;
+        _h.speed     = 28;
         _h.owner     = id;
         hook_inst    = _h;
         rope_len     = 0;

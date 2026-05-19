@@ -39,38 +39,52 @@ var plat_data = [
     // L5 — sides
     [2120,   96,  6],
     [2120, 1440,  6],
-    // L6 — three small platforms (enemy on center)
-    [1960,  288,  4],
-    [1960,  800,  4],
-    [1960, 1312,  4],
-    // L7 — two platforms (ammo on left)
-    [1800,  480,  5],
-    [1800, 1120,  5],
-    // L8 — three narrow (two enemies)
-    [1640,   96,  4],
-    [1640,  768,  4],
-    [1640, 1440,  4],
+    // L6 — three platforms (enemy on center) — widened from 4→6 tiles
+    [1960,  256,  6],
+    [1960,  768,  6],
+    [1960, 1280,  6],
+    // L7 — two platforms (ammo on left) — widened from 5→7 tiles
+    [1800,  448,  7],
+    [1800, 1088,  7],
+    // L8 — three platforms (two enemies) — widened from 4→6 tiles
+    [1640,   80,  6],
+    [1640,  752,  6],
+    [1640, 1408,  6],
     // L9 — wide safe zone (clarity + medkit)
     [1480,  608, 20],
     // L10 — three with gaps (two enemies on sides)
     [1320,  160,  5],
     [1320,  832,  4],
     [1320, 1440,  5],
+    // L10–L11 bridge — stepping stones across the wide gaps
+    [1240,  576,  4],
+    [1240, 1184,  4],
     // L11 — two platforms (medkit on left)
     [1160,  448,  5],
     [1160, 1024,  5],
+    // L11–L12 bridge
+    [1080,  256,  4],
+    [1080,  896,  4],
+    [1080, 1408,  4],
     // L12 — three (enemy on center)
     [1000,  128,  5],
     [1000,  736,  5],
     [1000, 1344,  5],
+    // L12–L13 bridge
+    [ 920,  576,  4],
+    [ 920, 1120,  4],
     // L13 — two wide (ammo on left)
     [ 840,  352,  7],
     [ 840, 1024,  7],
-    // L14 — four narrow (two enemies on platforms 2 and 3)
-    [ 680,   64,  4],
-    [ 680,  448,  4],
-    [ 680,  928,  4],
-    [ 680, 1440,  4],
+    // L13–L14 bridge
+    [ 760,  192,  4],
+    [ 760,  768,  4],
+    [ 760, 1344,  4],
+    // L14 — four platforms (two enemies) — widened from 4→5 tiles
+    [ 680,   64,  5],
+    [ 680,  448,  5],
+    [ 680,  928,  5],
+    [ 680, 1440,  5],
     // L15 — three (enemy on center)
     [ 520,  256,  5],
     [ 520,  800,  5],

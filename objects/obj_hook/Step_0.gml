@@ -4,9 +4,12 @@ if (lodged) exit;
 if (instance_position(x, y, obj_platform) != noone) {
     lodged = true;
     speed  = 0;
-    // Seed the rope length from the actual distance at the moment of lodging
     if (owner != noone && instance_exists(owner)) {
         owner.rope_len = max(point_distance(owner.x, owner.y - 16, x, y), 48);
+        // Upward impulse if Dan is below the anchor and falling — starts the swing
+        if (owner.y - 16 > y && owner.vspd > 0) {
+            owner.vspd = max(owner.vspd - 7, -6);
+        }
     }
     exit;
 }
