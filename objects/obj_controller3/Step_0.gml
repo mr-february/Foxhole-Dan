@@ -10,19 +10,31 @@ if (p != noone && global.game_state == 0) {
     cam_y = lerp(cam_y, target, 0.10);
     camera_set_view_pos(view_camera[0], 0, cam_y);
 
-    // Win: Dan reaches the exit platform at the top
-    if (p.y < 280) {
-        global.game_state = 1;
+    // Dan reaches exit platform — start capture transition
+    if (p.y < 280 && transition_timer == 0) {
+        global.game_state = 1;  // triggers narrative overlay in Draw_64
+        transition_timer  = 1;
     }
 }
 
-// Restart
-var restart = keyboard_check_pressed(ord("R"));
-if (!restart && gamepad_is_connected(0)) {
-    restart = gamepad_button_check_pressed(0, gp_start)
-           || gamepad_button_check_pressed(0, gp_face1);
+// Capture transition: show narrative text then load Room4
+if (transition_timer > 0) {
+    transition_timer++;
+    if (transition_timer >= 240) {  // 4 seconds of text
+        room_goto(Room4);
+        exit;
+    }
 }
-if ((global.game_state == 1 || global.game_state == 2) && restart) {
-    global.game_state = 0;
-    room_restart();
+
+// Restart (only from death, not from capture — Room4 handles its own restart)
+if (global.game_state == 2) {
+    var restart = keyboard_check_pressed(ord("R"));
+    if (!restart && gamepad_is_connected(0)) {
+        restart = gamepad_button_check_pressed(0, gp_start)
+               || gamepad_button_check_pressed(0, gp_face1);
+    }
+    if (restart) {
+        global.game_state = 0;
+        room_restart();
+    }
 }

@@ -1,26 +1,28 @@
 var gw = display_get_gui_width();
 var gh = display_get_gui_height();
 
-// === WIN SCREEN ===
+// === CAPTURE TRANSITION (game_state 1 = Dan reached the roof) ===
 if (global.game_state == 1) {
-    draw_set_color(make_color_rgb(10, 30, 10));
-    draw_set_alpha(0.82);
+    // Fade in dark overlay
+    var _fa = clamp(transition_timer / 60.0, 0, 1);
+    draw_set_color(c_black);
+    draw_set_alpha(0.86 * _fa);
     draw_rectangle(0, 0, gw, gh, false);
-    draw_set_alpha(1);
+    draw_set_alpha(_fa);
 
     draw_set_halign(fa_center);
     draw_set_valign(fa_middle);
     draw_set_color(make_color_rgb(220, 200, 60));
-    draw_text_transformed(gw/2, gh/2 - 60, "YOU CLIMBED OUT", 2.5, 2.5, 0);
+    draw_text_transformed(gw/2, gh/2 - 70, "THE ROOF", 2.8, 2.8, 0);
     draw_set_color(c_white);
-    draw_text_transformed(gw/2, gh/2, "The rubble couldn't hold him.", 1.2, 1.2, 0);
+    draw_text_transformed(gw/2, gh/2,      "He pulled himself over the edge, gasping.", 1.2, 1.2, 0);
     draw_set_color(make_color_rgb(160, 148, 90));
-    draw_text_transformed(gw/2, gh/2 + 45, "But every floor he passed still burns.", 1.0, 1.0, 0);
-    draw_set_color(make_color_rgb(140, 130, 80));
-    draw_text_transformed(gw/2, gh/2 + 95, "Press R to play again", 0.85, 0.85, 0);
+    draw_text_transformed(gw/2, gh/2 + 50, "They were already waiting.", 1.0, 1.0, 0);
+    draw_set_color(make_color_rgb(220, 60, 60));
+    draw_text_transformed(gw/2, gh/2 + 100, "Everything went black.", 1.0, 1.0, 0);
     draw_set_halign(fa_left);
     draw_set_valign(fa_top);
-    draw_set_color(c_white);
+    draw_set_alpha(1);
     exit;
 }
 
