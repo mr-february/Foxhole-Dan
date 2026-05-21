@@ -54,8 +54,8 @@ if (phase == 0 && intro_timer <= 0) {
         if (key_space_p) {
             rope_progress[@ 0] = min(rope_progress[0] + 0.09, 1.0);
         }
+        if (rope_progress[0] >= 1.0) rope_done[@ 0] = true;  // check before decay
         rope_progress[@ 0] = max(rope_progress[0] - 0.004, 0.0);
-        if (rope_progress[0] >= 1.0) rope_done[@ 0] = true;
     }
 
     // Strand 1: alternate LEFT / RIGHT
@@ -67,8 +67,8 @@ if (phase == 0 && intro_timer <= 0) {
             strand1_expect     = 1;
             rope_progress[@ 1] = min(rope_progress[1] + 0.055, 1.0);
         }
+        if (rope_progress[1] >= 1.0) rope_done[@ 1] = true;  // check before decay
         rope_progress[@ 1] = max(rope_progress[1] - 0.003, 0.0);
-        if (rope_progress[1] >= 1.0) rope_done[@ 1] = true;
     }
 
     // Strand 2: hold J+K (or LB+RB) simultaneously
