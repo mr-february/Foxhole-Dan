@@ -2,6 +2,23 @@ var bx = x;
 var by = y;
 var f  = facing;
 
+// Roll visual — squashed figure + speed lines, exits early
+if (roll_timer > 0) {
+    var _rf = roll_timer / roll_dur;
+    draw_set_color(make_color_rgb(65, 80, 40));
+    draw_rectangle(bx - 13, by - 9, bx + 13, by - 1, false);
+    draw_set_color(make_color_rgb(55, 70, 32));
+    draw_circle(bx + f * 9, by - 9, 6, false);
+    draw_set_alpha(0.38 * _rf);
+    draw_set_color(make_color_rgb(220, 220, 220));
+    for (var _si = 1; _si <= 3; _si++) {
+        draw_line(bx - f * (_si * 6), by - 5, bx - f * (_si * 6 + 10), by - 5);
+    }
+    draw_set_alpha(1);
+    draw_set_color(c_white);
+    exit;
+}
+
 // === ANIMATION PHASE ===
 var spd_ratio  = clamp(abs(hspd) / move_spd, 0, 1);
 var wp         = current_time * 0.017;                    // walk phase

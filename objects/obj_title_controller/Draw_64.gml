@@ -147,7 +147,7 @@ draw_set_alpha(1);
 
 // ═══════════════════════════════════════════════════════
 if (state == 0) {
-// MAIN MENU
+// MAIN MENU — SPACE goes to difficulty screen
 // ═══════════════════════════════════════════════════════
 
     // Heavy dark panel — kills background noise behind all text
@@ -240,7 +240,7 @@ if (state == 0) {
     draw_set_valign(fa_top);
 
 // ═══════════════════════════════════════════════════════
-} else {
+} else if (state == 1) {
 // CONTROLS SCREEN
 // ═══════════════════════════════════════════════════════
 
@@ -299,6 +299,87 @@ if (state == 0) {
     draw_set_alpha(_bp);
     draw_set_color(make_color_rgb(185, 158, 68));
     draw_text_transformed(mid, gh - 38, "SPACE  /  A  /  ESC  ──  BACK", 1.02, 1.02, 0);
+    draw_set_alpha(1);
+
+    draw_set_halign(fa_left);
+    draw_set_valign(fa_top);
+
+// ═══════════════════════════════════════════════════════
+} else {
+// DIFFICULTY SELECT SCREEN
+// ═══════════════════════════════════════════════════════
+
+    // Dark overlay over panorama
+    draw_set_alpha(0.84);
+    draw_set_color(make_color_rgb(2, 2, 6));
+    draw_rectangle(0, 0, gw, gh, false);
+    draw_set_alpha(1);
+
+    draw_set_halign(fa_center);
+    draw_set_valign(fa_middle);
+
+    // Title
+    draw_set_color(make_color_rgb(230, 198, 75));
+    draw_text_transformed(mid, 50, "SELECT DIFFICULTY", 2.0, 2.0, 0);
+    draw_set_color(make_color_rgb(150, 115, 28));
+    draw_rectangle(80, 82, gw - 80, 85, false);
+
+    var _diff_names = ["EASY",   "NORMAL",  "HARD",     "BRUTAL"];
+    var _diff_subs  = [
+        "For story — enemies slower, less HP, more time",
+        "The intended experience — gritty and fair",
+        "Unforgiving — enemies hit hard and throw grenades often",
+        "Hell — one bad engagement can end the run"
+    ];
+    var _diff_cols  = [
+        make_color_rgb(80,  200, 80),
+        make_color_rgb(220, 200, 60),
+        make_color_rgb(230, 120, 40),
+        make_color_rgb(220, 40,  40)
+    ];
+
+    var _panel_x  = mid - 460;
+    var _panel_w  = 920;
+    var _row_h    = 112;
+    var _start_y  = 130;
+
+    for (var _di = 0; _di < 4; _di++) {
+        var _ry = _start_y + _di * _row_h;
+        var _sel = (_di == diff_sel);
+
+        // Row background
+        draw_set_alpha(_sel ? 0.70 : 0.32);
+        draw_set_color(_sel ? make_color_rgb(18, 16, 8) : make_color_rgb(10, 8, 4));
+        draw_rectangle(_panel_x, _ry, _panel_x + _panel_w, _ry + _row_h - 6, false);
+        draw_set_alpha(1);
+
+        // Selected border glow
+        if (_sel) {
+            draw_set_color(_diff_cols[_di]);
+            draw_rectangle(_panel_x, _ry, _panel_x + _panel_w, _ry + _row_h - 6, true);
+            draw_set_color(_diff_cols[_di]);
+            draw_text_transformed(_panel_x - 28, _ry + _row_h * 0.44, ">", 1.6, 1.6, 0);
+            draw_text_transformed(_panel_x + _panel_w + 28, _ry + _row_h * 0.44, "<", 1.6, 1.6, 0);
+        }
+
+        // Difficulty name
+        var _name_scale = _sel ? 1.55 : 1.22;
+        draw_set_alpha(_sel ? 1.0 : 0.55);
+        draw_set_color(_diff_cols[_di]);
+        draw_text_transformed(mid, _ry + _row_h * 0.32, _diff_names[_di], _name_scale, _name_scale, 0);
+
+        // Subtitle
+        draw_set_alpha(_sel ? 0.88 : 0.38);
+        draw_set_color(make_color_rgb(210, 195, 145));
+        draw_text_transformed(mid, _ry + _row_h * 0.70, _diff_subs[_di], 0.82, 0.82, 0);
+        draw_set_alpha(1);
+    }
+
+    // Bottom hint — pulsing
+    var _bp2 = 0.62 + abs(sin(t * 1.9)) * 0.38;
+    draw_set_alpha(_bp2);
+    draw_set_color(make_color_rgb(185, 158, 68));
+    draw_text_transformed(mid, gh - 38, "W / S  /  D-Pad  ──  SELECT       SPACE / A  ──  CONFIRM       ESC / B  ──  BACK", 0.90, 0.90, 0);
     draw_set_alpha(1);
 
     draw_set_halign(fa_left);

@@ -2,97 +2,219 @@ var cx  = camera_get_view_x(view_camera[0]);
 var cy  = camera_get_view_y(view_camera[0]);
 var vw  = camera_get_view_width(view_camera[0]);
 var vh  = camera_get_view_height(view_camera[0]);
-var hz  = 500;   // horizon / road surface y
+var hz  = 500;   // road/platform y
+var tt  = current_time * 0.001;
 
-// === SKY — overcast European war sky ===
-for (var si = 0; si < 10; si++) {
-    var t = si / 10;
+// =========================================================
+// SKY — heavy overcast, storm-lit from artillery below
+// =========================================================
+// Base gradient: near-black at top to dirty orange-grey at horizon
+for (var si = 0; si < 16; si++) {
+    var sf = si / 16.0;
     draw_set_color(make_color_rgb(
-        round(lerp(105, 158, t)),
-        round(lerp(112, 162, t)),
-        round(lerp(128, 172, t))
+        round(lerp(18,  90, sf)),
+        round(lerp(16,  68, sf)),
+        round(lerp(18,  48, sf))
     ));
-    draw_rectangle(cx, cy + t * (hz - cy), cx + vw, cy + (t + 0.1) * (hz - cy), false);
+    draw_rectangle(cx, cy + sf * (hz - cy), cx + vw, cy + (sf + 1/16.0) * (hz - cy), false);
 }
-// Overcast haze
-draw_set_alpha(0.25);
-draw_set_color(make_color_rgb(188, 178, 155));
-draw_rectangle(cx, cy, cx + vw, hz, false);
+
+// Storm cloud layers — rolling dark masses (parallax 0.08, 0.18)
+var cloud_cols = [
+    make_color_rgb(32, 28, 26),
+    make_color_rgb(42, 36, 30),
+    make_color_rgb(26, 22, 20),
+];
+for (var cl = 0; cl < 2; cl++) {
+    var cp = cx * (0.08 + cl * 0.10);
+    var cw = 320 + cl * 80;
+    var cy_base = cy + (cl == 0 ? 30 : 80);
+    for (var ci = 0; ci < 14; ci++) {
+        var cbx = cx + ci * cw - (cp mod cw);
+        var ch  = 60 + (ci * 53 + cl * 37) mod 70;
+        draw_set_color(cloud_cols[cl mod 3]);
+        draw_ellipse(cbx - 20, cy_base, cbx + cw * 0.55, cy_base + ch, false);
+        draw_ellipse(cbx + cw * 0.3, cy_base + 15, cbx + cw * 0.9, cy_base + ch * 0.8, false);
+        // Cloud highlight (artillery glow from below)
+        draw_set_alpha(0.12 + 0.10 * abs(sin(tt * 0.7 + ci * 1.3)));
+        draw_set_color(make_color_rgb(200, 120, 40));
+        draw_ellipse(cbx + cw * 0.1, cy_base + ch * 0.6, cbx + cw * 0.8, cy_base + ch, false);
+        draw_set_alpha(1);
+    }
+}
+
+// Artillery horizon glow — wide orange band under clouds
+var hglow = 0.5 + 0.5 * abs(sin(tt * 0.9)) * abs(sin(tt * 0.63));
+draw_set_alpha(hglow * 0.65);
+draw_set_color(make_color_rgb(220, 90, 15));
+draw_rectangle(cx, hz - 100, cx + vw, hz, false);
+draw_set_alpha(hglow * 0.45);
+draw_set_color(make_color_rgb(255, 170, 40));
+draw_rectangle(cx, hz - 50, cx + vw, hz, false);
 draw_set_alpha(1);
 
-// === DISTANT HILLS (parallax 0.15x) ===
-var p1 = cx * 0.15;
-draw_set_color(make_color_rgb(78, 98, 62));
-for (var h = 0; h < 10; h++) {
-    var hx    = cx + (h * 700 - p1 mod 700);
-    var hw    = 380 + (h * 71) mod 200;
-    var hh    = 55  + (h * 43) mod 45;
-    draw_ellipse(hx, hz - hh, hx + hw, hz, false);
+// Random artillery flashes on horizon
+if (irandom(80) == 0) {
+    var flx = cx + irandom(vw);
+    draw_set_alpha(0.6 + random(0.35));
+    draw_set_color(make_color_rgb(255, 240, 160));
+    draw_ellipse(flx - 70, hz - 80, flx + 70, hz, false);
+    draw_set_alpha(1);
 }
 
-// === BACKGROUND TREES (parallax 0.3x) ===
-var p2 = cx * 0.30;
-draw_set_color(make_color_rgb(48, 68, 32));
-for (var tr = 0; tr < 24; tr++) {
-    var tx  = cx + (tr * 260 - p2 mod 260);
-    var th  = 65 + (tr * 47) mod 40;
-    var tw  = 14 + (tr * 19) mod 12;
-    draw_triangle(tx + tw, hz - th,      tx, hz - 20, tx + tw * 2, hz - 20, false);
-    draw_triangle(tx + tw, hz - th - 18, tx + 4, hz - th + 8, tx + tw * 2 - 4, hz - th + 8, false);
-    // Trunks
-    draw_set_color(make_color_rgb(55, 42, 28));
-    draw_rectangle(tx + tw - 3, hz - 20, tx + tw + 3, hz, false);
-    draw_set_color(make_color_rgb(48, 68, 32));
+// =========================================================
+// FAR RUINS / BOMBED VILLAGE  (parallax 0.10)
+// =========================================================
+var p0 = cx * 0.10;
+draw_set_color(make_color_rgb(28, 22, 16));
+for (var ri = 0; ri < 20; ri++) {
+    var rx  = cx + ri * 430 - (p0 mod 430);
+    var rh1 = 55 + (ri * 67 + 11) mod 80;
+    var rh2 = 40 + (ri * 89 + 33) mod 60;
+    var rw  = 50 + (ri * 43 + 17) mod 40;
+    // Main ruined wall
+    draw_rectangle(rx, hz - rh1, rx + rw, hz, false);
+    draw_rectangle(rx + rw + 20, hz - rh2, rx + rw + 20 + rw * 0.7, hz, false);
+    // Jagged broken tops
+    draw_set_color(make_color_rgb(20, 16, 12));
+    draw_triangle(rx + rw - 10, hz - rh1, rx + rw + 8, hz - rh1, rx + rw, hz - rh1 + 18, false);
+    draw_triangle(rx + 4, hz - rh1, rx + 22, hz - rh1, rx + 12, hz - rh1 - 14, false);
+    // Fire inside ruin
+    var rf = 0.5 + 0.4 * abs(sin(tt * 2.8 + ri * 1.9));
+    draw_set_alpha(rf * 0.75);
+    draw_set_color(make_color_rgb(230, 100, 15));
+    draw_rectangle(rx + 8, hz - rh1 + 20, rx + rw - 8, hz, false);
+    draw_set_alpha(rf * 0.5);
+    draw_set_color(make_color_rgb(255, 200, 60));
+    draw_rectangle(rx + 14, hz - rh1 + 28, rx + rw - 14, hz, false);
+    draw_set_alpha(1);
+    draw_set_color(make_color_rgb(28, 22, 16));
 }
 
-// === ROAD SURFACE ===
-draw_set_color(make_color_rgb(86, 76, 58));
+// =========================================================
+// TREELINE — scarred pines  (parallax 0.28)
+// =========================================================
+var p1 = cx * 0.28;
+for (var tr = 0; tr < 30; tr++) {
+    var tx  = cx + tr * 200 - (p1 mod 200);
+    var th  = 60 + (tr * 47) mod 40;
+    var tw  = 10 + (tr * 19) mod 10;
+    var damaged = (tr mod 5 == 0);   // some trees are blasted stumps
+
+    if (damaged) {
+        // Broken stump — just bottom third
+        draw_set_color(make_color_rgb(38, 28, 18));
+        draw_rectangle(tx + tw - 4, hz - th * 0.35, tx + tw + 4, hz, false);
+        // Splinter top
+        draw_triangle(tx + tw - 4, hz - th * 0.35, tx + tw + 4, hz - th * 0.35, tx + tw, hz - th * 0.35 - 14, false);
+    } else {
+        // Full pine, slightly dead/grey-green
+        var tc = make_color_rgb(28 + (tr mod 4)*4, 45 + (tr mod 3)*6, 22);
+        draw_set_color(tc);
+        draw_triangle(tx + tw, hz - th, tx, hz - th * 0.25, tx + tw * 2, hz - th * 0.25, false);
+        draw_triangle(tx + tw, hz - th * 0.82, tx - 3, hz - th * 0.28, tx + tw * 2 + 3, hz - th * 0.28, false);
+        // Trunk
+        draw_set_color(make_color_rgb(42, 32, 20));
+        draw_rectangle(tx + tw - 3, hz - th * 0.26, tx + tw + 3, hz, false);
+    }
+}
+
+// =========================================================
+// SMOKE COLUMNS from burning trees / village
+// =========================================================
+for (var sc = 0; sc < 10; sc++) {
+    var scx = cx + 80 + sc * 185 - (cx * 0.22 mod 185);
+    for (var sm = 0; sm < 6; sm++) {
+        var smf = ((tt * 0.22 + sm * 0.16 + sc * 0.21) mod 1.0);
+        var smy = hz - smf * 320;
+        if (smy < cy || smy > hz) continue;
+        draw_set_alpha(0.25 * (1 - smf));
+        draw_set_color(make_color_rgb(30, 26, 22));
+        draw_circle(scx + sin(smf * 6 + sm + sc) * 12, smy, 7 + smf * 24, false);
+    }
+}
+draw_set_alpha(1);
+
+// =========================================================
+// GROUND — churned mud battlefield  (y 500 to bottom)
+// =========================================================
+draw_set_color(make_color_rgb(28, 22, 14));
 draw_rectangle(cx, hz, cx + vw, cy + vh, false);
-// Road edge / shoulder
-draw_set_color(make_color_rgb(68, 58, 42));
-draw_rectangle(cx, hz, cx + vw, hz + 5, false);
-// Wheel ruts
-draw_set_alpha(0.45);
-draw_set_color(make_color_rgb(60, 52, 38));
-draw_rectangle(cx, hz + 14, cx + vw, hz + 20, false);
-draw_rectangle(cx, hz + 28, cx + vw, hz + 34, false);
-draw_set_alpha(1);
-// Roadside grass strips
-draw_set_alpha(0.6);
-draw_set_color(make_color_rgb(68, 92, 44));
-for (var g = 0; g < 18; g++) {
-    var gx = cx + (g * 140 - (cx * 0.85) mod 140);
-    draw_rectangle(gx, hz - 12, gx + 55, hz + 3, false);
-    draw_rectangle(gx + 10, hz + 36, gx + 65, hz + 50, false);
+
+// Mud texture strips
+for (var di = 0; di < 22; di++) {
+    var dstrip_x = cx + di * 105 - ((cx * 0.88) mod 105);
+    draw_set_color(make_color_rgb(36 + di mod 5 * 3, 28 + di mod 4 * 2, 16 + di mod 3));
+    draw_rectangle(dstrip_x, hz + 2, dstrip_x + 55 + di mod 5 * 8, hz + 6, false);
+}
+
+// Shell craters scattered along road sides
+for (var cr = 0; cr < 16; cr++) {
+    var crx = cx + 40 + cr * 195 - ((cx * 0.92) mod 195);
+    var cry = hz + 4 + (cr mod 3) * 14;
+    draw_set_color(make_color_rgb(18, 14, 8));
+    draw_ellipse(crx - 24, cry - 6, crx + 24, cry + 12, false);
+    draw_set_color(make_color_rgb(44, 35, 22));
+    draw_ellipse(crx - 28, cry - 8, crx + 28, cry - 2, false);
+}
+
+// Roadside scrub / dead grass tufts
+draw_set_alpha(0.55);
+draw_set_color(make_color_rgb(55, 58, 30));
+for (var g = 0; g < 24; g++) {
+    var gx = cx + g * 120 - ((cx * 0.85) mod 120);
+    draw_rectangle(gx, hz - 10, gx + 44, hz + 2, false);
+    draw_rectangle(gx + 10, hz + 16, gx + 58, hz + 28, false);
 }
 draw_set_alpha(1);
 
-// === EXTRACTION ZONE (world x=7400–7700) ===
+// Wheel ruts on road surface
+draw_set_alpha(0.50);
+draw_set_color(make_color_rgb(20, 16, 10));
+draw_rectangle(cx, hz + 12, cx + vw, hz + 18, false);
+draw_rectangle(cx, hz + 26, cx + vw, hz + 32, false);
+draw_set_alpha(1);
+
+// Abandoned equipment — dark silhouettes on road edge
+for (var eq = 0; eq < 6; eq++) {
+    var eqx = cx + 280 + eq * 1380 - ((cx * 0.96) mod 1380);
+    // Abandoned ammo crate
+    draw_set_color(make_color_rgb(22, 26, 18));
+    draw_rectangle(eqx, hz - 22, eqx + 28, hz, false);
+    draw_rectangle(eqx + 2, hz - 24, eqx + 26, hz - 22, false);
+    // Wire coil nearby
+    draw_set_color(make_color_rgb(45, 42, 35));
+    draw_circle(eqx + 44, hz - 8, 8, true);
+}
+
+// =========================================================
+// EXTRACTION ZONE  (world x 7400–7700)
+// =========================================================
 if (7400 < cx + vw && 7700 > cx) {
-    // Yellow landing zone panel
-    draw_set_color(make_color_rgb(240, 210, 40));
-    draw_rectangle(7400, hz - 70, 7700, hz, false);
-    // Alternating black diagonal stripes
-    draw_set_color(make_color_rgb(20, 16, 8));
+    draw_set_color(make_color_rgb(220, 190, 30));
+    draw_rectangle(7400, hz - 60, 7700, hz, false);
+    draw_set_color(make_color_rgb(16, 12, 6));
     for (var st = 0; st < 8; st++) {
-        var sx = 7400 + st * 40;
-        draw_triangle(sx, hz - 70, sx + 20, hz - 70, sx, hz, false);
+        var sx = 7400 + st * 38;
+        draw_triangle(sx, hz - 60, sx + 18, hz - 60, sx, hz, false);
     }
-    // LZ text
-    draw_set_color(make_color_rgb(20, 16, 8));
     draw_set_halign(fa_center);
-    draw_text_transformed(7550, hz - 62, "EXTRACTION", 1.4, 1.4, 0);
+    draw_set_color(make_color_rgb(16, 12, 6));
+    draw_text_transformed(7550, hz - 52, "EXTRACTION", 1.35, 1.35, 0);
     draw_set_halign(fa_left);
-    // Arrow markers
-    draw_set_color(make_color_rgb(240, 210, 40));
+    draw_set_color(make_color_rgb(220, 190, 30));
     for (var ar = 0; ar < 3; ar++) {
-        var arx = 7420 + ar * 90;
-        draw_triangle(arx, hz - 8, arx + 20, hz - 8, arx + 10, hz - 22, false);
+        var arx = 7420 + ar * 86;
+        draw_triangle(arx, hz - 6, arx + 18, hz - 6, arx + 9, hz - 20, false);
     }
 }
 
-// === WAR HAZE / FOG ===
-draw_set_alpha(0.06);
-draw_set_color(make_color_rgb(165, 150, 122));
+// =========================================================
+// WAR HAZE
+// =========================================================
+draw_set_alpha(0.09);
+draw_set_color(make_color_rgb(90, 65, 30));
 draw_rectangle(cx, cy, cx + vw, cy + vh, false);
 draw_set_alpha(1);
+
+draw_set_color(c_white);

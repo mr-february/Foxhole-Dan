@@ -51,6 +51,18 @@ if (global.game_state == 2) {
 var p = instance_find(obj_dan, 0);
 if (p == noone) exit;
 
+// Rain
+var _rt = current_time * 0.001;
+draw_set_color(make_color_rgb(155, 190, 225));
+for (var _ri = 0; _ri < 110; _ri++) {
+    var _rx = (_ri * 313) mod (gw + 80);
+    var _rl = 14 + (_ri mod 12);
+    var _ry = (_rt * 340 + _ri * 139) mod (gh + 80) - 20;
+    draw_set_alpha(0.10 + (_ri mod 5) * 0.05);
+    draw_line_width(_rx, _ry, _rx - 4, _ry + _rl, 1);
+}
+draw_set_alpha(1);
+
 // --- HP BAR ---
 var bx     = 16;
 var by     = 16;
@@ -158,4 +170,59 @@ if (gamepad_is_connected(0)) {
     draw_text(16, leg_y, "WASD Move/Rope  |  Space Jump  |  J/LMB Shoot  |  G Hook (fire/cancel)");
 }
 draw_set_alpha(1);
+
+// Low HP vignette
+if (p.hp < p.max_hp * 0.35) {
+    var _low_r = p.hp / (p.max_hp * 0.35);
+    var _low_p = abs(sin(current_time * 0.012)) * (1.0 - _low_r) * 0.55;
+    draw_set_color(make_color_rgb(140, 0, 0));
+    draw_set_alpha(0.22 + _low_p);
+    draw_rectangle(0,       0,  gw,     70, false);
+    draw_rectangle(0,  gh-70,  gw,     gh, false);
+    draw_rectangle(0,       0,  70,     gh, false);
+    draw_rectangle(gw-70,   0,  gw,     gh, false);
+    draw_set_alpha(1);
+}
+// Damage flash
+if (p.i_frames > 25) {
+    var _dfa = ((p.i_frames - 25) / 15.0) * 0.30;
+    draw_set_color(make_color_rgb(200, 15, 15));
+    draw_set_alpha(_dfa);
+    draw_rectangle(0, 0, gw, gh, false);
+    draw_set_alpha(1);
+}
+// PTSD edge distortion
+var _pct = p.ptsd_meter / p.ptsd_max;
+if (_pct > 0.55) {
+    var _pa = (_pct - 0.55) * 0.65;
+    var _pp = abs(sin(current_time * 0.006)) * _pa;
+    draw_set_color(make_color_rgb(35, 0, 55));
+    draw_set_alpha(_pp);
+    draw_rectangle(0,       0,  gw,     90, false);
+    draw_rectangle(0,  gh-90,  gw,     gh, false);
+    draw_rectangle(0,       0,  90,     gh, false);
+    draw_rectangle(gw-90,   0,  gw,     gh, false);
+    draw_set_alpha(1);
+}
+// Chromatic aberration
+if (_pct > 0.70) {
+    var _ca  = (_pct - 0.70) * 3.33 * abs(sin(current_time * 0.003));
+    var _off = ceil(_ca * 5);
+    gpu_set_blendmode(bm_add);
+    draw_set_alpha(0.06 * _ca);
+    draw_set_color(make_color_rgb(255, 0, 0));
+    draw_rectangle(-_off, 0, gw - _off, gh, false);
+    draw_set_color(make_color_rgb(0, 0, 255));
+    draw_rectangle(_off, 0, gw + _off, gh, false);
+    gpu_set_blendmode(bm_normal);
+    draw_set_alpha(1);
+}
+// Explosion flash
+if (global.flash_timer > 0) {
+    draw_set_color(make_color_rgb(255, 165, 30));
+    draw_set_alpha((global.flash_timer / 14.0) * 0.45);
+    draw_rectangle(0, 0, gw, gh, false);
+    draw_set_alpha(1);
+}
+
 draw_set_color(c_white);

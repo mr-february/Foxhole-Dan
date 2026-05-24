@@ -5,6 +5,7 @@ var key_up     = keyboard_check(vk_up)    || keyboard_check(ord("W"));
 var key_down   = keyboard_check(vk_down)  || keyboard_check(ord("S"));
 var key_jump   = keyboard_check_pressed(vk_space) || keyboard_check_pressed(vk_up) || keyboard_check_pressed(ord("W"));
 var key_shoot  = keyboard_check(ord("J")) || mouse_check_button(mb_left);
+var key_roll   = keyboard_check_pressed(vk_shift);
 
 // === INPUT — gamepad (device 0) ===
 var gp = gamepad_is_connected(0);
@@ -25,6 +26,7 @@ if (gp) {
     if (gamepad_button_check(0, gp_shoulderr))     key_shoot = true;  // RB / R1
     if (gamepad_button_check(0, gp_shoulderrb))    key_shoot = true;  // RT / R2
     if (gamepad_axis_value(0, gp_axisrtrigger) > 0.3) key_shoot = true; // RT axis fallback
+    if (gamepad_button_check_pressed(0, gp_thumbl))   key_roll  = true; // L3
 }
 
 // === HORIZONTAL MOVEMENT ===
@@ -42,6 +44,20 @@ if (!crouching) {
         hspd = lerp(hspd, 0, on_ground ? 0.28 : 0.06);
         if (abs(hspd) < 0.15) hspd = 0;
     }
+}
+
+// === DODGE ROLL ===
+if (roll_cd > 0) roll_cd--;
+if (roll_timer > 0) {
+    roll_timer--;
+    hspd        = facing * move_spd * 3.2;
+    i_frames    = max(i_frames, roll_timer + 1);
+    shoot_timer = max(shoot_timer, 2);
+    if (roll_timer <= 0) roll_cd = 45;
+} else if (key_roll && on_ground && roll_cd <= 0 && !crouching) {
+    roll_timer = roll_dur;
+    i_frames   = max(i_frames, roll_dur + 2);
+    audio_play_sound(snd_roll, 8, false);
 }
 
 // === GRAVITY ===
@@ -96,7 +112,9 @@ x += hspd;
 
 // === COLLISION - VERTICAL ===
 if (place_meeting(x, y + vspd, obj_platform)) {
-    while (!place_meeting(x, y + sign(vspd), obj_platform)) y += sign(vspd);
+    var _vs = sign(vspd);
+    while (!place_meeting(x, y + _vs, obj_platform)) y += _vs;
+    if (_vs < 0) y++;   // nudge 1px away from ceiling so Dan doesn't stick
     vspd = 0;
 }
 y += vspd;
@@ -150,6 +168,11 @@ if (!instance_exists(obj_controller3)) {
     var cur_cx = camera_get_view_x(view_camera[0]);
     var cur_cy = camera_get_view_y(view_camera[0]);
     camera_set_view_pos(view_camera[0], lerp(cur_cx, target_cx, 0.12), lerp(cur_cy, 0, 0.12));
+    if (global.shake_mag > 0.5) {
+        camera_set_view_pos(view_camera[0],
+            camera_get_view_x(view_camera[0]) + random_range(-global.shake_mag, global.shake_mag),
+            camera_get_view_y(view_camera[0]) + random_range(-global.shake_mag, global.shake_mag));
+    }
 }
 
 // === AIM ===
@@ -186,6 +209,7 @@ if (key_shoot && shoot_timer <= 0 && !crouching && ammo > 0 && reload_timer == 0
     b.image_angle = aim_dir;
     shoot_timer   = shoot_delay;
     ammo--;
+    audio_play_sound(snd_gunshot, 10, false);
 }
 
 // === PTSD METER ===
@@ -221,6 +245,7 @@ if (ptsd_meter >= ptsd_max && !flashback_active && flashback_cooldown == 0) {
     flashback_active = true;
     flashback_timer  = flashback_duration;
     ptsd_meter       = 65;
+    global.shake_mag = max(global.shake_mag, 9.0);
 }
 
 // === FLASHBACK ===

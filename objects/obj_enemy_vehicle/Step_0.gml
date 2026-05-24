@@ -48,6 +48,7 @@ if (place_meeting(x + hspd, y, obj_platform)) hspd = 0;
 x += hspd;
 
 image_xscale = facing;
+wheel_spin  += abs(hspd) * 2.5;
 
 // === DEATH ===
 if (hp <= 0) {

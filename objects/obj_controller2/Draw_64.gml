@@ -51,6 +51,18 @@ if (global.game_state == 2) {
 var p = instance_find(obj_dan_vehicle, 0);
 if (p == noone) exit;
 
+// Rain
+var _rt = current_time * 0.001;
+draw_set_color(make_color_rgb(155, 190, 225));
+for (var _ri = 0; _ri < 110; _ri++) {
+    var _rx = (_ri * 313) mod (gw + 80);
+    var _rl = 14 + (_ri mod 12);
+    var _ry = (_rt * 340 + _ri * 139) mod (gh + 80) - 20;
+    draw_set_alpha(0.10 + (_ri mod 5) * 0.05);
+    draw_line_width(_rx, _ry, _rx - 4, _ry + _rl, 1);
+}
+draw_set_alpha(1);
+
 // --- VEHICLE HP BAR ---
 var bx     = 16;
 var by     = 16;
@@ -116,4 +128,11 @@ if (gamepad_is_connected(0)) {
     draw_text(16, leg_y, "Up/W  Accelerate  |  Down/S  Brake  |  Space  Jump  |  J/LMB  Shoot");
 }
 draw_set_alpha(1);
+// Explosion flash
+if (global.flash_timer > 0) {
+    draw_set_color(make_color_rgb(255, 165, 30));
+    draw_set_alpha((global.flash_timer / 14.0) * 0.45);
+    draw_rectangle(0, 0, gw, gh, false);
+    draw_set_alpha(1);
+}
 draw_set_color(c_white);

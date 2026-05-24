@@ -1,0 +1,10 @@
+var _dir = random(360);
+var _spd = random_range(1.5, 4.5);
+hspd     = lengthdir_x(_spd, _dir);
+vspd     = lengthdir_y(_spd, _dir) - random_range(0, 2);
+life     = irandom_range(12, 22);
+max_life = life;
+size     = random_range(2, 5);
+col      = make_color_rgb(irandom_range(160, 220), irandom_range(0, 30), irandom_range(0, 20));
+alpha    = 1.0;
+depth    = -100;

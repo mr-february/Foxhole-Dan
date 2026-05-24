@@ -130,5 +130,8 @@ instance_create_layer( 384,  808, "Instances", obj_ammo_box);  // L13 left — l
 instance_create_layer( 600,  328, "Instances", obj_clarity);   // L16 left — final calm
 instance_create_layer(1024,  328, "Instances", obj_ammo_box);  // L16 right — final ammo
 
+// === BACKGROUND ===
+instance_create_layer(0, 0, "Instances", obj_bg3);
+
 // === CONTROLLER ===
 instance_create_layer(0, 0, "Instances", obj_controller3);

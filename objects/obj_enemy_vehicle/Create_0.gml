@@ -14,3 +14,5 @@ zone_left   = x - 350;
 zone_right  = x + 60;
 
 depth       = -90;
+
+wheel_spin  = 0;

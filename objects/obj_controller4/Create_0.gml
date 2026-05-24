@@ -1,7 +1,10 @@
 depth   = -9999;
 visible = true;
 
-bomb_frames_left = 180 * 60;  // 3 minutes at 60fps
+var _d = variable_global_exists("difficulty") ? global.difficulty : 1;
+//                              Easy    Normal  Hard    Brutal
+var _time_tab = [240 * 60,  180 * 60,  140 * 60,  100 * 60];
+bomb_frames_left = _time_tab[_d];
 timer_red        = false;
 
 // phase: 0=ropes, 1=bomb, 2=win, 3=dead

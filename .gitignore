@@ -60,3 +60,6 @@ Temporary Items
 
 # GMRT build directory
 Build
+
+# Downloaded sprite source images (not part of the GM project)
+_downloaded_sprites/

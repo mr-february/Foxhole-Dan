@@ -24,7 +24,8 @@ if (hit_flash > 0) hit_flash--;
 
 // Death
 if (hp <= 0) {
-    // Scatter damage number sparks
+    global.shake_mag   = max(global.shake_mag, 6.0);
+    global.flash_timer = max(global.flash_timer, 14);
     repeat (4) {
         var d = instance_create_layer(x + irandom_range(-20, 20), y + irandom_range(-10, 10),
                                       "Instances", obj_damage_number);

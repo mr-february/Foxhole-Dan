@@ -30,3 +30,7 @@ flashback_cooldown = 0;
 
 hook_inst = noone;
 rope_len  = 0;
+
+roll_timer = 0;
+roll_cd    = 0;
+roll_dur   = 16;

@@ -1,3 +1,6 @@
+if (global.shake_mag > 0.05)  global.shake_mag  *= 0.82; else global.shake_mag  = 0;
+if (global.flash_timer > 0)   global.flash_timer--;
+
 // === VERTICAL CAMERA ===
 // Dan's Step_0 hardcodes target_cy=0 for horizontal levels.
 // This controller runs at depth=-9999 (last), overriding that with a
@@ -9,6 +12,11 @@ if (p != noone && global.game_state == 0) {
     var target = clamp(p.y - cam_h * 0.55, 0, room_height - cam_h);
     cam_y = lerp(cam_y, target, 0.10);
     camera_set_view_pos(view_camera[0], 0, cam_y);
+    if (global.shake_mag > 0.5) {
+        camera_set_view_pos(view_camera[0],
+            camera_get_view_x(view_camera[0]) + random_range(-global.shake_mag, global.shake_mag),
+            camera_get_view_y(view_camera[0]) + random_range(-global.shake_mag, global.shake_mag));
+    }
 
     // Dan reaches exit platform — start capture transition
     if (p.y < 280 && transition_timer == 0) {

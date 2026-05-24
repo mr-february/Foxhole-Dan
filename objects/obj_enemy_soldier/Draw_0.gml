@@ -2,6 +2,26 @@ var bx = x;
 var by = y;
 var f  = image_xscale;   // facing set by Step via image_xscale
 
+// Cover — crouched silhouette, exits early
+if (cover_timer > 0) {
+    draw_set_color(make_color_rgb(20, 15, 10));
+    draw_rectangle(bx - 7, by - 5, bx + 7, by, false);
+    draw_set_color(make_color_rgb(42, 50, 35));
+    draw_rectangle(bx - 8, by - 14, bx + 8, by - 5, false);
+    draw_set_color(make_color_rgb(28, 30, 28));
+    draw_rectangle(bx - 6, by - 20, bx + 6, by - 14, false);
+    draw_set_color(make_color_rgb(180, 20, 20));
+    draw_rectangle(bx - 2, by - 20, bx + 2, by - 16, false);
+    if (hit_flash > 0) {
+        draw_set_alpha(0.65);
+        draw_set_color(c_white);
+        draw_rectangle(bx - 9, by - 22, bx + 9, by, false);
+        draw_set_alpha(1);
+    }
+    draw_set_color(c_white);
+    exit;
+}
+
 // Health bleed — redder at low HP
 var hurt = 1 - (hp / 100);
 

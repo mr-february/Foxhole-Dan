@@ -24,6 +24,12 @@ y += vspd;
 if (collision_point(x, y + 5, obj_platform, false, true) != noone) {
     exploding = true;
     exp_timer = 22;
+    audio_play_sound(snd_explosion, 10, false);
+    global.shake_mag   = max(global.shake_mag, 10.0);
+    global.flash_timer = max(global.flash_timer, 20);
+    var _bex = instance_create_layer(x, y, "Instances", obj_explosion_fx);
+    _bex.image_xscale = 2.5;
+    _bex.image_yscale = 2.5;
     exit;
 }
 
