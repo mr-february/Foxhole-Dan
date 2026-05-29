@@ -243,6 +243,17 @@ draw_rectangle(x - 14, y - 51, x - 4, y - 47, false);
 // Muzzle tip
 draw_set_color(make_color_rgb(20, 18, 12));
 draw_circle(x + 4, y - 49, 2, false);
+// Muzzle flash
+if (shoot_flash > 0) {
+    var _mfa = shoot_flash / 5.0;
+    draw_set_alpha(0.9 * _mfa);
+    draw_set_color(make_color_rgb(255, 215, 70));
+    draw_circle(x + 8, y - 49, 9 * _mfa, false);
+    draw_set_alpha(0.6 * _mfa);
+    draw_set_color(c_white);
+    draw_circle(x + 8, y - 49, 4 * _mfa, false);
+    draw_set_alpha(1);
+}
 // Ammo box (belt-fed)
 draw_set_color(make_color_rgb(76, 90, 48));
 draw_rectangle(x - 36, y - 60, x - 24, y - 53, false);

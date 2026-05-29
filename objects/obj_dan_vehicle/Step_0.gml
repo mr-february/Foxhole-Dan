@@ -13,6 +13,20 @@ if (key_accel) target_spd = 8.5;
 if (key_brake) target_spd = 1.5;
 move_spd = lerp(move_spd, target_spd, 0.07);
 
+// === ENGINE SOUND ===
+var target_pitch = 0.60 + (move_spd / 8.5) * 0.90;  // 0.60 idle -> 1.50 full throttle
+eng_pitch = lerp(eng_pitch, target_pitch, 0.06);
+audio_sound_pitch(engine_snd, eng_pitch);
+var eng_vol = 0.35 + (move_spd / 8.5) * 0.50;       // volume rises with speed
+audio_sound_gain(engine_snd, eng_vol, 0);
+
+// Brake squeal when slowing hard from speed
+if (key_brake && move_spd > 5.5 && brake_snd_cd <= 0) {
+    audio_play_sound(snd_brake, 10, false);
+    brake_snd_cd = 80;
+}
+if (brake_snd_cd > 0) brake_snd_cd--;
+
 // === JUMP (Space / gamepad A only — separate from acceleration) ===
 var key_jump = keyboard_check_pressed(vk_space);
 if (gamepad_is_connected(0)) {
@@ -70,13 +84,19 @@ if (key_shoot && shoot_timer <= 0 && ammo > 0 && reload_timer == 0) {
     var b       = instance_create_layer(x + 52, y - 14, "Instances", obj_vehicle_bullet);
     b.direction = 0;
     b.speed     = 15;
+    instance_create_layer(x + 32, y - 14, "Instances", obj_shell_casing);
     ammo--;
     shoot_timer = shoot_delay;
+    shoot_flash = 5;
+    audio_play_sound(snd_vehicle_gun, 10, false);
 }
+if (shoot_flash > 0) shoot_flash--;
 
 // === DEATH ===
 if (hp <= 0) {
     global.game_state = 2;
+    audio_stop_all();
+    audio_play_sound(snd_music_death, 100, false);
     instance_destroy();
     exit;
 }

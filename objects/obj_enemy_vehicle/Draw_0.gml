@@ -184,6 +184,35 @@ draw_set_color(make_color_rgb(44, 40, 28));
 draw_circle(mgx + f * 2, y - 57, 3, false);
 
 // =========================================================
+// MUZZLE FLASH
+// =========================================================
+if (shoot_flash > 0) {
+    var _mfa = shoot_flash / 5.0;
+    draw_set_alpha(0.9 * _mfa);
+    draw_set_color(make_color_rgb(255, 215, 70));
+    draw_circle(x + f * 42, y - 49, 9 * _mfa, false);
+    draw_set_alpha(0.6 * _mfa);
+    draw_set_color(c_white);
+    draw_circle(x + f * 42, y - 49, 4 * _mfa, false);
+    draw_set_alpha(1);
+}
+
+// =========================================================
+// DAMAGE SMOKE  (kicks in below 50% HP)
+// =========================================================
+if (hp < max_hp * 0.5) {
+    var _st  = current_time * 0.001;
+    var _sev = 1.0 - (hp / (max_hp * 0.5));
+    for (var _sm = 0; _sm < 5; _sm++) {
+        var _smf = frac((_st * (0.55 + _sm * 0.11)) + _sm * 0.2);
+        draw_set_alpha((1.0 - _smf) * 0.60 * _sev);
+        draw_set_color(make_color_rgb(16, 13, 9));
+        draw_circle(x + sin(_smf * 4 + _sm) * 9, y - 18 - _smf * 55, 4 + _smf * 15, false);
+    }
+    draw_set_alpha(1);
+}
+
+// =========================================================
 // HP BAR
 // =========================================================
 if (hp < max_hp) {

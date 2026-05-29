@@ -1,7 +1,8 @@
 if (global.game_state != 0) exit;
 
-if (i_frames  > 0) i_frames--;
-if (hit_flash > 0) hit_flash--;
+if (i_frames    > 0) i_frames--;
+if (hit_flash   > 0) hit_flash--;
+if (shoot_flash > 0) shoot_flash--;
 
 // === GRAVITY ===
 var fall_mult = (vspd > 0) ? 1.3 : 1.0;
@@ -35,6 +36,8 @@ if (aggressive) {
         b.direction  = (facing == 1) ? 0 : 180;
         b.speed      = 10;
         shoot_timer  = 70 + irandom(50);
+        shoot_flash  = 5;
+        audio_play_sound(snd_vehicle_gun, 9, false);
     }
 } else {
     // Patrol in zone

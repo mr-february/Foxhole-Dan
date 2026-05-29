@@ -1,3 +1,8 @@
+engine_snd   = audio_play_sound(snd_engine, 10, true);
+audio_sound_gain(engine_snd, 0.35, 0);
+eng_pitch    = 1.0;
+brake_snd_cd = 0;
+shoot_flash  = 0;
 move_spd     = 5;
 vspd         = 0;
 on_ground    = false;

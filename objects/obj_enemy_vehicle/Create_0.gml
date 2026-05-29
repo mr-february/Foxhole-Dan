@@ -16,3 +16,4 @@ zone_right  = x + 60;
 depth       = -90;
 
 wheel_spin  = 0;
+shoot_flash = 0;

@@ -188,6 +188,36 @@ for (var eq = 0; eq < 6; eq++) {
 }
 
 // =========================================================
+// BURNED-OUT WRECKS  (road-edge debris, parallax ≈ road)
+// =========================================================
+var wr_col = make_color_rgb(12, 9, 6);
+for (var wk = 0; wk < 9; wk++) {
+    var wkx = cx + 180 + wk * 870 - ((cx * 0.97) mod 870);
+    // Burned chassis slab
+    draw_set_color(wr_col);
+    draw_rectangle(wkx - 38, hz - 10, wkx + 44, hz, false);
+    // Hood wreckage
+    draw_rectangle(wkx + 30, hz - 13, wkx + 56, hz, false);
+    // Skeletal cab frame (left post / right post / top bar)
+    draw_rectangle(wkx - 4,  hz - 28, wkx,     hz - 10, false);
+    draw_rectangle(wkx + 26, hz - 28, wkx + 30, hz - 10, false);
+    draw_rectangle(wkx - 4,  hz - 29, wkx + 30, hz - 26, false);
+    // Charred wheel stubs
+    draw_circle(wkx - 22, hz - 1, 9, false);
+    draw_circle(wkx + 26, hz - 1, 9, false);
+    // Burning glow under wreck
+    var _wf = 0.35 + 0.50 * abs(sin(tt * 1.6 + wk * 2.1));
+    draw_set_alpha(_wf * 0.60);
+    draw_set_color(make_color_rgb(190, 65, 10));
+    draw_rectangle(wkx - 28, hz - 8, wkx + 36, hz, false);
+    draw_set_alpha(_wf * 0.35);
+    draw_set_color(make_color_rgb(255, 175, 35));
+    draw_rectangle(wkx - 18, hz - 5, wkx + 24, hz, false);
+    draw_set_alpha(1);
+    draw_set_color(wr_col);
+}
+
+// =========================================================
 // EXTRACTION ZONE  (world x 7400–7700)
 // =========================================================
 if (7400 < cx + vw && 7700 > cx) {

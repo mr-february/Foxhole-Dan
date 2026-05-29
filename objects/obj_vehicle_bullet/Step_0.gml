@@ -1,7 +1,10 @@
-x += lengthdir_x(speed, direction);
-y += lengthdir_y(speed, direction);
+// Gravity drop + range limit
+vspd     += 0.025;
+traveled += speed;
+x        += speed;
+y        += vspd;
 
-if (x > room_width + 100 || x < -100) { instance_destroy(); exit; }
+if (traveled > 1500 || x < -100) { instance_destroy(); exit; }
 
 if (place_meeting(x, y, obj_platform)) { instance_destroy(); exit; }
 
