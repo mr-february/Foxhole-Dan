@@ -108,25 +108,40 @@ for (i = 0; i < array_length(plat_data); i++) {
 // === DAN — spawns 32px above ground so gravity settles him onto the floor ===
 instance_create_layer(300, 2888, "Instances", obj_dan);
 
-// === ENEMIES (y = platform_y - 32) ===
+// === ENEMIES — SOLDIERS (y = platform_y - 32) ===
+// Lower section
 instance_create_layer(1568, 2408, "Instances", obj_enemy_soldier);  // L3 right ledge
 instance_create_layer( 800, 2248, "Instances", obj_enemy_soldier);  // L4 center
-instance_create_layer( 832, 1928, "Instances", obj_enemy_soldier);  // L6 center small
-instance_create_layer(1472, 1608, "Instances", obj_enemy_soldier);  // L8 right narrow
-instance_create_layer( 800, 1608, "Instances", obj_enemy_soldier);  // L8 center narrow
+instance_create_layer(1504, 2088, "Instances", obj_enemy_soldier);  // L5 right — NEW
+// Mid section
+instance_create_layer( 832, 1928, "Instances", obj_enemy_soldier);  // L6 center
+instance_create_layer( 576, 1768, "Instances", obj_enemy_soldier);  // L7 left — NEW
+instance_create_layer(1472, 1608, "Instances", obj_enemy_soldier);  // L8 right
+instance_create_layer( 800, 1608, "Instances", obj_enemy_soldier);  // L8 center
 instance_create_layer( 192, 1288, "Instances", obj_enemy_soldier);  // L10 left
 instance_create_layer(1472, 1288, "Instances", obj_enemy_soldier);  // L10 right
+// Upper section — difficulty peaks here
+instance_create_layer(1056, 1128, "Instances", obj_enemy_soldier);  // L11 right — NEW
 instance_create_layer( 768,  968, "Instances", obj_enemy_soldier);  // L12 center
+instance_create_layer(1152,  808, "Instances", obj_enemy_soldier);  // L13 right — NEW
 instance_create_layer( 480,  648, "Instances", obj_enemy_soldier);  // L14 platform 2
 instance_create_layer( 960,  648, "Instances", obj_enemy_soldier);  // L14 platform 3
+instance_create_layer( 320,  488, "Instances", obj_enemy_soldier);  // L15 left — NEW
 instance_create_layer( 832,  488, "Instances", obj_enemy_soldier);  // L15 center
+
+// === ENEMIES — BOMBERS (aerial threat, bomb every 2-4 sec) ===
+instance_create_layer( 480, 2200, "Instances", obj_enemy_bomber);  // lower section, above L4
+instance_create_layer( 960, 1550, "Instances", obj_enemy_bomber);  // mid section, above L9
+instance_create_layer(1300,  700, "Instances", obj_enemy_bomber);  // upper section, above L13-14
 
 // === PICKUPS (y = platform_y - 32) ===
 instance_create_layer( 640, 2248, "Instances", obj_medkit);    // L4 center — early health
 instance_create_layer( 512, 1768, "Instances", obj_ammo_box);  // L7 left — mid resupply
 instance_create_layer( 800, 1448, "Instances", obj_clarity);   // L9 wide — PTSD relief
 instance_create_layer( 960, 1448, "Instances", obj_medkit);    // L9 wide — health top-up
+instance_create_layer( 160,  968, "Instances", obj_medkit);    // L12 left — NEW: health in upper gauntlet
 instance_create_layer( 384,  808, "Instances", obj_ammo_box);  // L13 left — late resupply
+instance_create_layer(1440,  648, "Instances", obj_ammo_box);  // L14 right — NEW: ammo before final push
 instance_create_layer( 600,  328, "Instances", obj_clarity);   // L16 left — final calm
 instance_create_layer(1024,  328, "Instances", obj_ammo_box);  // L16 right — final ammo
 
