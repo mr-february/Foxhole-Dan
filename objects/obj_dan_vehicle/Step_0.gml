@@ -1,5 +1,11 @@
 if (global.game_state != 0) exit;
 
+// Self-heal: controller2 Create calls audio_stop_all() after our Create, killing the engine loop
+if (!audio_is_playing(engine_snd)) {
+    engine_snd = audio_play_sound(snd_engine, 10, true);
+    audio_sound_gain(engine_snd, 0.35, 0);
+}
+
 // === ACCELERATION / BRAKE (Up/W = faster, Down/S = slower) ===
 var key_accel = keyboard_check(vk_up)   || keyboard_check(ord("W"));
 var key_brake = keyboard_check(vk_down) || keyboard_check(ord("S"));
@@ -19,13 +25,6 @@ eng_pitch = lerp(eng_pitch, target_pitch, 0.06);
 audio_sound_pitch(engine_snd, eng_pitch);
 var eng_vol = 0.35 + (move_spd / 8.5) * 0.50;       // volume rises with speed
 audio_sound_gain(engine_snd, eng_vol, 0);
-
-// Brake squeal when slowing hard from speed
-if (key_brake && move_spd > 5.5 && brake_snd_cd <= 0) {
-    audio_play_sound(snd_brake, 10, false);
-    brake_snd_cd = 80;
-}
-if (brake_snd_cd > 0) brake_snd_cd--;
 
 // === JUMP (Space / gamepad A only — separate from acceleration) ===
 var key_jump = keyboard_check_pressed(vk_space);
@@ -109,7 +108,7 @@ wheel_spin += move_spd * 2.5;
 camera_set_view_pos(view_camera[0], x - 280, 0);
 
 // === WIN ===
-if (x >= 7600 && global.game_state == 0) {
+if (x >= 11600 && global.game_state == 0) {
     global.game_state = 3;
     instance_create_layer(0, 0, "Instances", obj_cutscene2);
 }

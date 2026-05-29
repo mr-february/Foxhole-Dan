@@ -10,6 +10,7 @@ y = altitude + sin(current_time * 0.0018) * 10;
 
 // Drop bombs when player is roughly below
 var p = instance_find(obj_dan, 0);
+if (p == noone) p = instance_find(obj_dan_vehicle, 0);
 if (p != noone) {
     bomb_timer--;
     if (bomb_timer <= 0) {

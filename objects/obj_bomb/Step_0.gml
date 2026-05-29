@@ -3,9 +3,10 @@ if (exploding) {
     // Damage player at peak of blast
     if (exp_timer == 12) {
         var p = instance_find(obj_dan, 0);
+        if (p == noone) p = instance_find(obj_dan_vehicle, 0);
         if (p != noone && point_distance(x, y, p.x, p.y) < 55 && p.i_frames == 0) {
             p.hp -= 20;
-            p.ptsd_meter = min(p.ptsd_meter + 28, p.ptsd_max);
+            if (p.object_index == obj_dan) p.ptsd_meter = min(p.ptsd_meter + 28, p.ptsd_max);
             p.i_frames = 45;
             var d = instance_create_layer(p.x, p.y - 20, "Instances", obj_damage_number);
             d.amount = 20;
@@ -35,9 +36,10 @@ if (collision_point(x, y + 5, obj_platform, false, true) != noone) {
 
 // Direct hit on player
 var p = instance_find(obj_dan, 0);
+if (p == noone) p = instance_find(obj_dan_vehicle, 0);
 if (p != noone && point_distance(x, y, p.x, p.y) < 22 && p.i_frames == 0) {
     p.hp -= 20;
-    p.ptsd_meter = min(p.ptsd_meter + 28, p.ptsd_max);
+    if (p.object_index == obj_dan) p.ptsd_meter = min(p.ptsd_meter + 28, p.ptsd_max);
     p.i_frames = 45;
     exploding = true;
     exp_timer = 22;

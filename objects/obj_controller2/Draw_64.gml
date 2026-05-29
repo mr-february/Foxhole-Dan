@@ -101,7 +101,7 @@ if (p.reload_timer > 0) {
 }
 
 // --- EXTRACTION PROGRESS BAR (top center) ---
-var prog     = clamp(p.x / 7600, 0, 1);
+var prog     = clamp(p.x / 11600, 0, 1);
 var pbw      = 360;
 var pbh      = 18;
 var pbx      = gw / 2 - pbw / 2;

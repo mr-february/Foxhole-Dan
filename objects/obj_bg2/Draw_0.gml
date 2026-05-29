@@ -92,6 +92,25 @@ for (var ri = 0; ri < 20; ri++) {
 }
 
 // =========================================================
+// ROLLING HILLS  (parallax 0.18 — behind treeline, in front of ruins)
+// =========================================================
+var p_hi = cx * 0.18;
+for (var hi = 0; hi < 10; hi++) {
+    var hx  = cx + hi * 640 - (p_hi mod 640);
+    var hh  = 55 + (hi * 67 + 13) mod 55;
+    var hw  = 300 + (hi * 53 + 29) mod 140;
+    draw_set_color(make_color_rgb(22, 30, 14));
+    draw_ellipse(hx - hw/2, hz - hh, hx + hw/2, hz, false);
+    // Artillery glow along ridgeline
+    var _hg = 0.09 + 0.07 * abs(sin(tt * 0.55 + hi * 0.8));
+    draw_set_alpha(_hg);
+    draw_set_color(make_color_rgb(200, 70, 12));
+    draw_ellipse(hx - hw/3, hz - 14, hx + hw/3, hz + 4, false);
+    draw_set_alpha(1);
+    draw_set_color(make_color_rgb(22, 30, 14));
+}
+
+// =========================================================
 // TREELINE — scarred pines  (parallax 0.28)
 // =========================================================
 var p1 = cx * 0.28;
@@ -220,21 +239,21 @@ for (var wk = 0; wk < 9; wk++) {
 // =========================================================
 // EXTRACTION ZONE  (world x 7400–7700)
 // =========================================================
-if (7400 < cx + vw && 7700 > cx) {
+if (11400 < cx + vw && 11700 > cx) {
     draw_set_color(make_color_rgb(220, 190, 30));
-    draw_rectangle(7400, hz - 60, 7700, hz, false);
+    draw_rectangle(11400, hz - 60, 11700, hz, false);
     draw_set_color(make_color_rgb(16, 12, 6));
     for (var st = 0; st < 8; st++) {
-        var sx = 7400 + st * 38;
+        var sx = 11400 + st * 38;
         draw_triangle(sx, hz - 60, sx + 18, hz - 60, sx, hz, false);
     }
     draw_set_halign(fa_center);
     draw_set_color(make_color_rgb(16, 12, 6));
-    draw_text_transformed(7550, hz - 52, "EXTRACTION", 1.35, 1.35, 0);
+    draw_text_transformed(11550, hz - 52, "EXTRACTION", 1.35, 1.35, 0);
     draw_set_halign(fa_left);
     draw_set_color(make_color_rgb(220, 190, 30));
     for (var ar = 0; ar < 3; ar++) {
-        var arx = 7420 + ar * 86;
+        var arx = 11420 + ar * 86;
         draw_triangle(arx, hz - 6, arx + 18, hz - 6, arx + 9, hz - 20, false);
     }
 }
