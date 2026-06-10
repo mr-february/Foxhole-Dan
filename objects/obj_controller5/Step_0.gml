@@ -183,7 +183,7 @@ if (phase == 3) {
         }
         ini_close();
         global.game_state = 0;
-        room_goto(Room0);
+        room_goto(Room6);
     }
 }
 
