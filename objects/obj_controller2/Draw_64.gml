@@ -18,8 +18,10 @@ if (global.game_state == 1) {
     draw_text_transformed(gw/2, gh/2, "Dan made it out alive.", 1.2, 1.2, 0);
     draw_set_color(make_color_rgb(160, 148, 90));
     draw_text_transformed(gw/2, gh/2 + 45, "But the war followed him home.", 1.0, 1.0, 0);
+    draw_set_color(make_color_rgb(220, 220, 80));
+    draw_text_transformed(gw/2, gh/2 + 72, "SCORE  " + string(global.score), 1.0, 1.0, 0);
     draw_set_color(make_color_rgb(140, 130, 80));
-    draw_text_transformed(gw/2, gh/2 + 95, "Press R to play again", 0.85, 0.85, 0);
+    draw_text_transformed(gw/2, gh/2 + 105, "Press R to continue", 0.85, 0.85, 0);
     draw_set_halign(fa_left);
     draw_set_valign(fa_top);
     draw_set_color(c_white);
@@ -39,8 +41,10 @@ if (global.game_state == 2) {
     draw_text_transformed(gw/2, gh/2 - 50, "VEHICLE DESTROYED", 2.0, 2.0, 0);
     draw_set_color(make_color_rgb(180, 130, 130));
     draw_text_transformed(gw/2, gh/2 + 20, "The road out doesn't forgive mistakes.", 1.1, 1.1, 0);
+    draw_set_color(make_color_rgb(200, 180, 80));
+    draw_text_transformed(gw/2, gh/2 + 48, "SCORE  " + string(global.score), 0.95, 0.95, 0);
     draw_set_color(make_color_rgb(160, 100, 100));
-    draw_text_transformed(gw/2, gh/2 + 70, "Press R to try again", 0.85, 0.85, 0);
+    draw_text_transformed(gw/2, gh/2 + 80, "Press R to try again", 0.85, 0.85, 0);
     draw_set_halign(fa_left);
     draw_set_valign(fa_top);
     draw_set_color(c_white);
@@ -100,6 +104,14 @@ if (p.reload_timer > 0) {
     draw_text(ax, ay, "AMMO  " + string(p.ammo) + " / " + string(p.max_ammo));
 }
 
+// --- BOMBS ---
+draw_set_color(make_color_rgb(220, 160, 60));
+draw_text(ax, ay + 18, "BOMBS  " + string(p.bomb_count));
+
+// --- SCORE ---
+draw_set_color(make_color_rgb(220, 220, 80));
+draw_text(ax, ay + 36, "SCORE  " + string(global.score));
+
 // --- EXTRACTION PROGRESS BAR (top center) ---
 var prog     = clamp(p.x / 11600, 0, 1);
 var pbw      = 360;
@@ -125,7 +137,7 @@ var leg_y = gh - 40;
 if (gamepad_is_connected(0)) {
     draw_text(16, leg_y, "L-Stick Up/Down  Speed  |  A  Jump  |  RT/RB  Shoot");
 } else {
-    draw_text(16, leg_y, "Up/W  Accelerate  |  Down/S  Brake  |  Space  Jump  |  J/LMB  Shoot");
+    draw_text(16, leg_y, "Up/W  Accelerate  |  Down/S  Brake  |  Space  Jump  |  J/LMB  Shoot  |  K  Bomb");
 }
 draw_set_alpha(1);
 // Explosion flash
@@ -133,6 +145,27 @@ if (global.flash_timer > 0) {
     draw_set_color(make_color_rgb(255, 165, 30));
     draw_set_alpha((global.flash_timer / 14.0) * 0.45);
     draw_rectangle(0, 0, gw, gh, false);
+    draw_set_alpha(1);
+}
+// Kill flash
+if (global.kill_flash_timer > 0) {
+    global.kill_flash_timer--;
+    draw_set_color(c_white);
+    draw_set_alpha((global.kill_flash_timer + 1) / 5.0 * 0.28);
+    draw_rectangle(0, 0, gw, gh, false);
+    draw_set_alpha(1);
+}
+// Memory fragment / checkpoint text
+if (global.memory_timer > 0) {
+    global.memory_timer--;
+    var _mf   = min(global.memory_timer / 40.0, 1.0) * min((210 - global.memory_timer) / 40.0, 1.0);
+    var _ckpt = (string_char_at(global.memory_text, 1) == "-");
+    draw_set_alpha(clamp(_mf, 0, 1) * 0.92);
+    draw_set_color(_ckpt ? make_color_rgb(80, 230, 100) : make_color_rgb(220, 200, 130));
+    draw_set_halign(fa_center);
+    draw_text_transformed(gw / 2, _ckpt ? gh * 0.50 : gh * 0.72,
+        global.memory_text, _ckpt ? 1.4 : 1.05, _ckpt ? 1.4 : 1.05, 0);
+    draw_set_halign(fa_left);
     draw_set_alpha(1);
 }
 draw_set_color(c_white);

@@ -227,12 +227,37 @@ if (hp < max_hp) {
 }
 
 // =========================================================
-// HIT FLASH
+// HIT FLASH — redraw vehicle silhouette in white
 // =========================================================
 if (is_flash) {
-    draw_set_alpha(0.52);
+    draw_set_alpha(0.55);
     draw_set_color(c_white);
-    draw_rectangle(x - 46, y - 58, x + 46, y, false);
+    // Wheels
+    draw_circle(wx1, y, wr, false);
+    draw_circle(wx2, y, wr, false);
+    // Fenders
+    draw_rectangle(wx1 - wr - 2, y - wr - 3, wx1 + wr + 2, y - wr + 4, false);
+    draw_rectangle(wx2 - wr - 2, y - wr - 3, wx2 + wr + 2, y - wr + 4, false);
+    // Chassis + skirt
+    draw_rectangle(x - f * 40, y - 20, x + f * 28, y - 5, false);
+    // Hood
+    draw_rectangle(x + f * 26, y - 18, x + f * 54, y - 5, false);
+    // Front bumper
+    draw_rectangle(x + f * 53, y - 13, x + f * 58, y - 3, false);
+    // Cab
+    draw_rectangle(x - f * 2, y - 36, x - f * 28, y - 20, false);
+    // Driver torso + head
+    draw_rectangle(x - f * 8, y - 36, x - f * 2, y - 22, false);
+    draw_rectangle(x - f * 8, y - 44, x - f * 2, y - 36, false);
+    // Stahlhelm
+    draw_rectangle(x - f * 10, y - 50, x - f * 0, y - 42, false);
+    draw_ellipse(x - f * 10, y - 54, x - f * 0, y - 42, false);
+    draw_rectangle(x - f * 12, y - 44, x - f * (-2), y - 42, false);
+    // MG42 mount + receiver + barrel + ammo drum
+    draw_rectangle(mgx - 4, y - 46, mgx + 4, y - 36, false);
+    draw_rectangle(mgx - 6, y - 53, mgx + 6, y - 45, false);
+    draw_line_width(mgx + f * 6, y - 49, mgx + f * 36, y - 49, 3);
+    draw_circle(mgx + f * 2, y - 57, 6, false);
     draw_set_alpha(1);
 }
 

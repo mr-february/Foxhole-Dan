@@ -34,3 +34,6 @@ rope_len  = 0;
 roll_timer = 0;
 roll_cd    = 0;
 roll_dur   = 16;
+
+grenade_count = 3;
+grenade_cd    = 0;

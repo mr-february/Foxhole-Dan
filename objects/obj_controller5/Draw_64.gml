@@ -67,13 +67,15 @@ if (phase == 0) {
 // ============================================================
 if (phase == 1) {
 
-    // ---------- Currency ----------
+    // ---------- Currency + Score ----------
     draw_set_color(make_color_rgb(0, 0, 0));
     draw_set_alpha(0.60);
-    draw_rectangle(8, 8, 330, 62, false);
+    draw_rectangle(8, 8, 330, 80, false);
     draw_set_alpha(1);
     draw_set_color(make_color_rgb(200, 180, 60));
     draw_text_transformed(16, 12, "AMMO CACHE  " + string(currency), 1.1, 1.1, 0);
+    draw_set_color(make_color_rgb(220, 220, 80));
+    draw_text_transformed(16, 46, "SCORE  " + string(global.score), 1.0, 1.0, 0);
 
     // ---------- Wave indicator ----------
     draw_set_color(make_color_rgb(0, 0, 0));
@@ -262,10 +264,14 @@ if (phase == 3) {
         _mcol  = make_color_rgb(220, 200, 80);
         _sub   = "\"The difference between a hero and a war criminal";
         _sub2  = "is often just which side wins.\"";
-        var _ret_a = clamp((slide_fade_in - 120) / 80.0, 0, 1);
+        var _score_a = clamp((slide_fade_in - 60) / 60.0, 0, 1);
+        draw_set_color(make_color_rgb(220, 220, 80));
+        draw_set_alpha(_score_a * _sfa);
+        draw_text_transformed(gw/2, gh/2 + 90, "FINAL SCORE  " + string(global.score), 1.2, 1.2, 0);
+        var _ret_a = clamp((slide_fade_in - 150) / 80.0, 0, 1);
         draw_set_color(make_color_rgb(80, 70, 40));
         draw_set_alpha(_ret_a * _sfa);
-        draw_text_transformed(gw/2, gh/2 + 120, "Returning to main menu...", 0.80, 0.80, 0);
+        draw_text_transformed(gw/2, gh/2 + 140, "Returning to main menu...", 0.80, 0.80, 0);
         draw_set_alpha(_sfa);
     }
 
@@ -314,4 +320,33 @@ if (phase == 4) {
     draw_set_alpha(1);
 }
 
+// House damage screen flash
+var _hf = instance_find(obj_td_house, 0);
+if (_hf != noone && _hf.damage_flash > 0) {
+    draw_set_color(make_color_rgb(200, 0, 0));
+    draw_set_alpha(0.28 * (_hf.damage_flash / 16.0));
+    draw_rectangle(0, 0, gw, gh, false);
+    draw_set_alpha(1);
+}
+// Kill flash
+if (global.kill_flash_timer > 0) {
+    global.kill_flash_timer--;
+    draw_set_color(c_white);
+    draw_set_alpha((global.kill_flash_timer + 1) / 5.0 * 0.28);
+    draw_rectangle(0, 0, gw, gh, false);
+    draw_set_alpha(1);
+}
+// Memory fragment text
+if (global.memory_timer > 0) {
+    global.memory_timer--;
+    var _mf   = min(global.memory_timer / 40.0, 1.0) * min((210 - global.memory_timer) / 40.0, 1.0);
+    var _ckpt = (string_char_at(global.memory_text, 1) == "-");
+    draw_set_alpha(clamp(_mf, 0, 1) * 0.92);
+    draw_set_color(_ckpt ? make_color_rgb(80, 230, 100) : make_color_rgb(220, 200, 130));
+    draw_set_halign(fa_center);
+    draw_text_transformed(gw / 2, _ckpt ? gh * 0.50 : gh * 0.72,
+        global.memory_text, _ckpt ? 1.4 : 1.05, _ckpt ? 1.4 : 1.05, 0);
+    draw_set_halign(fa_left);
+    draw_set_alpha(1);
+}
 draw_set_color(c_white);

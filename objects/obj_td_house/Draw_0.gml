@@ -111,4 +111,11 @@ draw_set_halign(fa_center);
 draw_set_color(c_white);
 draw_text_transformed(960, _by - 15, "HOME  " + string(floor(hp)) + " / " + string(max_hp), 0.82, 0.82, 0);
 draw_set_halign(fa_left);
+// Hit flash overlay
+if (damage_flash > 0) {
+    draw_set_alpha(0.65 * (damage_flash / 16.0));
+    draw_set_color(make_color_rgb(240, 30, 30));
+    draw_rectangle(876, 308, 1044, 454, false);
+    draw_set_alpha(1);
+}
 draw_set_color(c_white);

@@ -28,6 +28,16 @@ var body_bob   = abs(sin(wp)) * 2 * spd_ratio;           // vertical bounce
 var arm_back   = sin(wp + pi) * 6 * spd_ratio;           // free arm swings opposite legs
 var breathe    = sin(current_time * 0.003) * 0.5;        // idle breathing offset
 
+// Jump pose — override walk cycle when airborne
+var jump_offset = 0;
+if (!on_ground) {
+    leg_swing   = 0;
+    body_bob    = 0;
+    arm_back    = -7;                          // free arm rises
+    leg_lift    = 0;
+    jump_offset = (vspd < 0) ? -6 : 7;        // tuck up when rising, extend down when falling
+}
+
 // Crouching offset
 var crouch_y = crouching ? 8 : 0;
 
@@ -40,7 +50,7 @@ if (i_frames > 0 && (i_frames mod 6) < 3) {
 
     // === BOOTS ===
     // Left boot (back leg when walking, rises with phase)
-    var bl_y = -leg_swing * 0.4 + leg_lift * 0.3;
+    var bl_y = -leg_swing * 0.4 + leg_lift * 0.3 + jump_offset;
     draw_set_color(make_color_rgb(48, 32, 18));
     draw_rectangle(bx - 8 - f * leg_swing * 0.2, by - 5 + crouch_y + bl_y,
                    bx + 1  - f * leg_swing * 0.2, by + crouch_y + bl_y, false);
@@ -50,7 +60,7 @@ if (i_frames > 0 && (i_frames mod 6) < 3) {
                    bx + 1  - f * leg_swing * 0.2, by     + crouch_y + bl_y, false);
 
     // Right boot (front leg)
-    var br_y = leg_swing * 0.4 - leg_lift * 0.3;
+    var br_y = leg_swing * 0.4 - leg_lift * 0.3 + jump_offset;
     draw_set_color(make_color_rgb(48, 32, 18));
     draw_rectangle(bx + 1 + f * leg_swing * 0.2, by - 5 + crouch_y + br_y,
                    bx + 8 + f * leg_swing * 0.2, by     + crouch_y + br_y, false);
@@ -169,5 +179,17 @@ var ax = bx + lengthdir_x(24, aim_dir);
 var bob_off2 = abs(sin(current_time * 0.017)) * 2 * spd_ratio + breathe;
 var ay = (by - 18 + bob_off2) + lengthdir_y(24, aim_dir);
 draw_line_width(bx + f * 4, by - 18 + bob_off2, ax, ay, 1);
+draw_set_alpha(1);
+
+// === MOUSE CROSSHAIR ===
+draw_set_color(make_color_rgb(255, 220, 0));
+draw_set_alpha(0.75);
+var _cx = mouse_x;
+var _cy = mouse_y;
+draw_line(_cx - 8, _cy, _cx - 3, _cy);
+draw_line(_cx + 3, _cy, _cx + 8, _cy);
+draw_line(_cx, _cy - 8, _cx, _cy - 3);
+draw_line(_cx, _cy + 3, _cx, _cy + 8);
+draw_circle(_cx, _cy, 3, true);
 draw_set_alpha(1);
 draw_set_color(c_white);

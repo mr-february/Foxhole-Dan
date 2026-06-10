@@ -1,4 +1,6 @@
 if (hp <= 0) {
+    global.score += 500;
+    global.kill_flash_timer = 5;
     instance_destroy();
     exit;
 }

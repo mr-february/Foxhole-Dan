@@ -1,13 +1,21 @@
-var bob = sin(current_time * 0.003 + bob_offset) * 3;
-var bx = x - 8;
-var by = y - 8 + bob;
+var bob = sin(current_time * 0.003 + bob_offset) * 4;
+var bx  = x - 14;
+var by  = y - 14 + bob;
 
-// White cross on red background
-draw_set_color(make_color_rgb(200, 30, 30));
-draw_rectangle(bx, by, bx + 15, by + 15, false);
-draw_set_color(c_white);
-draw_rectangle(bx + 6, by + 2, bx + 9, by + 13, false);
-draw_rectangle(bx + 2, by + 6, bx + 13, by + 9, false);
+// Pulsing glow ring
+draw_set_alpha(0.30 + 0.20 * abs(sin(current_time * 0.005)));
 draw_set_color(make_color_rgb(255, 80, 80));
-draw_rectangle(bx, by, bx + 15, by + 15, true);
+draw_ellipse(bx - 7, by - 7, bx + 35, by + 35, false);
+draw_set_alpha(1);
+
+// Red box body
+draw_set_color(make_color_rgb(210, 28, 28));
+draw_rectangle(bx, by, bx + 28, by + 28, false);
+// White cross
+draw_set_color(c_white);
+draw_rectangle(bx + 11, by + 4, bx + 17, by + 24, false);
+draw_rectangle(bx + 4,  by + 11, bx + 24, by + 17, false);
+// Red border
+draw_set_color(make_color_rgb(255, 100, 100));
+draw_rectangle(bx, by, bx + 28, by + 28, true);
 draw_set_color(c_white);

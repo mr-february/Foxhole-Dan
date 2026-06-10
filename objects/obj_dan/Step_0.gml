@@ -176,7 +176,7 @@ if (!instance_exists(obj_controller3)) {
 }
 
 // === AIM ===
-// Right stick takes priority when pushed, otherwise keyboard/facing
+// Priority: gamepad right stick > arrow keys > mouse cursor > facing direction
 var aim_x = key_right - key_left;
 var aim_y = key_down - key_up;
 if (gp) {
@@ -184,13 +184,17 @@ if (gp) {
     var ry = gamepad_axis_value(0, gp_axisrv);
     if (abs(rx) > dead || abs(ry) > dead) {
         aim_dir = point_direction(0, 0, rx, ry);
-        aim_x = 0; aim_y = 0; // suppress keyboard aim override below
+    } else if (aim_x != 0 || aim_y != 0) {
+        aim_dir = point_direction(0, 0, aim_x, -aim_y);
+    } else {
+        aim_dir = (facing == 1) ? 0 : 180;
     }
-}
-if (aim_x != 0 || aim_y != 0) {
-    aim_dir = point_direction(0, 0, aim_x, -aim_y);
-} else if (!gp || (abs(gamepad_axis_value(0, gp_axisrh)) <= dead && abs(gamepad_axis_value(0, gp_axisrv)) <= dead)) {
-    aim_dir = (facing == 1) ? 0 : 180;
+} else {
+    if (aim_x != 0 || aim_y != 0) {
+        aim_dir = point_direction(0, 0, aim_x, -aim_y);
+    } else {
+        aim_dir = point_direction(x, y - 16, mouse_x, mouse_y);
+    }
 }
 
 // === SHOOTING ===
@@ -210,6 +214,34 @@ if (key_shoot && shoot_timer <= 0 && !crouching && ammo > 0 && reload_timer == 0
     shoot_timer   = shoot_delay;
     ammo--;
     audio_play_sound(snd_gunshot, 10, false);
+}
+
+// === GRENADE (K / gamepad LB) ===
+var key_grenade = keyboard_check_pressed(ord("K"));
+if (gp && gamepad_button_check_pressed(0, gp_shoulderlb)) key_grenade = true;
+if (grenade_cd > 0) grenade_cd--;
+if (key_grenade && grenade_count > 0 && grenade_cd == 0 && !crouching) {
+    var _g   = instance_create_layer(x + facing * 8, y - 16, "Instances", obj_grenade);
+    _g.hvsp  = lengthdir_x(9, aim_dir);
+    _g.vvsp  = lengthdir_y(9, aim_dir) - 7;
+    _g.fuse  = 110;
+    _g.owner = 1;
+    grenade_count--;
+    grenade_cd = 35;
+    audio_play_sound(snd_gunshot, 6, false);
+}
+
+// === CHECKPOINTS (Room3) ===
+if (instance_exists(obj_controller3)) {
+    if (y < 1820 && global.checkpoint3_y == 0) {
+        global.checkpoint3_y = 1820;
+        global.memory_text   = "—  CHECKPOINT  —";
+        global.memory_timer  = 200;
+    } else if (y < 920 && global.checkpoint3_y < 920) {
+        global.checkpoint3_y = 920;
+        global.memory_text   = "—  CHECKPOINT  —";
+        global.memory_timer  = 200;
+    }
 }
 
 // === PTSD METER ===
@@ -271,7 +303,11 @@ if (i_frames > 0) i_frames--;
 // === DEATH ===
 if (hp <= 0) {
     hp = 0;
-    global.game_state = 2;
+    if (global.game_state != 2) {
+        global.game_state = 2;
+        audio_stop_all();
+        audio_play_sound(snd_music_death, 100, false);
+    }
     if (hook_inst != noone && instance_exists(hook_inst)) {
         instance_destroy(hook_inst);
         hook_inst = noone;

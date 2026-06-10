@@ -1,3 +1,6 @@
+audio_pause_all();
+audio_resume_sound(csnd);
+
 if (fade > 0) { fade--; exit; }
 
 var press = keyboard_check_pressed(vk_space)

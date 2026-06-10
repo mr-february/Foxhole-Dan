@@ -4,19 +4,23 @@ if (i_frames    > 0) i_frames--;
 if (hit_flash   > 0) hit_flash--;
 if (shoot_flash > 0) shoot_flash--;
 
+// === TERRAIN HEIGHT ===
+var _ts  = clamp(floor(x / 200), 0, 59);
+var _gnd = lerp(global.terrain_y[_ts], global.terrain_y[_ts + 1], (x - _ts * 200) / 200.0);
+
 // === GRAVITY ===
 var fall_mult = (vspd > 0) ? 1.3 : 1.0;
 vspd += grav * fall_mult;
 if (vspd > 20) vspd = 20;
 
-if (place_meeting(x, y + vspd, obj_platform)) {
-    while (!place_meeting(x, y + sign(vspd), obj_platform)) y += sign(vspd);
+y += vspd;
+if (y + 15 >= _gnd) {
+    y         = _gnd - 15;
     vspd      = 0;
     on_ground = true;
 } else {
     on_ground = false;
 }
-y += vspd;
 
 // === FIND PLAYER VEHICLE ===
 var p = instance_find(obj_dan_vehicle, 0);
@@ -46,8 +50,6 @@ if (aggressive) {
     hspd = facing * (move_spd * 0.6);
 }
 
-// Horizontal platform wall collision
-if (place_meeting(x + hspd, y, obj_platform)) hspd = 0;
 x += hspd;
 
 image_xscale = facing;

@@ -1,6 +1,12 @@
 if (global.shake_mag > 0.05)  global.shake_mag  *= 0.82; else global.shake_mag  = 0;
 if (global.flash_timer > 0)   global.flash_timer--;
 
+// === RISING ARTILLERY BARRAGE ===
+if (global.game_state == 0) {
+    danger_y   -= danger_rise;
+    danger_rise = min(danger_rise + 0.00025, 1.0);  // slowly accelerates
+}
+
 // === VERTICAL CAMERA ===
 // Dan's Step_0 hardcodes target_cy=0 for horizontal levels.
 // This controller runs at depth=-9999 (last), overriding that with a
@@ -18,10 +24,18 @@ if (p != noone && global.game_state == 0) {
             camera_get_view_y(view_camera[0]) + random_range(-global.shake_mag, global.shake_mag));
     }
 
+    // Barrage damage — catching Dan in the danger zone
+    if (p.y + 16 > danger_y && p.i_frames == 0) {
+        p.hp      -= 2;
+        p.i_frames = 8;
+        global.shake_mag = max(global.shake_mag, 5.0);
+    }
+
     // Dan reaches exit platform — start capture transition
     if (p.y < 280 && transition_timer == 0) {
-        global.game_state = 1;  // triggers narrative overlay in Draw_64
-        transition_timer  = 1;
+        global.game_state    = 1;  // triggers narrative overlay in Draw_64
+        global.checkpoint3_y = 0;  // clear — level complete
+        transition_timer     = 1;
     }
 }
 

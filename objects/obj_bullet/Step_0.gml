@@ -17,9 +17,11 @@ if (hit != noone) {
         instance_create_layer(x, y, "Instances", obj_blood_particle);
     }
     if (hit.hp <= 0) {
-        global.shake_mag   = max(global.shake_mag, 8.0);
+        global.score           += 100;
+        global.kill_flash_timer = 5;
+        global.shake_mag        = max(global.shake_mag, 8.0);
         global.flash_timer = max(global.flash_timer, 10);
-        audio_play_sound(snd_enemy_die, 9, false);
+        audio_play_sound(choose(snd_enemy_die, snd_enemy_die2, snd_enemy_die3), 9, false);
         var _kx = hit.x;
         var _ky = hit.y;
         // Body parts fly off
@@ -69,9 +71,11 @@ if (bomber != noone) {
     var fmg = instance_create_layer(bomber.x, bomber.y - 28, "Instances", obj_damage_number);
     fmg.amount = 25;
     if (bomber.hp <= 0) {
-        global.shake_mag   = max(global.shake_mag, 8.0);
+        global.score           += 150;
+        global.kill_flash_timer = 5;
+        global.shake_mag        = max(global.shake_mag, 8.0);
         global.flash_timer = max(global.flash_timer, 14);
-        audio_play_sound(snd_enemy_die, 9, false);
+        audio_play_sound(choose(snd_enemy_die, snd_enemy_die2, snd_enemy_die3), 9, false);
         repeat (irandom_range(3, 5)) {
             instance_create_layer(bomber.x, bomber.y, "Instances", obj_gore_part);
         }

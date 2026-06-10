@@ -155,106 +155,133 @@ for (var sc = 0; sc < 10; sc++) {
 draw_set_alpha(1);
 
 // =========================================================
-// GROUND — churned mud battlefield  (y 500 to bottom)
+// TERRAIN — rolling hills (ground fill + surface details)
 // =========================================================
+var first_seg = max(0,  floor(cx / 200) - 1);
+var last_seg  = min(59, ceil((cx + vw) / 200) + 1);
+var bot       = cy + vh + 10;
+
+// --- Terrain fill (churned mud) ---
 draw_set_color(make_color_rgb(28, 22, 14));
-draw_rectangle(cx, hz, cx + vw, cy + vh, false);
+draw_primitive_begin(pr_trianglelist);
+for (var _si = first_seg; _si < last_seg; _si++) {
+    var _x1 = _si * 200;
+    var _y1 = global.terrain_y[_si];
+    var _x2 = (_si + 1) * 200;
+    var _y2 = global.terrain_y[_si + 1];
+    draw_vertex(_x1, _y1);  draw_vertex(_x2, _y2);  draw_vertex(_x1, bot);
+    draw_vertex(_x2, _y2);  draw_vertex(_x2, bot);   draw_vertex(_x1, bot);
+}
+draw_primitive_end();
 
-// Mud texture strips
+// --- Surface edge (dark lip along hillsides) ---
+draw_set_color(make_color_rgb(18, 13, 7));
+draw_set_alpha(0.85);
+for (var _si = first_seg; _si < last_seg; _si++) {
+    draw_line_width(_si * 200, global.terrain_y[_si],
+                    (_si + 1) * 200, global.terrain_y[_si + 1], 5);
+}
+draw_set_alpha(1);
+
+// --- Mud texture strips (follow terrain) ---
 for (var di = 0; di < 22; di++) {
-    var dstrip_x = cx + di * 105 - ((cx * 0.88) mod 105);
+    var _mx  = cx + di * 105 - ((cx * 0.88) mod 105);
+    var _ms  = clamp(floor(_mx / 200), 0, 59);
+    var _my  = lerp(global.terrain_y[_ms], global.terrain_y[_ms + 1], (_mx - _ms * 200) / 200.0);
     draw_set_color(make_color_rgb(36 + di mod 5 * 3, 28 + di mod 4 * 2, 16 + di mod 3));
-    draw_rectangle(dstrip_x, hz + 2, dstrip_x + 55 + di mod 5 * 8, hz + 6, false);
+    draw_rectangle(_mx, _my + 2, _mx + 55 + di mod 5 * 8, _my + 6, false);
 }
 
-// Shell craters scattered along road sides
+// --- Shell craters (follow terrain) ---
 for (var cr = 0; cr < 16; cr++) {
-    var crx = cx + 40 + cr * 195 - ((cx * 0.92) mod 195);
-    var cry = hz + 4 + (cr mod 3) * 14;
+    var _crx = cx + 40 + cr * 195 - ((cx * 0.92) mod 195);
+    var _crs = clamp(floor(_crx / 200), 0, 59);
+    var _cry = lerp(global.terrain_y[_crs], global.terrain_y[_crs + 1], (_crx - _crs * 200) / 200.0) + 4 + (cr mod 3) * 6;
     draw_set_color(make_color_rgb(18, 14, 8));
-    draw_ellipse(crx - 24, cry - 6, crx + 24, cry + 12, false);
+    draw_ellipse(_crx - 22, _cry - 5, _crx + 22, _cry + 10, false);
     draw_set_color(make_color_rgb(44, 35, 22));
-    draw_ellipse(crx - 28, cry - 8, crx + 28, cry - 2, false);
+    draw_ellipse(_crx - 26, _cry - 7, _crx + 26, _cry - 1, false);
 }
 
-// Roadside scrub / dead grass tufts
+// --- Dead grass tufts on hillsides ---
 draw_set_alpha(0.55);
 draw_set_color(make_color_rgb(55, 58, 30));
 for (var g = 0; g < 24; g++) {
-    var gx = cx + g * 120 - ((cx * 0.85) mod 120);
-    draw_rectangle(gx, hz - 10, gx + 44, hz + 2, false);
-    draw_rectangle(gx + 10, hz + 16, gx + 58, hz + 28, false);
+    var _gx = cx + g * 120 - ((cx * 0.85) mod 120);
+    var _gs = clamp(floor(_gx / 200), 0, 59);
+    var _gy = lerp(global.terrain_y[_gs], global.terrain_y[_gs + 1], (_gx - _gs * 200) / 200.0);
+    draw_rectangle(_gx, _gy - 10, _gx + 44, _gy + 2, false);
+    draw_rectangle(_gx + 10, _gy + 8, _gx + 58, _gy + 20, false);
 }
 draw_set_alpha(1);
 
-// Wheel ruts on road surface
-draw_set_alpha(0.50);
+// --- Wheel ruts (two parallel tracks following terrain slope) ---
+draw_set_alpha(0.45);
 draw_set_color(make_color_rgb(20, 16, 10));
-draw_rectangle(cx, hz + 12, cx + vw, hz + 18, false);
-draw_rectangle(cx, hz + 26, cx + vw, hz + 32, false);
+for (var _si = first_seg; _si < last_seg; _si++) {
+    var _rx1 = _si * 200;       var _ry1 = global.terrain_y[_si] + 10;
+    var _rx2 = (_si + 1) * 200; var _ry2 = global.terrain_y[_si + 1] + 10;
+    draw_line_width(_rx1, _ry1,      _rx2, _ry2,      4);
+    draw_line_width(_rx1, _ry1 + 16, _rx2, _ry2 + 16, 4);
+}
 draw_set_alpha(1);
 
-// Abandoned equipment — dark silhouettes on road edge
+// --- Abandoned equipment (follow terrain) ---
 for (var eq = 0; eq < 6; eq++) {
-    var eqx = cx + 280 + eq * 1380 - ((cx * 0.96) mod 1380);
-    // Abandoned ammo crate
+    var _eqx = cx + 280 + eq * 1380 - ((cx * 0.96) mod 1380);
+    var _eqs = clamp(floor(_eqx / 200), 0, 59);
+    var _eqy = lerp(global.terrain_y[_eqs], global.terrain_y[_eqs + 1], (_eqx - _eqs * 200) / 200.0);
     draw_set_color(make_color_rgb(22, 26, 18));
-    draw_rectangle(eqx, hz - 22, eqx + 28, hz, false);
-    draw_rectangle(eqx + 2, hz - 24, eqx + 26, hz - 22, false);
-    // Wire coil nearby
+    draw_rectangle(_eqx,     _eqy - 22, _eqx + 28, _eqy, false);
+    draw_rectangle(_eqx + 2, _eqy - 24, _eqx + 26, _eqy - 22, false);
     draw_set_color(make_color_rgb(45, 42, 35));
-    draw_circle(eqx + 44, hz - 8, 8, true);
+    draw_circle(_eqx + 44, _eqy - 8, 8, true);
 }
 
-// =========================================================
-// BURNED-OUT WRECKS  (road-edge debris, parallax ≈ road)
-// =========================================================
+// --- Burned-out wrecks (follow terrain) ---
 var wr_col = make_color_rgb(12, 9, 6);
 for (var wk = 0; wk < 9; wk++) {
-    var wkx = cx + 180 + wk * 870 - ((cx * 0.97) mod 870);
-    // Burned chassis slab
+    var _wkx = cx + 180 + wk * 870 - ((cx * 0.97) mod 870);
+    var _wks = clamp(floor(_wkx / 200), 0, 59);
+    var _wky = lerp(global.terrain_y[_wks], global.terrain_y[_wks + 1], (_wkx - _wks * 200) / 200.0);
     draw_set_color(wr_col);
-    draw_rectangle(wkx - 38, hz - 10, wkx + 44, hz, false);
-    // Hood wreckage
-    draw_rectangle(wkx + 30, hz - 13, wkx + 56, hz, false);
-    // Skeletal cab frame (left post / right post / top bar)
-    draw_rectangle(wkx - 4,  hz - 28, wkx,     hz - 10, false);
-    draw_rectangle(wkx + 26, hz - 28, wkx + 30, hz - 10, false);
-    draw_rectangle(wkx - 4,  hz - 29, wkx + 30, hz - 26, false);
-    // Charred wheel stubs
-    draw_circle(wkx - 22, hz - 1, 9, false);
-    draw_circle(wkx + 26, hz - 1, 9, false);
-    // Burning glow under wreck
+    draw_rectangle(_wkx - 38, _wky - 10, _wkx + 44, _wky, false);
+    draw_rectangle(_wkx + 30, _wky - 13, _wkx + 56, _wky, false);
+    draw_rectangle(_wkx - 4,  _wky - 28, _wkx,      _wky - 10, false);
+    draw_rectangle(_wkx + 26, _wky - 28, _wkx + 30, _wky - 10, false);
+    draw_rectangle(_wkx - 4,  _wky - 29, _wkx + 30, _wky - 26, false);
+    draw_circle(_wkx - 22, _wky - 1, 9, false);
+    draw_circle(_wkx + 26, _wky - 1, 9, false);
     var _wf = 0.35 + 0.50 * abs(sin(tt * 1.6 + wk * 2.1));
     draw_set_alpha(_wf * 0.60);
     draw_set_color(make_color_rgb(190, 65, 10));
-    draw_rectangle(wkx - 28, hz - 8, wkx + 36, hz, false);
+    draw_rectangle(_wkx - 28, _wky - 8, _wkx + 36, _wky, false);
     draw_set_alpha(_wf * 0.35);
     draw_set_color(make_color_rgb(255, 175, 35));
-    draw_rectangle(wkx - 18, hz - 5, wkx + 24, hz, false);
+    draw_rectangle(_wkx - 18, _wky - 5, _wkx + 24, _wky, false);
     draw_set_alpha(1);
     draw_set_color(wr_col);
 }
 
-// =========================================================
-// EXTRACTION ZONE  (world x 7400–7700)
-// =========================================================
+// --- EXTRACTION ZONE (world x 11400–11700, terrain-relative) ---
 if (11400 < cx + vw && 11700 > cx) {
+    var _ezs = clamp(floor(11550 / 200), 0, 59);
+    var _ezy = lerp(global.terrain_y[_ezs], global.terrain_y[_ezs + 1], (11550 - _ezs * 200) / 200.0);
     draw_set_color(make_color_rgb(220, 190, 30));
-    draw_rectangle(11400, hz - 60, 11700, hz, false);
+    draw_rectangle(11400, _ezy - 60, 11700, _ezy, false);
     draw_set_color(make_color_rgb(16, 12, 6));
     for (var st = 0; st < 8; st++) {
         var sx = 11400 + st * 38;
-        draw_triangle(sx, hz - 60, sx + 18, hz - 60, sx, hz, false);
+        draw_triangle(sx, _ezy - 60, sx + 18, _ezy - 60, sx, _ezy, false);
     }
     draw_set_halign(fa_center);
     draw_set_color(make_color_rgb(16, 12, 6));
-    draw_text_transformed(11550, hz - 52, "EXTRACTION", 1.35, 1.35, 0);
+    draw_text_transformed(11550, _ezy - 52, "EXTRACTION", 1.35, 1.35, 0);
     draw_set_halign(fa_left);
     draw_set_color(make_color_rgb(220, 190, 30));
     for (var ar = 0; ar < 3; ar++) {
         var arx = 11420 + ar * 86;
-        draw_triangle(arx, hz - 6, arx + 18, hz - 6, arx + 9, hz - 20, false);
+        draw_triangle(arx, _ezy - 6, arx + 18, _ezy - 6, arx + 9, _ezy - 20, false);
     }
 }
 

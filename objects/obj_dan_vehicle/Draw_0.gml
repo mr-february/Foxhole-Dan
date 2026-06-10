@@ -234,26 +234,44 @@ draw_rectangle(x - 36, y - 53, x - 14, y - 45, false);
 // Rear sight
 draw_set_color(make_color_rgb(22, 20, 14));
 draw_line(x - 34, y - 53, x - 34, y - 57);
-// Barrel (pointing right toward enemy)
+// Barrel (rotates with aim_dir; pivot = pintle at x-23, y-47)
+var _ppx = x - 23;
+var _ppy = y - 47;
+var _btip_x = _ppx + lengthdir_x(27, aim_dir);
+var _btip_y = _ppy + lengthdir_y(27, aim_dir);
 draw_set_color(make_color_rgb(24, 22, 16));
-draw_line_width(x - 14, y - 49, x + 4,  y - 49, 3);
-// Barrel jacket / cooling shroud
+draw_line_width(_ppx, _ppy, _btip_x, _btip_y, 3);
+// Barrel jacket / cooling shroud (first 40% of barrel)
 draw_set_color(make_color_rgb(38, 34, 24));
-draw_rectangle(x - 14, y - 51, x - 4, y - 47, false);
+draw_line_width(_ppx, _ppy,
+    _ppx + lengthdir_x(11, aim_dir), _ppy + lengthdir_y(11, aim_dir), 5);
 // Muzzle tip
 draw_set_color(make_color_rgb(20, 18, 12));
-draw_circle(x + 4, y - 49, 2, false);
+draw_circle(_btip_x, _btip_y, 2, false);
 // Muzzle flash
 if (shoot_flash > 0) {
     var _mfa = shoot_flash / 5.0;
+    var _flx = _btip_x + lengthdir_x(4, aim_dir);
+    var _fly = _btip_y + lengthdir_y(4, aim_dir);
     draw_set_alpha(0.9 * _mfa);
     draw_set_color(make_color_rgb(255, 215, 70));
-    draw_circle(x + 8, y - 49, 9 * _mfa, false);
+    draw_circle(_flx, _fly, 9 * _mfa, false);
     draw_set_alpha(0.6 * _mfa);
     draw_set_color(c_white);
-    draw_circle(x + 8, y - 49, 4 * _mfa, false);
+    draw_circle(_flx, _fly, 4 * _mfa, false);
     draw_set_alpha(1);
 }
+// Mouse crosshair
+draw_set_color(make_color_rgb(255, 215, 70));
+draw_set_alpha(0.75);
+var _crx = mouse_x;
+var _cry = mouse_y;
+draw_line(_crx - 8, _cry, _crx - 3, _cry);
+draw_line(_crx + 3, _cry, _crx + 8, _cry);
+draw_line(_crx, _cry - 8, _crx, _cry - 3);
+draw_line(_crx, _cry + 3, _crx, _cry + 8);
+draw_circle(_crx, _cry, 3, true);
+draw_set_alpha(1);
 // Ammo box (belt-fed)
 draw_set_color(make_color_rgb(76, 90, 48));
 draw_rectangle(x - 36, y - 60, x - 24, y - 53, false);

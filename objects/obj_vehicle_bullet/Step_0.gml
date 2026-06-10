@@ -15,6 +15,10 @@ if (hit != noone && hit.i_frames == 0) {
     hit.hit_flash = 10;
     var d    = instance_create_layer(hit.x, hit.y - 32, "Instances", obj_damage_number);
     d.amount = 25;
-    if (hit.hp <= 0) instance_destroy(hit);
+    if (hit.hp <= 0) {
+        global.score           += 200;
+        global.kill_flash_timer = 5;
+        instance_destroy(hit);
+    }
     instance_destroy();
 }

@@ -1,6 +1,7 @@
+var angle = point_direction(0, 0, speed, vspd);
 var trail = 22;
-var tx = x - lengthdir_x(trail, direction);
-var ty = y - lengthdir_y(trail, direction);
+var tx = x - lengthdir_x(trail, angle);
+var ty = y - lengthdir_y(trail, angle);
 
 draw_set_alpha(0.25);
 draw_set_color(make_color_rgb(255, 235, 140));

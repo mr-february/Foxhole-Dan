@@ -6,3 +6,4 @@ spd        = 0.9;
 reward     = 25;
 damage     = 35;
 spd_mod    = 1.0;  // reduced near barricades (reset each Step)
+hit_flash  = 0;

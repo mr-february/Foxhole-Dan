@@ -177,8 +177,13 @@ if (phase == 3) {
         }
     }
     if (narrative_slide >= 8 && slide_fade_in >= 300) {
+        ini_open("foxhole_dan.ini");
+        if (global.score > ini_read_real("saves", "high_score", 0)) {
+            ini_write_real("saves", "high_score", global.score);
+        }
+        ini_close();
         global.game_state = 0;
-        room_goto(Room0);  // credits done — back to title
+        room_goto(Room0);
     }
 }
 

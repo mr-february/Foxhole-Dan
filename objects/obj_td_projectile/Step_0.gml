@@ -17,22 +17,30 @@ if (_dist <= proj_spd + 4) {
                 if (_e.hp <= 0) {
                     var _ctrl = instance_find(obj_controller5, 0);
                     if (_ctrl != noone) _ctrl.currency += _e.reward;
+                    global.score += (_e.enemy_type == 1) ? 150 : 100;
+                    global.kill_flash_timer = 5;
                     with (_e) { instance_destroy(); }
+                } else {
+                    _e.hit_flash = 8;
                 }
             }
         }
         if (instance_exists(obj_td_reyes)) {
             if (point_distance(x, y, obj_td_reyes.x, obj_td_reyes.y) < aoe_rad) {
                 obj_td_reyes.hp -= damage;
+                obj_td_reyes.hit_flash = 10;
             }
         }
     } else {
         if (instance_exists(target)) {
             target.hp -= damage;
+            if (target.object_index == obj_td_reyes) target.hit_flash = 10;
             if (target.hp <= 0) {
                 if (target.object_index == obj_td_enemy) {
                     var _ctrl2 = instance_find(obj_controller5, 0);
                     if (_ctrl2 != noone) _ctrl2.currency += target.reward;
+                    global.score += (target.enemy_type == 1) ? 150 : 100;
+                    global.kill_flash_timer = 5;
                 }
                 with (target) { instance_destroy(); }
             }

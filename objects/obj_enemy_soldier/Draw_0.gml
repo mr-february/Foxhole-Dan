@@ -15,7 +15,10 @@ if (cover_timer > 0) {
     if (hit_flash > 0) {
         draw_set_alpha(0.65);
         draw_set_color(c_white);
-        draw_rectangle(bx - 9, by - 22, bx + 9, by, false);
+        draw_rectangle(bx - 7, by - 5,  bx + 7, by,      false);
+        draw_rectangle(bx - 8, by - 14, bx + 8, by - 5,  false);
+        draw_rectangle(bx - 6, by - 20, bx + 6, by - 14, false);
+        draw_rectangle(bx - 2, by - 20, bx + 2, by - 16, false);
         draw_set_alpha(1);
     }
     draw_set_color(c_white);
@@ -107,11 +110,34 @@ draw_set_color(make_color_rgb(180, 20, 20));
 draw_rectangle(hx - 2, hy - 4, hx + 2, hy - 1, false);
 draw_rectangle(hx - 1, hy - 5, hx + 1, hy,     false);
 
-// === HIT FLASH ===
+// === HIT FLASH — redraw soldier silhouette in white ===
 if (hit_flash > 0) {
     draw_set_alpha(0.65);
     draw_set_color(c_white);
-    draw_rectangle(bx - 9, by - 35, bx + 9, by, false);
+    // Boots
+    draw_rectangle(bx - 7 - f * leg_swing * 0.15, by - 5 + bl_y,
+                   bx + 1 - f * leg_swing * 0.15, by     + bl_y, false);
+    draw_rectangle(bx + 1 + f * leg_swing * 0.15, by - 5 + br_y,
+                   bx + 7 + f * leg_swing * 0.15, by     + br_y, false);
+    // Pants
+    draw_rectangle(bx - 6 - f * leg_swing * 0.12, by - 15 + bl_y,
+                   bx + 1 - f * leg_swing * 0.12, by - 5  + bl_y, false);
+    draw_rectangle(bx + 1 + f * leg_swing * 0.12, by - 15 + br_y,
+                   bx + 6 + f * leg_swing * 0.12, by - 5  + br_y, false);
+    // Jacket
+    draw_rectangle(bx - 8, by - 26 + bob_off, bx + 8, by - 14 + bob_off, false);
+    // Free arm
+    draw_rectangle(fa_x - 3, fa_y - 2, fa_x + 3, fa_y + 6, false);
+    // Gun arm
+    draw_rectangle(bx + f * 4, by - 22 + bob_off, bx + f * 12, by - 18 + bob_off, false);
+    // Neck
+    draw_rectangle(bx - 3, by - 28 + bob_off, bx + 3, by - 26 + bob_off, false);
+    // Head
+    draw_rectangle(hx - 5, hy, hx + 5, hy + 8, false);
+    // Helmet
+    draw_rectangle(hx - 6, hy - 4, hx + 6, hy + 2, false);
+    draw_rectangle(hx - 5, hy - 6, hx + 5, hy - 2, false);
+    draw_rectangle(hx - 7, hy + 1, hx + 7, hy + 2, false);
     draw_set_alpha(1);
 }
 

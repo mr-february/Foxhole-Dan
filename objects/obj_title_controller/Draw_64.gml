@@ -200,6 +200,14 @@ if (state == 0) {
     draw_set_color(make_color_rgb(100, 75, 25));
     draw_rectangle(mid - 220, gh * 0.465, mid + 220, gh * 0.467, false);
 
+    // High score (shown only when a run has been completed)
+    if (global.high_score > 0) {
+        draw_set_alpha(0.72);
+        draw_set_color(make_color_rgb(180, 162, 62));
+        draw_text_transformed(mid, gh * 0.478, "BEST  " + string(global.high_score), 0.80, 0.80, 0);
+        draw_set_alpha(1);
+    }
+
     // Lighter semi-dark strip behind PLAY and CONTROLS
     draw_set_alpha(0.70);
     draw_set_color(make_color_rgb(0, 0, 0));
@@ -272,13 +280,15 @@ if (state == 0) {
     draw_rectangle(80, _r0 + 22, gw - 80, _r0 + 25, false);
 
     var _rows = [
-        ["MOVE",     "WASD  /  Arrow Keys",       "Left Stick"],
-        ["JUMP",     "Space  /  W  /  Up",          "A  (Cross)"],
-        ["SHOOT",    "J  /  Left Mouse",             "RT  /  RB"],
-        ["AIM",      "WASD  /  Arrow Keys",          "Right Stick"],
-        ["GRAPPLE",  "G",                            "Y  (Triangle)"],
-        ["CROUCH",   "S  /  Down  (grounded)",       "L-Stick Down"],
-        ["RESTART",  "R  (win / dead screen)",       "Start"],
+        ["MOVE",        "WASD  /  Arrow Keys",        "Left Stick"],
+        ["JUMP",        "Space  /  W  /  Up",          "A  (Cross)"],
+        ["SHOOT",       "J  /  Left Mouse",             "RT  /  RB"],
+        ["AIM",         "WASD  /  Arrow Keys",          "Right Stick"],
+        ["GRENADE",     "K",                            "LB  (L1)"],
+        ["DODGE ROLL",  "Shift",                        "L3"],
+        ["GRAPPLE",     "G",                            "Y  (Triangle)"],
+        ["CROUCH",      "S  /  Down  (grounded)",       "L-Stick Down"],
+        ["RESTART",     "R  (win / dead screen)",       "Start"],
     ];
 
     for (var _ri = 0; _ri < array_length(_rows); _ri++) {

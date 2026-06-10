@@ -95,59 +95,134 @@ for (var _rp = 0; _rp < gw; _rp += 48) {
     draw_rectangle(_rp, 460, _rp + 4, 480, false);
 }
 
+// Rain streaks over rooftop
+draw_set_color(make_color_rgb(140, 168, 210));
+for (var _ri4 = 0; _ri4 < 80; _ri4++) {
+    var _rx4 = (_ri4 * 317 + 50) mod (gw + 60);
+    var _ry4 = ((_t * 360 + _ri4 * 151) mod (gh + 60)) - 20;
+    var _rl4 = 12 + (_ri4 mod 10);
+    draw_set_alpha(0.07 + (_ri4 mod 4) * 0.035);
+    draw_line_width(_rx4, _ry4, _rx4 - 3, _ry4 + _rl4, 1);
+}
+draw_set_alpha(1);
+
 // ============================================================
-// DAN IN CHAIR (left side, x~380, y~580)
+// DAN IN CHAIR (left side, x~380, y~560)
 // ============================================================
 var _cx = 380;
 var _cy = 560;
 
 // Chair legs
-draw_set_color(make_color_rgb(80, 60, 40));
+draw_set_color(make_color_rgb(60, 42, 26));
 draw_rectangle(_cx - 28, _cy + 60, _cx - 22, _cy + 100, false);
 draw_rectangle(_cx + 22, _cy + 60, _cx + 28, _cy + 100, false);
 draw_rectangle(_cx - 28, _cy + 20, _cx - 22, _cy + 70, false);
 draw_rectangle(_cx + 22, _cy + 20, _cx + 28, _cy + 70, false);
-// Chair seat
-draw_set_color(make_color_rgb(100, 78, 52));
+// Crossbar
+draw_set_color(make_color_rgb(46, 32, 18));
+draw_rectangle(_cx - 26, _cy + 78, _cx + 26, _cy + 83, false);
+// Seat with wood grain
+draw_set_color(make_color_rgb(90, 68, 44));
 draw_rectangle(_cx - 32, _cy + 55, _cx + 32, _cy + 68, false);
-// Chair back
+draw_set_color(make_color_rgb(78, 58, 36));
+draw_rectangle(_cx - 30, _cy + 58, _cx - 12, _cy + 60, false);
+draw_rectangle(_cx - 2,  _cy + 58, _cx + 14, _cy + 60, false);
+// Chair back frame
+draw_set_color(make_color_rgb(90, 68, 44));
 draw_rectangle(_cx - 32, _cy - 40, _cx - 26, _cy + 58, false);
 draw_rectangle(_cx + 26, _cy - 40, _cx + 32, _cy + 58, false);
 draw_rectangle(_cx - 32, _cy - 44, _cx + 32, _cy - 38, false);
+// Chair slats
+draw_set_color(make_color_rgb(78, 58, 36));
+for (var _sl = 0; _sl < 4; _sl++) {
+    draw_rectangle(_cx - 30, _cy - 32 + _sl * 16, _cx + 30, _cy - 29 + _sl * 16, false);
+}
 
-// Dan's body (slumped, head down)
-// Torso
-draw_set_color(make_color_rgb(75, 90, 65));   // military green
-draw_rectangle(_cx - 18, _cy - 10, _cx + 18, _cy + 56, false);
-// Head (drooped forward)
-draw_set_color(make_color_rgb(200, 170, 140));
-draw_circle(_cx - 6, _cy - 22, 16, false);
-// Arms on armrests
-draw_set_color(make_color_rgb(75, 90, 65));
-draw_rectangle(_cx - 34, _cy + 10, _cx - 18, _cy + 36, false);
-draw_rectangle(_cx + 18, _cy + 10, _cx + 34, _cy + 36, false);
-// Legs
-draw_rectangle(_cx - 18, _cy + 54, _cx - 6, _cy + 90, false);
-draw_rectangle(_cx + 6,  _cy + 54, _cx + 18, _cy + 90, false);
 // Boots
-draw_set_color(make_color_rgb(40, 32, 24));
-draw_rectangle(_cx - 20, _cy + 86, _cx - 4, _cy + 100, false);
-draw_rectangle(_cx + 4,  _cy + 86, _cx + 20, _cy + 100, false);
+draw_set_color(make_color_rgb(34, 26, 16));
+draw_rectangle(_cx - 22, _cy + 87, _cx - 3,  _cy + 103, false);
+draw_rectangle(_cx + 3,  _cy + 87, _cx + 22, _cy + 103, false);
+draw_set_color(make_color_rgb(22, 16, 8));
+draw_rectangle(_cx - 22, _cy + 100, _cx - 3,  _cy + 103, false);
+draw_rectangle(_cx + 3,  _cy + 100, _cx + 22, _cy + 103, false);
 
-// Rope strands — shown while phase == 0; fade out when done
-// Strand 0: across chest
+// Trousers
+draw_set_color(make_color_rgb(65, 78, 50));
+draw_rectangle(_cx - 20, _cy + 54, _cx - 3,  _cy + 89, false);
+draw_rectangle(_cx + 3,  _cy + 54, _cx + 20, _cy + 89, false);
+draw_set_color(make_color_rgb(52, 62, 40));
+draw_line(_cx - 12, _cy + 57, _cx - 12, _cy + 88);
+draw_line(_cx + 12, _cy + 57, _cx + 12, _cy + 88);
+
+// Jacket / torso
+draw_set_color(make_color_rgb(70, 86, 60));
+draw_rectangle(_cx - 20, _cy - 8, _cx + 20, _cy + 56, false);
+// Collar shadow
+draw_set_color(make_color_rgb(50, 62, 42));
+draw_rectangle(_cx - 10, _cy - 8, _cx + 10, _cy + 6, false);
+// Chest pockets
+draw_set_color(make_color_rgb(58, 72, 48));
+draw_rectangle(_cx - 18, _cy + 8,  _cx - 5, _cy + 24, false);
+draw_rectangle(_cx + 5,  _cy + 8,  _cx + 18, _cy + 24, false);
+draw_set_color(make_color_rgb(48, 60, 40));
+draw_rectangle(_cx - 18, _cy + 8, _cx - 5,  _cy + 10, false);
+draw_rectangle(_cx + 5,  _cy + 8, _cx + 18, _cy + 10, false);
+
+// Dog tags (silver chain at neck)
+draw_set_color(make_color_rgb(175, 175, 182));
+draw_set_alpha(0.70);
+draw_line_width(_cx - 2, _cy + 4, _cx - 2, _cy + 22, 1);
+draw_rectangle(_cx - 6, _cy + 20, _cx + 2, _cy + 28, false);
+draw_set_alpha(1);
+
+// Arms on armrests
+draw_set_color(make_color_rgb(70, 86, 60));
+draw_rectangle(_cx - 36, _cy + 10, _cx - 20, _cy + 38, false);
+draw_rectangle(_cx + 20, _cy + 10, _cx + 36, _cy + 38, false);
+// Hands
+draw_set_color(make_color_rgb(185, 152, 120));
+draw_rectangle(_cx - 36, _cy + 34, _cx - 20, _cy + 46, false);
+draw_rectangle(_cx + 20, _cy + 34, _cx + 36, _cy + 46, false);
+draw_set_color(make_color_rgb(160, 128, 98));
+draw_line(_cx - 32, _cy + 38, _cx - 22, _cy + 38);
+draw_line(_cx + 22, _cy + 38, _cx + 32, _cy + 38);
+
+// Neck
+draw_set_color(make_color_rgb(185, 152, 120));
+draw_rectangle(_cx - 7, _cy - 12, _cx + 5, _cy + 2, false);
+// Head (drooped forward, slumped)
+draw_set_color(make_color_rgb(190, 158, 126));
+draw_circle(_cx - 5, _cy - 26, 17, false);
+// Short dark hair
+draw_set_color(make_color_rgb(38, 26, 16));
+draw_ellipse(_cx - 20, _cy - 44, _cx + 8, _cy - 16, false);
+// Ear (right, visible at slump angle)
+draw_set_color(make_color_rgb(168, 138, 108));
+draw_circle(_cx + 11, _cy - 24, 5, false);
+draw_set_color(make_color_rgb(148, 118, 88));
+draw_circle(_cx + 11, _cy - 24, 3, true);
+// Brow ridge / closed eyes
+draw_set_color(make_color_rgb(130, 104, 78));
+draw_line(_cx - 16, _cy - 30, _cx - 5, _cy - 27);
+draw_set_color(make_color_rgb(100, 78, 58));
+draw_line(_cx - 15, _cy - 25, _cx - 5, _cy - 23);
+// Jaw stubble
+draw_set_color(make_color_rgb(145, 118, 94));
+draw_set_alpha(0.38);
+draw_ellipse(_cx - 16, _cy - 18, _cx + 5, _cy - 10, false);
+draw_set_alpha(1);
+
+// Rope strands
 var _r0a = (rope_done[0]) ? 0.2 : 1.0;
 draw_set_alpha(_r0a);
 draw_set_color((active_strand == 0 && phase == 0) ? make_color_rgb(255, 220, 100) : make_color_rgb(180, 155, 90));
 draw_line_width(_cx - 40, _cy + 10, _cx + 40, _cy + 14, 5);
 
-// Strand 1: across arms
 var _r1a = (rope_done[1]) ? 0.2 : 1.0;
 draw_set_alpha(_r1a);
 draw_set_color((active_strand == 1 && phase == 0) ? make_color_rgb(255, 220, 100) : make_color_rgb(180, 155, 90));
 draw_line_width(_cx - 40, _cy + 30, _cx + 40, _cy + 34, 5);
 
-// Strand 2: around wrists/ankles
 var _r2a = (rope_done[2]) ? 0.2 : 1.0;
 draw_set_alpha(_r2a);
 draw_set_color((active_strand == 2 && phase == 0) ? make_color_rgb(255, 220, 100) : make_color_rgb(180, 155, 90));
@@ -162,36 +237,67 @@ var _bx = 1300;
 var _by = 560;
 
 // Table
-draw_set_color(make_color_rgb(80, 60, 40));
-draw_rectangle(_bx - 120, _by + 60, _bx + 120, _by + 70, false);  // tabletop
-draw_rectangle(_bx - 115, _by + 68, _bx - 108, _by + 110, false);
-draw_rectangle(_bx + 108, _by + 68, _bx + 115, _by + 110, false);
+draw_set_color(make_color_rgb(70, 50, 30));
+draw_rectangle(_bx - 120, _by + 60, _bx + 120, _by + 72, false);
+draw_set_color(make_color_rgb(56, 40, 22));
+draw_rectangle(_bx - 120, _by + 65, _bx + 120, _by + 67, false);
+draw_rectangle(_bx - 115, _by + 70, _bx - 108, _by + 112, false);
+draw_rectangle(_bx + 108, _by + 70, _bx + 115, _by + 112, false);
 
-// Bomb device body
-draw_set_color(make_color_rgb(50, 55, 50));
+// Bomb body
+draw_set_color(make_color_rgb(44, 50, 44));
 draw_rectangle(_bx - 90, _by - 20, _bx + 90, _by + 60, false);
-draw_set_color(make_color_rgb(70, 75, 70));
-draw_rectangle(_bx - 90, _by - 20, _bx + 90, _by - 14, false);  // top highlight
+// Top highlight strip
+draw_set_color(make_color_rgb(60, 66, 60));
+draw_rectangle(_bx - 90, _by - 20, _bx + 90, _by - 13, false);
+// Panel divider lines
+draw_set_color(make_color_rgb(28, 32, 28));
+draw_line(_bx - 54, _by - 18, _bx - 54, _by + 58);
+draw_line(_bx + 54, _by - 18, _bx + 54, _by + 58);
+// Corner rivets
+draw_set_color(make_color_rgb(82, 82, 86));
+draw_circle(_bx - 84, _by - 15, 3, false);
+draw_circle(_bx + 84, _by - 15, 3, false);
+draw_circle(_bx - 84, _by + 54, 3, false);
+draw_circle(_bx + 84, _by + 54, 3, false);
+draw_set_color(make_color_rgb(114, 114, 118));
+draw_circle(_bx - 84, _by - 15, 1, false);
+draw_circle(_bx + 84, _by - 15, 1, false);
+// Warning sticker (left panel)
+draw_set_color(make_color_rgb(218, 184, 28));
+draw_rectangle(_bx - 88, _by + 16, _bx - 60, _by + 44, false);
+draw_set_color(make_color_rgb(28, 20, 8));
+draw_set_halign(fa_center);
+draw_text_transformed(_bx - 74, _by + 20, "!", 1.5, 1.5, 0);
+draw_set_halign(fa_left);
+// Indicator LEDs (right panel)
+var _led_on  = [make_color_rgb(220, 28, 28), make_color_rgb(28, 200, 58), make_color_rgb(220, 28, 28)];
+var _led_off = [make_color_rgb(18, 8, 8), make_color_rgb(8, 18, 8), make_color_rgb(18, 8, 8)];
+for (var _li = 0; _li < 5; _li++) {
+    var _lon = (_li mod 2 == 0);
+    draw_set_color(_lon ? _led_on[_li mod 3] : _led_off[_li mod 3]);
+    draw_circle(_bx + 68, _by + 18 + _li * 9, 3, false);
+}
 
-// Digital timer on bomb face
+// Digital timer (centre panel)
 var _secs_left = max(floor(bomb_frames_left / 60), 0);
 var _mins_disp = floor(_secs_left / 60);
 var _secs_disp = _secs_left mod 60;
 var _time_str  = string(_mins_disp) + ":" + ((_secs_disp < 10) ? "0" : "") + string(_secs_disp);
 
-// Timer display housing
-draw_set_color(make_color_rgb(10, 12, 10));
-draw_rectangle(_bx - 75, _by - 8, _bx + 75, _by + 40, false);
-// Timer text color: red when critical
+draw_set_color(make_color_rgb(7, 9, 7));
+draw_rectangle(_bx - 52, _by - 8, _bx + 52, _by + 44, false);
+draw_set_color(make_color_rgb(18, 38, 18));
+draw_rectangle(_bx - 52, _by - 8, _bx + 52, _by + 44, true);
 var _tc = (timer_red && (bomb_frames_left mod 60 < 30)) ? make_color_rgb(255, 40, 40) : make_color_rgb(60, 255, 60);
 draw_set_color(_tc);
 draw_set_halign(fa_center);
 draw_set_valign(fa_middle);
-draw_text_transformed(_bx, _by + 16, _time_str, 2.2, 2.2, 0);
+draw_text_transformed(_bx, _by + 17, _time_str, 2.2, 2.2, 0);
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
 
-// Wire panel on bomb (5 colored wires) — shown prominently in bomb_step 0
+// Wires (5 colored, routed from bomb base)
 var _wire_names  = ["RED", "BLUE", "GREEN", "YELLOW", "WHITE"];
 var _wire_colors = [
     make_color_rgb(220, 40,  40),
@@ -200,17 +306,16 @@ var _wire_colors = [
     make_color_rgb(220, 200, 40),
     make_color_rgb(220, 220, 220),
 ];
-// Draw wires coming out of bomb bottom
 for (var _wi = 0; _wi < 5; _wi++) {
-    var _wx = _bx - 80 + _wi * 40;
-    draw_set_color(_wire_colors[_wi]);
-    // Wire cut if phase>=1 and this is the wire_correct (or show all if phase 0)
+    var _wx   = _bx - 80 + _wi * 40;
     var _wcut = (phase >= 1 && _wi == wire_correct);
+    draw_set_color(_wire_colors[_wi]);
     if (_wcut) {
-        draw_line_width(_wx, _by + 60, _wx, _by + 78, 3);  // cut stub
+        draw_line_width(_wx, _by + 60, _wx, _by + 78, 3);
     } else {
-        draw_line_width(_wx, _by + 60, _wx, _by + 90, 3);
+        draw_line_width(_wx, _by + 60, _wx + (_wi - 2) * 3, _by + 92, 3);
     }
+    draw_circle(_wx, _by + 60, 3, false);
 }
 
 // ============================================================
@@ -669,4 +774,36 @@ if (phase == 3) {
     draw_set_alpha(1);
 }
 
+// Score (top-right, visible during active phases)
+if (phase == 1 || phase == 2) {
+    draw_set_color(make_color_rgb(0, 0, 0));
+    draw_set_alpha(0.55);
+    draw_rectangle(gw - 280, 8, gw - 8, 50, false);
+    draw_set_alpha(1);
+    draw_set_color(make_color_rgb(220, 220, 80));
+    draw_set_halign(fa_right);
+    draw_text_transformed(gw - 16, 12, "SCORE  " + string(global.score), 1.0, 1.0, 0);
+    draw_set_halign(fa_left);
+}
+// Kill flash
+if (global.kill_flash_timer > 0) {
+    global.kill_flash_timer--;
+    draw_set_color(c_white);
+    draw_set_alpha((global.kill_flash_timer + 1) / 5.0 * 0.28);
+    draw_rectangle(0, 0, gw, gh, false);
+    draw_set_alpha(1);
+}
+// Memory fragment text
+if (global.memory_timer > 0) {
+    global.memory_timer--;
+    var _mf   = min(global.memory_timer / 40.0, 1.0) * min((210 - global.memory_timer) / 40.0, 1.0);
+    var _ckpt = (string_char_at(global.memory_text, 1) == "-");
+    draw_set_alpha(clamp(_mf, 0, 1) * 0.92);
+    draw_set_color(_ckpt ? make_color_rgb(80, 230, 100) : make_color_rgb(220, 200, 130));
+    draw_set_halign(fa_center);
+    draw_text_transformed(gw / 2, _ckpt ? gh * 0.50 : gh * 0.72,
+        global.memory_text, _ckpt ? 1.4 : 1.05, _ckpt ? 1.4 : 1.05, 0);
+    draw_set_halign(fa_left);
+    draw_set_alpha(1);
+}
 draw_set_color(c_white);

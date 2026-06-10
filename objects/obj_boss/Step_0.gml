@@ -1,6 +1,10 @@
 // === DEATH ===
 if (hp <= 0) {
-    global.game_state = 3;
+    global.score          += 1000;
+    global.kill_flash_timer = 5;
+    global.shake_mag        = max(global.shake_mag, 22.0);
+    global.flash_timer      = 14;
+    global.game_state       = 3;
     instance_create_layer(x, y, "Instances", obj_cutscene);
     instance_destroy();
     exit;
@@ -8,10 +12,12 @@ if (hp <= 0) {
 
 // === PHASE TRANSITION ===
 if (hp < max_hp * 0.5 && phase == 1) {
-    phase = 2;
-    move_spd  = 3;
-    shoot_timer = 0;
+    phase        = 2;
+    move_spd     = 3;
+    shoot_timer  = 0;
     enrage_flash = 90;
+    global.shake_mag   = max(global.shake_mag, 18.0);
+    global.flash_timer = 14;
 }
 if (enrage_flash > 0) enrage_flash--;
 

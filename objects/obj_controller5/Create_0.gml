@@ -1,3 +1,5 @@
+audio_stop_all();
+audio_play_sound(snd_music_room5, 100, true);
 depth   = -9999;
 visible = true;
 
