@@ -304,6 +304,8 @@ if (i_frames > 0) i_frames--;
 if (hp <= 0) {
     hp = 0;
     if (global.game_state != 2) {
+        global.total_deaths++;
+        if (global.total_deaths == 25) steam_set_achievement("ach_deaths");
         global.game_state = 2;
         audio_stop_all();
         audio_play_sound(snd_music_death, 100, false);

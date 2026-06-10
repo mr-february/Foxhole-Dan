@@ -17,6 +17,7 @@ if (press) {
     fade = 28;
     if (panel >= panels) {
         global.game_state = 0;
+        steam_set_achievement("ach_room1");
         room_goto(Room2);
     }
 }

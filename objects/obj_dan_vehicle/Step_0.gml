@@ -142,5 +142,6 @@ camera_set_view_pos(view_camera[0], x - 280, 0);
 // === WIN ===
 if (x >= 11600 && global.game_state == 0) {
     global.game_state = 3;
+    steam_set_achievement("ach_room2");
     instance_create_layer(0, 0, "Instances", obj_cutscene2);
 }

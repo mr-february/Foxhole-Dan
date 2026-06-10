@@ -145,6 +145,7 @@ if (phase == 1) {
         if (enemies_left == 0 && _alive == 0) {
             if (reyes_spawned) {
                 // Reyes dead — we win
+                steam_set_achievement("ach_room5");
                 phase           = 3;
                 end_timer       = 0;
                 narrative_slide = 0;
