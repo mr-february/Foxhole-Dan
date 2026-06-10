@@ -51,6 +51,22 @@ if (global.game_state == 2) {
     exit;
 }
 
+// === PTSD TEXT FRAGMENT ===
+if (ptsd_text_active > 0) {
+    var _fade = min(ptsd_text_active / 25.0, 1.0);
+    if (ptsd_text_active < 35) _fade = ptsd_text_active / 35.0;
+    draw_set_alpha(_fade * 0.52);
+    draw_set_color(make_color_rgb(220, 210, 185));
+    draw_set_halign(fa_left);
+    draw_set_valign(fa_bottom);
+    draw_set_font(-1);
+    draw_text_transformed(44, gh - 24, ptsd_text_msg, 0.88, 0.88, 0);
+    draw_set_alpha(1);
+    draw_set_halign(fa_left);
+    draw_set_valign(fa_top);
+    draw_set_color(c_white);
+}
+
 // === HUD (playing) ===
 var p = instance_find(obj_dan, 0);
 if (p == noone) exit;

@@ -20,3 +20,6 @@ global.total_deaths        = 0;    // lifetime death count
 global.total_clarity       = 0;    // lifetime clarity pickups collected
 global.play_seconds        = 0;    // in-session seconds played
 play_second_tick           = 0;    // step counter for 1-second intervals
+ptsd_bleed_timer = irandom_range(3600, 7200);  // 60-120 sec before first intrusion
+ptsd_text_active = 0;
+ptsd_text_msg    = "";
