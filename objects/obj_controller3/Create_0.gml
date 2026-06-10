@@ -8,3 +8,6 @@ camera_set_view_pos(view_camera[0], 0, 2466);  // apply immediately — don't wa
 transition_timer = 0;  // counts up after Dan reaches roof, then goes to Room4
 danger_y   = room_height + 300;  // rising artillery floor — starts below the room
 danger_rise = 0.35;              // px per step, accelerates over time
+ptsd_bleed_timer = irandom_range(2400, 4800);  // shorter interval — Room3 is intense
+ptsd_text_active = 0;
+ptsd_text_msg    = "";

@@ -48,6 +48,33 @@ if (transition_timer > 0) {
     }
 }
 
+// === PTSD BLEED EFFECTS (Room3) ===
+if (global.game_state == 0) {
+    if (global.clarity_timer > 0) {
+        global.clarity_timer--;
+    } else {
+        if (ptsd_bleed_timer > 0) {
+            ptsd_bleed_timer--;
+        } else {
+            ptsd_bleed_timer = irandom_range(2400, 4800);
+            var _type = irandom(2);
+            if (_type == 0) audio_play_sound(snd_ptsd_ring, 8, false);
+            if (_type == 1) audio_play_sound(snd_ptsd_horn, 8, false);
+            var _msgs = [
+                "just getting milk",
+                "kids are home at 4",
+                "it's not real",
+                "call back later",
+                "the window was open",
+                "just the neighbors"
+            ];
+            ptsd_text_msg    = _msgs[irandom(5)];
+            ptsd_text_active = 90;
+        }
+    }
+    if (ptsd_text_active > 0) ptsd_text_active--;
+}
+
 // Restart (only from death, not from capture — Room4 handles its own restart)
 if (global.game_state == 2) {
     var restart = keyboard_check_pressed(ord("R"));
