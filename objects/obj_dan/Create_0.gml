@@ -37,3 +37,10 @@ roll_dur   = 16;
 
 grenade_count = 3;
 grenade_cd    = 0;
+
+// Safety defaults if Room1 (and obj_controller) was skipped in dev
+if (!variable_global_exists("total_deaths"))       global.total_deaths       = 0;
+if (!variable_global_exists("clarity_timer"))      global.clarity_timer      = 0;
+if (!variable_global_exists("ptsd_flicker_count")) global.ptsd_flicker_count = 0;
+if (!variable_global_exists("total_clarity"))      global.total_clarity      = 0;
+if (!variable_global_exists("play_seconds"))       global.play_seconds       = 0;
