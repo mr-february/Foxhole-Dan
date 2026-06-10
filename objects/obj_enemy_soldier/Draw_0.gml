@@ -1,3 +1,38 @@
+// === CIVILIAN FLICKER ===
+if (flicker_cd > 0) {
+    flicker_cd--;
+} else if (flicker_timer <= 0 && global.clarity_timer <= 0) {
+    flicker_timer = 3;
+    flicker_cd    = irandom_range(600, 1500);
+    global.ptsd_flicker_count++;
+    if (global.ptsd_flicker_count == 10) steam_set_achievement("ach_flicker");
+}
+if (flicker_timer > 0) {
+    flicker_timer--;
+    // Draw civilian (unarmed, hands up) instead of soldier
+    var bx = x;
+    var by = y;
+    var f  = image_xscale;
+    // Body — plain civilian clothes (grey-blue)
+    draw_set_color(make_color_rgb(108, 116, 132));
+    draw_rectangle(bx - 6, by - 24, bx + 6, by, false);
+    // Arms raised (surrendering)
+    draw_set_color(make_color_rgb(108, 116, 132));
+    draw_rectangle(bx - 14 * f, by - 24, bx - 6 * f, by - 18, false);
+    draw_rectangle(bx + 6 * f,  by - 24, bx + 14 * f, by - 18, false);
+    // Forearms up
+    draw_rectangle(bx - 16 * f, by - 34, bx - 12 * f, by - 24, false);
+    draw_rectangle(bx + 12 * f, by - 34, bx + 16 * f, by - 24, false);
+    // Head
+    draw_set_color(make_color_rgb(196, 154, 104));
+    draw_rectangle(bx - 5, by - 34, bx + 5, by - 24, false);
+    // No helmet — short hair
+    draw_set_color(make_color_rgb(60, 46, 32));
+    draw_rectangle(bx - 5, by - 36, bx + 5, by - 32, false);
+    draw_set_color(c_white);
+    exit;
+}
+
 var bx = x;
 var by = y;
 var f  = image_xscale;   // facing set by Step via image_xscale

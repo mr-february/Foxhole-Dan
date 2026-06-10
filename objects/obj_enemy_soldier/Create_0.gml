@@ -21,3 +21,5 @@ shoot_range  = 280;
 hit_flash    = 0;
 grenade_timer = irandom(_gren_rng_tab[_d]) + _gren_base_tab[_d];
 cover_timer   = 0;
+flicker_timer = 0;                          // frames remaining in current flicker
+flicker_cd    = irandom_range(600, 1500);   // cooldown before next flicker (10-25 sec)
