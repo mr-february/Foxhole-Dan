@@ -85,6 +85,8 @@
     {"id":{"name":"snd_music_room5","path":"sounds/snd_music_room5/snd_music_room5.yy",},},
     {"id":{"name":"snd_music_title","path":"sounds/snd_music_title/snd_music_title.yy",},},
     {"id":{"name":"snd_player_hurt","path":"sounds/snd_player_hurt/snd_player_hurt.yy",},},
+    {"id":{"name":"snd_ptsd_horn","path":"sounds/snd_ptsd_horn/snd_ptsd_horn.yy",},},
+    {"id":{"name":"snd_ptsd_ring","path":"sounds/snd_ptsd_ring/snd_ptsd_ring.yy",},},
     {"id":{"name":"snd_roll","path":"sounds/snd_roll/snd_roll.yy",},},
     {"id":{"name":"snd_vehicle_gun","path":"sounds/snd_vehicle_gun/snd_vehicle_gun.yy",},},
     {"id":{"name":"spr_ammo_box","path":"sprites/spr_ammo_box/spr_ammo_box.yy",},},
