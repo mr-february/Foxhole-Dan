@@ -34,6 +34,7 @@
     {"id":{"name":"obj_controller3","path":"objects/obj_controller3/obj_controller3.yy",},},
     {"id":{"name":"obj_controller4","path":"objects/obj_controller4/obj_controller4.yy",},},
     {"id":{"name":"obj_controller5","path":"objects/obj_controller5/obj_controller5.yy",},},
+    {"id":{"name":"obj_controller6","path":"objects/obj_controller6/obj_controller6.yy",},},
     {"id":{"name":"obj_corpse","path":"objects/obj_corpse/obj_corpse.yy",},},
     {"id":{"name":"obj_cutscene","path":"objects/obj_cutscene/obj_cutscene.yy",},},
     {"id":{"name":"obj_cutscene2","path":"objects/obj_cutscene2/obj_cutscene2.yy",},},
@@ -68,6 +69,7 @@
     {"id":{"name":"Room3","path":"rooms/Room3/Room3.yy",},},
     {"id":{"name":"Room4","path":"rooms/Room4/Room4.yy",},},
     {"id":{"name":"Room5","path":"rooms/Room5/Room5.yy",},},
+    {"id":{"name":"Room6","path":"rooms/Room6/Room6.yy",},},
     {"id":{"name":"snd_brake","path":"sounds/snd_brake/snd_brake.yy",},},
     {"id":{"name":"snd_bullet_impact","path":"sounds/snd_bullet_impact/snd_bullet_impact.yy",},},
     {"id":{"name":"snd_enemy_die","path":"sounds/snd_enemy_die/snd_enemy_die.yy",},},
@@ -114,6 +116,7 @@
     {"roomId":{"name":"Room3","path":"rooms/Room3/Room3.yy",},},
     {"roomId":{"name":"Room4","path":"rooms/Room4/Room4.yy",},},
     {"roomId":{"name":"Room5","path":"rooms/Room5/Room5.yy",},},
+    {"roomId":{"name":"Room6","path":"rooms/Room6/Room6.yy",},},
   ],
   "templateType":"game",
   "TextureGroups":[
