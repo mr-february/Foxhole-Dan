@@ -146,8 +146,7 @@ if (hook_inst != noone && instance_exists(hook_inst) && hook_inst.lodged && !on_
 
 // Out-of-bounds safety
 if (y > room_height + 50) {
-    // Snap to just above the ground floor (y=2920) so gravity lands Dan on it
-    y    = 2880;
+    y    = room_height * 0.5;   // snap to room mid-height so gravity re-lands Dan on the floor
     vspd = 0;
     hspd = 0;
     // Cancel any active hook — it's almost certainly detached
@@ -163,11 +162,13 @@ x = clamp(x, 0, room_width);
 // Room3 uses obj_controller3 for vertical camera — Dan must not interfere
 if (!instance_exists(obj_controller3)) {
     var cam_w = camera_get_view_width(view_camera[0]);
+    var cam_h = camera_get_view_height(view_camera[0]);
     var look_ahead = facing * 260;
     var target_cx = clamp(x + look_ahead - cam_w / 2, 0, room_width - cam_w);
+    var target_cy = clamp(y - cam_h * 0.72, 0, room_height - cam_h);
     var cur_cx = camera_get_view_x(view_camera[0]);
     var cur_cy = camera_get_view_y(view_camera[0]);
-    camera_set_view_pos(view_camera[0], lerp(cur_cx, target_cx, 0.12), lerp(cur_cy, 0, 0.12));
+    camera_set_view_pos(view_camera[0], lerp(cur_cx, target_cx, 0.12), lerp(cur_cy, target_cy, 0.12));
     if (global.shake_mag > 0.5) {
         camera_set_view_pos(view_camera[0],
             camera_get_view_x(view_camera[0]) + random_range(-global.shake_mag, global.shake_mag),
@@ -305,7 +306,7 @@ if (hp <= 0) {
     hp = 0;
     if (global.game_state != 2) {
         global.total_deaths++;
-        if (global.total_deaths == 25) steam_set_achievement("ach_deaths");
+        if (global.total_deaths == 25) { try { steam_set_achievement("ach_deaths"); } catch (_ex) {} }
         global.game_state = 2;
         audio_stop_all();
         audio_play_sound(snd_music_death, 100, false);

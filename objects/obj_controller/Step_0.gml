@@ -41,6 +41,6 @@ if (room == Room1 && global.game_state == 0) {
     if (play_second_tick >= 60) {
         play_second_tick = 0;
         global.play_seconds++;
-        if (global.play_seconds == 6000) steam_set_achievement("ach_playtime");
+        if (global.play_seconds == 6000) { try { steam_set_achievement("ach_playtime"); } catch (_ex) {} }
     }
 }

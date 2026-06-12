@@ -6,7 +6,7 @@ switch (phase) {
         break;
     case 1:
         if (!ach_fired) {
-            steam_set_achievement("ach_ending");
+            try { steam_set_achievement("ach_ending"); } catch (_ex) {}
             ach_fired = true;
         }
         if (phase_timer >= 90) { phase = 2; phase_timer = 0; }

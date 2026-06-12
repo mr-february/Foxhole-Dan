@@ -43,7 +43,7 @@ if (p != noone && global.game_state == 0) {
 if (transition_timer > 0) {
     transition_timer++;
     if (transition_timer >= 240) {  // 4 seconds of text
-        steam_set_achievement("ach_room3");
+        try { steam_set_achievement("ach_room3"); } catch (_ex) {}
         room_goto(Room4);
         exit;
     }

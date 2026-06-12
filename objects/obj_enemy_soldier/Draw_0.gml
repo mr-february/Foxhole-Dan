@@ -5,7 +5,7 @@ if (flicker_cd > 0) {
     flicker_timer = 3;
     flicker_cd    = irandom_range(600, 1500);
     global.ptsd_flicker_count++;
-    if (global.ptsd_flicker_count == 10) steam_set_achievement("ach_flicker");
+    if (global.ptsd_flicker_count == 10) { try { steam_set_achievement("ach_flicker"); } catch (_ex) {} }
 }
 if (flicker_timer > 0) {
     flicker_timer--;

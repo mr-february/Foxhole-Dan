@@ -7,6 +7,9 @@ visible = true;
 global.difficulty = 1;  // default Normal
 diff_sel          = 1;  // cursor in difficulty select screen
 
-ini_open("foxhole_dan.ini");
-global.high_score = ini_read_real("saves", "high_score", 0);
-ini_close();
+global.high_score = 0;
+if (os_browser == browser_not_a_browser) {
+    ini_open("foxhole_dan.ini");
+    global.high_score = ini_read_real("saves", "high_score", 0);
+    ini_close();
+}
