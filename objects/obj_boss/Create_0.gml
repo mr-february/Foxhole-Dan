@@ -17,3 +17,4 @@ patrol_left  = 3300;
 patrol_right = 3800;
 enrage_flash = 0;
 hit_flash    = 0;
+score_value  = 1000;   // base points before combo multiplier

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_core",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_core",
+  "parent":{
+    "name":"Foxhole-Dan",
+    "path":"Foxhole-Dan.yyp",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -146,6 +146,18 @@ draw_text(ax, ay + 18, "GRENADES  " + string(p.grenade_count));
 draw_set_color(make_color_rgb(220, 220, 80));
 draw_text(ax, ay + 36, "SCORE  " + string(global.score));
 
+// --- COMBO ---
+if (global.combo_mult > 1) {
+    draw_set_color(make_color_rgb(240, 160, 60));
+    draw_text(ax, ay + 54, "COMBO  x" + string(global.combo_mult));
+    var cb_pct = clamp(global.combo_timer / 150, 0, 1);
+    draw_set_color(c_dkgray);
+    draw_rectangle(ax, ay + 72, ax + 100, ay + 78, false);
+    draw_set_color(make_color_rgb(240, 160, 60));
+    draw_rectangle(ax, ay + 72, ax + 100 * cb_pct, ay + 78, false);
+    draw_set_color(c_white);
+}
+
 // --- BOSS HEALTH BAR (top center) ---
 var boss = instance_find(obj_boss, 0);
 if (boss != noone) {

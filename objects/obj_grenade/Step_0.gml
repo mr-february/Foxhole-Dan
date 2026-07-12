@@ -32,8 +32,8 @@ if (fuse <= 0) {
                 hp      -= 40;
                 i_frames = max(i_frames, 35);
                 if (hp <= 0) {
-                    global.score += 100;
-                    audio_play_sound(choose(snd_enemy_die, snd_enemy_die2, snd_enemy_die3), 9, false);
+                    scr_award_kill(id, 100);
+                    scr_spawn_gore(x, y, facing);
                     instance_destroy();
                 }
             }
@@ -43,7 +43,8 @@ if (fuse <= 0) {
                 hp      -= 40;
                 i_frames = max(i_frames, 30);
                 if (hp <= 0) {
-                    global.score += 200;
+                    // Vehicle: no human gore/corpse — its Destroy event spawns the explosion + debris.
+                    scr_award_kill(id, 200);
                     instance_destroy();
                 }
             }

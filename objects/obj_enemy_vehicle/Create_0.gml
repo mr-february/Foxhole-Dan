@@ -17,3 +17,5 @@ depth       = -90;
 
 wheel_spin  = 0;
 shoot_flash = 0;
+
+score_value = 200;   // base points before combo multiplier

@@ -16,8 +16,8 @@ if (hit != noone && hit.i_frames == 0) {
     var d    = instance_create_layer(hit.x, hit.y - 32, "Instances", obj_damage_number);
     d.amount = 25;
     if (hit.hp <= 0) {
-        global.score           += 200;
-        global.kill_flash_timer = 5;
+        // Vehicle: no human gore/corpse — its Destroy event spawns the explosion + debris.
+        scr_award_kill(hit, 200);
         instance_destroy(hit);
     }
     instance_destroy();

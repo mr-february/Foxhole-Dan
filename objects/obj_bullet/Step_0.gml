@@ -17,24 +17,8 @@ if (hit != noone) {
         instance_create_layer(x, y, "Instances", obj_blood_particle);
     }
     if (hit.hp <= 0) {
-        global.score           += 100;
-        global.kill_flash_timer = 5;
-        global.shake_mag        = max(global.shake_mag, 8.0);
-        global.flash_timer = max(global.flash_timer, 10);
-        audio_play_sound(choose(snd_enemy_die, snd_enemy_die2, snd_enemy_die3), 9, false);
-        var _kx = hit.x;
-        var _ky = hit.y;
-        // Body parts fly off
-        repeat (irandom_range(3, 5)) {
-            instance_create_layer(_kx, _ky, "Instances", obj_gore_part);
-        }
-        // Blood spray (directional, not a ball)
-        repeat (irandom_range(8, 14)) {
-            instance_create_layer(_kx, _ky, "Instances", obj_blood_particle);
-        }
-        instance_create_layer(_kx, _ky, "Instances", obj_gore_decal);
-        var c = instance_create_layer(_kx, _ky, "Instances", obj_corpse);
-        c.facing = hit.facing;
+        scr_award_kill(hit, 100);
+        scr_spawn_gore(hit.x, hit.y, hit.facing);
         instance_destroy(hit);
     } else {
         global.shake_mag = max(global.shake_mag, 2.5);
@@ -71,10 +55,9 @@ if (bomber != noone) {
     var fmg = instance_create_layer(bomber.x, bomber.y - 28, "Instances", obj_damage_number);
     fmg.amount = 25;
     if (bomber.hp <= 0) {
-        global.score           += 150;
-        global.kill_flash_timer = 5;
-        global.shake_mag        = max(global.shake_mag, 8.0);
+        scr_award_kill(bomber, 150);
         global.flash_timer = max(global.flash_timer, 14);
+        // Bomber uses inline gore (no scr_spawn_gore), so play its death sound here.
         audio_play_sound(choose(snd_enemy_die, snd_enemy_die2, snd_enemy_die3), 9, false);
         repeat (irandom_range(3, 5)) {
             instance_create_layer(bomber.x, bomber.y, "Instances", obj_gore_part);
