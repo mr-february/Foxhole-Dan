@@ -97,14 +97,16 @@ if (state == 0) {
         lb_needs_fetch = false;
         lb_scores      = [];
         lb_error       = false;
-        ini_open("foxhole_dan.ini");
-        for (var _i = 0; _i < 10; _i++) {
-            var _sc = ini_read_real("leaderboard", "score_" + string(_i), -1);
-            if (_sc < 0) break;
-            var _nm = ini_read_string("leaderboard", "name_" + string(_i), "???");
-            array_push(lb_scores, { name: _nm, score: _sc });
+        if (os_browser == browser_not_a_browser) {
+            ini_open("foxhole_dan.ini");
+            for (var _i = 0; _i < 10; _i++) {
+                var _sc = ini_read_real("leaderboard", "score_" + string(_i), -1);
+                if (_sc < 0) break;
+                var _nm = ini_read_string("leaderboard", "name_" + string(_i), "???");
+                array_push(lb_scores, { name: _nm, score: _sc });
+            }
+            ini_close();
         }
-        ini_close();
     }
     if (press_back || press_start) state = 0;
 
@@ -127,47 +129,49 @@ if (state == 0) {
     if (gamepad_is_connected(0)) press_confirm = press_confirm || gamepad_button_check_pressed(0, gp_start);
 
     if (press_confirm && string_length(lb_name) > 0) {
-        // Load existing entries from ini
-        var _sc_arr = [];
-        var _nm_arr = [];
-        ini_open("foxhole_dan.ini");
-        for (var _i = 0; _i < 10; _i++) {
-            var _sc = ini_read_real("leaderboard", "score_" + string(_i), -1);
-            if (_sc < 0) break;
-            array_push(_sc_arr, _sc);
-            array_push(_nm_arr, ini_read_string("leaderboard", "name_" + string(_i), "???"));
-        }
-        // Insert new score in descending order
-        var _new_sc = global.pending_score;
-        var _new_nm = lb_name;
-        var _placed = false;
-        for (var _i = 0; _i < array_length(_sc_arr); _i++) {
-            if (_new_sc > _sc_arr[_i]) {
-                array_insert(_sc_arr, _i, _new_sc);
-                array_insert(_nm_arr, _i, _new_nm);
-                _placed = true;
-                break;
+        if (os_browser == browser_not_a_browser) {
+            // Load existing entries from ini
+            var _sc_arr = [];
+            var _nm_arr = [];
+            ini_open("foxhole_dan.ini");
+            for (var _i = 0; _i < 10; _i++) {
+                var _sc = ini_read_real("leaderboard", "score_" + string(_i), -1);
+                if (_sc < 0) break;
+                array_push(_sc_arr, _sc);
+                array_push(_nm_arr, ini_read_string("leaderboard", "name_" + string(_i), "???"));
             }
+            // Insert new score in descending order
+            var _new_sc = global.pending_score;
+            var _new_nm = lb_name;
+            var _placed = false;
+            for (var _i = 0; _i < array_length(_sc_arr); _i++) {
+                if (_new_sc > _sc_arr[_i]) {
+                    array_insert(_sc_arr, _i, _new_sc);
+                    array_insert(_nm_arr, _i, _new_nm);
+                    _placed = true;
+                    break;
+                }
+            }
+            if (!_placed && array_length(_sc_arr) < 10) {
+                array_push(_sc_arr, _new_sc);
+                array_push(_nm_arr, _new_nm);
+            }
+            // Write back top 10; mark end with -1
+            var _count = min(array_length(_sc_arr), 10);
+            for (var _i = 0; _i < _count; _i++) {
+                ini_write_real("leaderboard", "score_" + string(_i), _sc_arr[_i]);
+                ini_write_string("leaderboard", "name_" + string(_i), _nm_arr[_i]);
+            }
+            for (var _i = _count; _i < 10; _i++) {
+                ini_write_real("leaderboard", "score_" + string(_i), -1);
+            }
+            // Update best score display
+            if (_new_sc > global.high_score) {
+                global.high_score = _new_sc;
+                ini_write_real("saves", "high_score", global.high_score);
+            }
+            ini_close();
         }
-        if (!_placed && array_length(_sc_arr) < 10) {
-            array_push(_sc_arr, _new_sc);
-            array_push(_nm_arr, _new_nm);
-        }
-        // Write back top 10; mark end with -1
-        var _count = min(array_length(_sc_arr), 10);
-        for (var _i = 0; _i < _count; _i++) {
-            ini_write_real("leaderboard", "score_" + string(_i), _sc_arr[_i]);
-            ini_write_string("leaderboard", "name_" + string(_i), _nm_arr[_i]);
-        }
-        for (var _i = _count; _i < 10; _i++) {
-            ini_write_real("leaderboard", "score_" + string(_i), -1);
-        }
-        // Update best score display
-        if (_new_sc > global.high_score) {
-            global.high_score = _new_sc;
-            ini_write_real("saves", "high_score", global.high_score);
-        }
-        ini_close();
         global.pending_score = 0;
         keyboard_string      = "";
         lb_needs_fetch       = true;

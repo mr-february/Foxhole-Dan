@@ -59,7 +59,9 @@ function scr_spawn_gore(_x, _y, _facing) {
 }
 
 /// Persist a stat to foxhole_dan.ini [saves] — only if it beats the stored value.
+/// ini_open/ini_close crash on HTML5 (no filesystem) — no-op there.
 function scr_save_stat(_key, _value) {
+    if (os_browser != browser_not_a_browser) return;
     ini_open("foxhole_dan.ini");
     if (_value > ini_read_real("saves", _key, 0)) {
         ini_write_real("saves", _key, _value);

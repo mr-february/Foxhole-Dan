@@ -192,8 +192,10 @@ camera_set_view_pos(view_camera[0], _cam_x, 0);
 if (x >= 11600 && global.game_state == 0) {
     global.game_state = 3;
     try { steam_set_achievement("ach_room2"); } catch (_ex) {}
-    ini_open("foxhole_dan.ini");
-    if (2 > ini_read_real("stats", "deepest_room", 0)) ini_write_real("stats", "deepest_room", 2);
-    ini_close();
+    if (os_browser == browser_not_a_browser) {
+        ini_open("foxhole_dan.ini");
+        if (2 > ini_read_real("stats", "deepest_room", 0)) ini_write_real("stats", "deepest_room", 2);
+        ini_close();
+    }
     instance_create_layer(0, 0, "Instances", obj_cutscene2);
 }

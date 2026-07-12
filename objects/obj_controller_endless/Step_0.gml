@@ -37,9 +37,11 @@ if (global.game_state == 2) {
             var istr = initials[0] + initials[1] + initials[2];
             scr_save_stat("endless_best_score", global.score);
             scr_save_stat("endless_best_wave", wave);
-            ini_open("foxhole_dan.ini");
-            ini_write_string("saves", "last_initials", istr);
-            ini_close();
+            if (os_browser == browser_not_a_browser) {
+                ini_open("foxhole_dan.ini");
+                ini_write_string("saves", "last_initials", istr);
+                ini_close();
+            }
             // Online submit (offline-safe: fails soft to local scores if no board).
             scr_lb_submit("endless", istr, global.score, wave);
             run_submitted = true;

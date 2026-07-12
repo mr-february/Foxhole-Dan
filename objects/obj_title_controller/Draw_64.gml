@@ -170,9 +170,9 @@ if (state == 0) {
 
     // Era text — brighter so it reads on the dark panel
     draw_set_color(make_color_rgb(0, 0, 0));
-    draw_text_transformed(mid + 2, gh * 0.158 + 2, "1  9  4  5   ·   C O M B A T   V E T E R A N", 0.84, 0.84, 0);
+    draw_text_transformed(mid + 2, gh * 0.158 + 2, "1  9  8  3   ·   C O M B A T   V E T E R A N", 0.84, 0.84, 0);
     draw_set_color(make_color_rgb(180, 145, 60));
-    draw_text_transformed(mid, gh * 0.158, "1  9  4  5   ·   C O M B A T   V E T E R A N", 0.84, 0.84, 0);
+    draw_text_transformed(mid, gh * 0.158, "1  9  8  3   ·   C O M B A T   V E T E R A N", 0.84, 0.84, 0);
 
     // Title glow halo
     for (var _gl = 5; _gl >= 1; _gl--) {

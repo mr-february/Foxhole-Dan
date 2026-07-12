@@ -516,9 +516,9 @@ if (room == Room1) {
         draw_set_halign(fa_center);
         draw_set_valign(fa_middle);
         draw_set_color(make_color_rgb(150, 130, 70));
-        draw_text_transformed(gw / 2, gh * 0.385, "1  9  4  5", 0.85, 0.85, 0);
+        draw_text_transformed(gw / 2, gh * 0.385, "V I E T N A M   ·   1  9  6  8", 0.85, 0.85, 0);
         draw_set_color(make_color_rgb(235, 220, 170));
-        draw_text_transformed(gw / 2, gh * 0.445, "T H E   F R O N T", 2.1, 2.1, 0);
+        draw_text_transformed(gw / 2, gh * 0.445, "T H E   B U N K E R", 2.1, 2.1, 0);
         draw_set_halign(fa_left);
         draw_set_valign(fa_top);
         draw_set_alpha(1);

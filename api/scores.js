@@ -49,7 +49,10 @@ export default async function handler(req, res) {
       const wave  = Math.max(0, Math.min(9999, parseInt(body.wave, 10) || 0));
 
       // Reject implausible runs (deterrent only — a web game can't be fully trusted).
-      if (score > 0 && score < wave * 100000000) {
+      // Rough heuristic cap per wave; the old `score < wave * 1e8` bound was always true
+      // for any valid score (clamped to 99,999,999) so it rejected nothing. Retune once
+      // the board is live and real score distributions are visible.
+      if (score > 0 && score <= (wave + 1) * 100000) {
         const nonce = Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
         const member = initials + '|' + wave + '|' + nonce;
         await kv.zadd(key, { score, member });

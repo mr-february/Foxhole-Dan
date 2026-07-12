@@ -29,11 +29,16 @@ input_delay  = 0;
 run_submitted = false;
 
 // Local bests loaded for display.
-ini_open("foxhole_dan.ini");
-best_score = ini_read_real("saves", "endless_best_score", 0);
-best_wave  = ini_read_real("saves", "endless_best_wave", 0);
-last_init  = ini_read_string("saves", "last_initials", "AAA");
-ini_close();
+best_score = 0;
+best_wave  = 0;
+last_init  = "AAA";
+if (os_browser == browser_not_a_browser) {
+    ini_open("foxhole_dan.ini");
+    best_score = ini_read_real("saves", "endless_best_score", 0);
+    best_wave  = ini_read_real("saves", "endless_best_wave", 0);
+    last_init  = ini_read_string("saves", "last_initials", "AAA");
+    ini_close();
+}
 
 // Seed initials from last used.
 if (string_length(last_init) >= 3) {

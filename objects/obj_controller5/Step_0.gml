@@ -153,9 +153,11 @@ if (phase == 1) {
             if (reyes_spawned) {
                 // Reyes dead — we win
                 try { steam_set_achievement("ach_room5"); } catch (_ex) {}
-                ini_open("foxhole_dan.ini");
-                if (5 > ini_read_real("stats", "deepest_room", 0)) ini_write_real("stats", "deepest_room", 5);
-                ini_close();
+                if (os_browser == browser_not_a_browser) {
+                    ini_open("foxhole_dan.ini");
+                    if (5 > ini_read_real("stats", "deepest_room", 0)) ini_write_real("stats", "deepest_room", 5);
+                    ini_close();
+                }
                 phase           = 3;
                 end_timer       = 0;
                 narrative_slide = 0;

@@ -311,9 +311,11 @@ if (hp <= 0) {
     if (global.game_state != 2) {
         global.total_deaths++;
         if (global.total_deaths == 25) { try { steam_set_achievement("ach_deaths"); } catch (_ex) {} }
-        ini_open("foxhole_dan.ini");
-        ini_write_real("stats", "lifetime_deaths", ini_read_real("stats", "lifetime_deaths", 0) + 1);
-        ini_close();
+        if (os_browser == browser_not_a_browser) {
+            ini_open("foxhole_dan.ini");
+            ini_write_real("stats", "lifetime_deaths", ini_read_real("stats", "lifetime_deaths", 0) + 1);
+            ini_close();
+        }
         global.pstat_lifetime_deaths += 1;
         global.game_state = 2;
         audio_stop_all();
