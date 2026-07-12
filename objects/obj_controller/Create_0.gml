@@ -2,6 +2,7 @@ audio_stop_all();
 audio_play_sound(snd_music_room1, 100, true);
 global.game_state       = 0;  // 0=playing  1=win  2=dead
 global.score            = 0;
+scr_init_run();
 global.shake_mag        = 0;
 global.flash_timer      = 0;
 global.kill_flash_timer = 0;

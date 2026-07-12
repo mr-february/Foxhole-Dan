@@ -8,7 +8,7 @@ if (!restart && gamepad_is_connected(0)) {
 }
 if (global.game_state == 1 && restart) {
     global.game_state = 0;
-    room_goto(Room3);
+    room_goto(Room8);  // -> OVERWATCH (sniper); matches obj_cutscene2
 }
 if (global.game_state == 2 && restart) {
     global.game_state = 0;

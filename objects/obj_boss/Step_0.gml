@@ -1,7 +1,6 @@
 // === DEATH ===
 if (hp <= 0) {
-    global.score          += 1000;
-    global.kill_flash_timer = 5;
+    scr_award_kill(id, 1000);
     global.shake_mag        = max(global.shake_mag, 22.0);
     global.flash_timer      = 14;
     global.game_state       = 3;

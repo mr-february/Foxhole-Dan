@@ -28,3 +28,8 @@ window_flicker = false;
 ach_fired = false;
 
 camera_set_view_pos(view_camera[0], 0, 0);
+
+// Beating the story unlocks ENDLESS SURVIVAL on the title screen.
+ini_open("foxhole_dan.ini");
+ini_write_real("saves", "endless_unlocked", 1);
+ini_close();

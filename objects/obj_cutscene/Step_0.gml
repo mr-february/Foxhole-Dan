@@ -18,6 +18,6 @@ if (press) {
     if (panel >= panels) {
         global.game_state = 0;
         try { steam_set_achievement("ach_room1"); } catch (_ex) {}
-        room_goto(Room2);
+        room_goto(Room7);  // -> COLD SWEAT (stealth)
     }
 }

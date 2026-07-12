@@ -234,6 +234,18 @@ if (state == 0) {
     draw_set_color(make_color_rgb(190, 175, 110));
     draw_text_transformed(mid, gh * 0.632, "C  /  X  ──  CONTROLS", 1.12, 1.12, 0);
 
+    // ENDLESS SURVIVAL — shown once unlocked by beating the story.
+    if (endless_unlocked) {
+        draw_set_color(make_color_rgb(0, 0, 0));
+        draw_text_transformed(mid + 2, gh * 0.70 + 2, "E  /  RB  ──  ENDLESS SURVIVAL", 1.12, 1.12, 0);
+        draw_set_color(make_color_rgb(230, 180, 60));
+        draw_text_transformed(mid, gh * 0.70, "E  /  RB  ──  ENDLESS SURVIVAL", 1.12, 1.12, 0);
+        if (endless_best > 0) {
+            draw_set_color(make_color_rgb(150, 150, 160));
+            draw_text_transformed(mid, gh * 0.735, "ENDLESS BEST  " + string(endless_best), 0.72, 0.72, 0);
+        }
+    }
+
     // Mature content footer — dark strip then readable text
     draw_set_alpha(0.65);
     draw_set_color(make_color_rgb(0, 0, 0));

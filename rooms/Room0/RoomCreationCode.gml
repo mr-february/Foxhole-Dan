@@ -1,5 +1,6 @@
 global.game_state       = 0;
 global.score            = 0;
+scr_init_run();
 global.kill_flash_timer = 0;
 global.memory_text      = "";
 global.memory_timer     = 0;

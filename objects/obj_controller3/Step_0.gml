@@ -44,7 +44,7 @@ if (transition_timer > 0) {
     transition_timer++;
     if (transition_timer >= 240) {  // 4 seconds of text
         try { steam_set_achievement("ach_room3"); } catch (_ex) {}
-        room_goto(Room4);
+        room_goto(Room9);  // -> DUST-OFF (chopper)
         exit;
     }
 }

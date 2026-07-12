@@ -188,7 +188,7 @@ if (phase == 2) {
         if (slide_fade_in >= 240) {
             global.game_state = 0;
             try { steam_set_achievement("ach_room4"); } catch (_ex) {}
-            room_goto(Room5);  // Dan goes home — Level 5 begins
+            room_goto(Room13);  // -> THE MOUNTAIN (climb to his home), then the siege
         }
     }
 }

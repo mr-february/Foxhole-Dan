@@ -35,3 +35,11 @@ bomb_count   = 3;
 bomb_cd      = 0;
 
 aim_dir      = 0;
+
+// Safety defaults if earlier rooms (and obj_controller) were skipped in dev
+if (!variable_global_exists("combo_count"))    global.combo_count    = 0;
+if (!variable_global_exists("combo_mult"))     global.combo_mult     = 1;
+if (!variable_global_exists("combo_timer"))    global.combo_timer    = 0;
+if (!variable_global_exists("run_kills"))      global.run_kills      = 0;
+if (!variable_global_exists("run_time"))       global.run_time       = 0;
+if (!variable_global_exists("run_hits_taken")) global.run_hits_taken = 0;
