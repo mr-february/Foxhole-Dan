@@ -13,9 +13,17 @@ if (gamepad_is_connected(0)) {
     press_down     = press_down     || gamepad_button_check_pressed(0, gp_padd);
 }
 
+// ENDLESS launch (unlocked after beating the story). E / gamepad RB.
+var press_endless = keyboard_check_pressed(ord("E"));
+if (gamepad_is_connected(0)) press_endless = press_endless || gamepad_button_check_pressed(0, gp_shoulderr);
+
 if (state == 0) {
     if (press_start)    state = 2;   // go to difficulty select before playing
     if (press_controls) state = 1;
+    if (press_endless && endless_unlocked) {
+        global.difficulty = 3;       // Endless always runs at the hardest tuning
+        room_goto(Room14);
+    }
 } else if (state == 1) {
     if (press_back || press_start) state = 0;
 } else if (state == 2) {

@@ -9,4 +9,6 @@ diff_sel          = 1;  // cursor in difficulty select screen
 
 ini_open("foxhole_dan.ini");
 global.high_score = ini_read_real("saves", "high_score", 0);
+endless_unlocked  = ini_read_real("saves", "endless_unlocked", 0);
+endless_best      = ini_read_real("saves", "endless_best_score", 0);
 ini_close();
