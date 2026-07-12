@@ -49,6 +49,20 @@ if (boss != noone && boss.i_frames == 0) {
     exit;
 }
 
+// The Handler (Room11 boss) — not a par_enemy child, so it needs its own block
+var handler = instance_place(x, y, obj_boss_handler);
+if (handler != noone && handler.i_frames == 0) {
+    handler.hp       -= 25;
+    handler.i_frames  = 8;
+    handler.hit_flash = 10;
+    global.shake_mag = max(global.shake_mag, 5.0);
+    audio_play_sound(snd_bullet_impact, 8, false);
+    var hdmg = instance_create_layer(handler.x, handler.y - 50, "Instances", obj_damage_number);
+    hdmg.amount = 25;
+    instance_destroy();
+    exit;
+}
+
 // Bomber — distance-based since it has no sprite mask
 var bomber = noone;
 with (obj_enemy_bomber) {
