@@ -16,6 +16,6 @@ if (press) {
     panel++;
     fade = 28;
     if (panel >= panels) {
-        room_goto(Room3);
+        room_goto(Room8);  // -> OVERWATCH (sniper)
     }
 }
