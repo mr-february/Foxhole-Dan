@@ -95,7 +95,7 @@ if (_prox < 500 && global.game_state == 0) {
     draw_set_alpha(1);
     draw_set_color(c_white);
     draw_set_halign(fa_center);
-    draw_text_transformed(gw / 2, gh - 38, "ARTILLERY ADVANCING — KEEP CLIMBING", 0.95, 0.95, 0);
+    draw_text_transformed(gw / 2, gh - 38, "THE FIRE IS RISING — KEEP CLIMBING", 0.95, 0.95, 0);
     draw_set_halign(fa_left);
 }
 

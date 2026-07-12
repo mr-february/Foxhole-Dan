@@ -686,7 +686,7 @@ if (phase == 2) {
     if (narrative_slide == 3) {
         _main = "\"The ghost tie.\"";
         _sub  = "They called it that because it held even dead men in place.";
-        _sub2 = "Sergeant Reyes taught him that knot. In a ditch outside Fallujah.";
+        _sub2 = "Sergeant Reyes taught him that knot. In a ditch outside Khe Sanh.";
     }
     if (narrative_slide == 4) {
         _main = "The bomb.";
@@ -697,11 +697,11 @@ if (phase == 2) {
         _main = "Reyes.";
         _main_col = make_color_rgb(220, 80, 80);
         _sub  = "His brother in everything but blood.";
-        _sub2 = "Foxhole to foxhole. Fallujah. Mosul. The village no one was supposed to remember.";
+        _sub2 = "Foxhole to foxhole. Khe Sanh. Quang Tri. The village no one was supposed to remember.";
     }
     if (narrative_slide == 6) {
         _main = "Reyes had pulled him from a burning APC.";
-        _sub  = "Carried him three klicks through a minefield.";
+        _sub  = "Dragged him out of a flooded tunnel at Cu Chi.";
         _sub2 = "Said it was nothing. Said that's what brothers do.";
     }
     if (narrative_slide == 7) {

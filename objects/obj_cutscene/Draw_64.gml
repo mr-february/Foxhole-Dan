@@ -93,22 +93,22 @@ function cs_hayes(cx, cy, f, dark) {
     draw_rectangle(cx+1*S,  cy-6*S, cx+15*S, cy, false);
 }
 
-// Draw a war-sky background (sepia/brown tone) into content area
+// Draw a war-sky background (humid jungle dusk) into content area
 function cs_war_sky(flicker) {
-    // Sky gradient (dark sepia)
+    // Sky gradient (monsoon green-grey)
     for (var i = 0; i < 8; i++) {
         var f2 = i / 8;
         draw_set_color(make_color_rgb(
-            round(lerp(20,  55,  f2)),
-            round(lerp(14,  36,  f2)),
-            round(lerp(8,   22,  f2))
+            round(lerp(10,  34,  f2)),
+            round(lerp(18,  56,  f2)),
+            round(lerp(12,  38,  f2))
         ));
         var sy1 = cay + f2 * cah * 0.65;
         var sy2 = cay + (f2 + 0.13) * cah * 0.65;
         draw_rectangle(0, sy1, gw, sy2, false);
     }
-    // Ground mud
-    draw_set_color(make_color_rgb(36, 25, 14));
+    // Ground — wet paddy mud
+    draw_set_color(make_color_rgb(30, 32, 14));
     draw_rectangle(0, cay + cah * 0.64, gw, cab, false);
     // Artillery glow at horizon
     if (flicker) {
@@ -121,10 +121,10 @@ function cs_war_sky(flicker) {
         draw_ellipse(1580, cay + cah * 0.55, 1700, cay + cah * 0.63, false);
         draw_set_alpha(1);
     }
-    // Smoke wisps
+    // Monsoon haze wisps
     for (var sm = 0; sm < 6; sm++) {
         draw_set_alpha(0.18);
-        draw_set_color(make_color_rgb(70, 62, 54));
+        draw_set_color(make_color_rgb(72, 92, 76));
         draw_circle(200 + sm * 320 + sin(current_time * 0.006 + sm) * 20,
                     cay + cah * 0.45 - sm * 12,
                     25 + sm * 8, false);
@@ -132,13 +132,13 @@ function cs_war_sky(flicker) {
     draw_set_alpha(1);
 }
 
-// Draw a trench wall (foreground dirt)
+// Draw a bunker earth wall (foreground — packed jungle mud + sandbag line)
 function cs_trench() {
-    draw_set_color(make_color_rgb(48, 34, 18));
+    draw_set_color(make_color_rgb(42, 38, 18));
     draw_rectangle(0, cay + cah * 0.7, gw, cab, false);
-    draw_set_color(make_color_rgb(62, 44, 24));
+    draw_set_color(make_color_rgb(58, 56, 28));
     draw_rectangle(0, cay + cah * 0.68, gw, cay + cah * 0.72, false);
-    draw_set_color(make_color_rgb(35, 24, 12));
+    draw_set_color(make_color_rgb(28, 28, 12));
     draw_rectangle(0, cab - 10, gw, cab, false);
 }
 
@@ -196,11 +196,11 @@ var gy = cab - 18;   // character feet y (just above letterbox)
 switch (panel) {
 
 // ───────────────────────────────────────────────────────────
-case 0: // LOCATION CARD — France · Winter 1944
+case 0: // LOCATION CARD — Vietnam · 1968
 // ───────────────────────────────────────────────────────────
     cs_war_sky(true);
-    // Pine-tree silhouette treeline
-    draw_set_color(make_color_rgb(14, 12, 10));
+    // Jungle canopy silhouette treeline
+    draw_set_color(make_color_rgb(8, 16, 8));
     for (var t = 0; t < 30; t++) {
         var tx  = t * 66 + 10;
         var th  = 55 + (t * 41) mod 70;
@@ -209,49 +209,49 @@ case 0: // LOCATION CARD — France · Winter 1944
         draw_triangle(tx, ty0 - th, tx - tw, ty0, tx + tw, ty0, false);
         draw_triangle(tx, ty0 - th - 20, tx - tw + 4, ty0 - th + 10, tx + tw - 4, ty0 - th + 10, false);
     }
-    // Snow patches
+    // River / paddy water catching the light
     draw_set_alpha(0.6);
-    draw_set_color(make_color_rgb(188, 186, 178));
+    draw_set_color(make_color_rgb(64, 104, 88));
     draw_ellipse(150,  gy - 12, 400,  gy - 4,  false);
     draw_ellipse(820,  gy - 14, 1140, gy - 5,  false);
     draw_ellipse(1450, gy - 11, 1760, gy - 3,  false);
     draw_set_alpha(1);
-    // Sepia
-    draw_set_alpha(0.28);
-    draw_set_color(make_color_rgb(170, 105, 32));
+    // Humid green wash
+    draw_set_alpha(0.22);
+    draw_set_color(make_color_rgb(52, 110, 62));
     draw_rectangle(0, cay, gw, cab, false);
     draw_set_alpha(1);
     // TITLE
     draw_set_halign(fa_center);
     draw_set_color(make_color_rgb(210, 175, 90));
-    draw_text_transformed(mid, cay + cah * 0.22, "FRANCE  ·  WINTER 1944", 3.0, 3.0, 0);
+    draw_text_transformed(mid, cay + cah * 0.22, "VIETNAM  ·  1968", 3.0, 3.0, 0);
     draw_set_color(make_color_rgb(165, 130, 68));
-    draw_text_transformed(mid, cay + cah * 0.40, "Ardennes Forest", 1.5, 1.5, 0);
+    draw_text_transformed(mid, cay + cah * 0.40, "A bend in the river with no name.", 1.5, 1.5, 0);
     draw_set_color(make_color_rgb(110, 88, 50));
     draw_text_transformed(mid, cay + cah * 0.78, "Before the nightmares began.", 1.1, 1.1, 0);
     draw_set_halign(fa_left);
     break;
 
 // ───────────────────────────────────────────────────────────
-case 1: // THE FOXHOLE — first meeting / banter
+case 1: // THE BUNKER — Dan + Hayes, dug in above the river
 // ───────────────────────────────────────────────────────────
     cs_war_sky(true);
     cs_trench();
-    // Trench walls (foreground dirt walls L/R)
-    draw_set_color(make_color_rgb(55, 38, 20));
+    // Bunker walls (foreground earth walls L/R)
+    draw_set_color(make_color_rgb(48, 44, 22));
     draw_rectangle(0, cay + cah * 0.38, 160, cab, false);
     draw_rectangle(gw - 160, cay + cah * 0.38, gw, cab, false);
     // Dan left, Hayes right, both huddled down a little
     cs_dan(530, gy, 1);
     cs_hayes(1390, gy, -1, false);
-    // Sepia tint
-    draw_set_alpha(0.22);
-    draw_set_color(make_color_rgb(160, 100, 28));
+    // Humid green tint
+    draw_set_alpha(0.18);
+    draw_set_color(make_color_rgb(50, 108, 60));
     draw_rectangle(0, cay, gw, cab, false);
     draw_set_alpha(1);
     // Dialogue — Hayes speaking
     cs_box("HAYES", make_color_rgb(100, 180, 100),
-           "Every man I've ever fought beside made it home.",
+           "Every man I've fought beside made it home.",
            "You know why?",
            "");
     break;
@@ -267,9 +267,9 @@ case 2: // THE PROMISE — Hayes grips Dan's shoulder
     // Hayes' hand on Dan's shoulder (a rectangle bridge)
     draw_set_color(make_color_rgb(55, 76, 38));
     draw_rectangle(840, gy - 140, 1010, gy - 112, false);
-    // Sepia
-    draw_set_alpha(0.22);
-    draw_set_color(make_color_rgb(160, 100, 28));
+    // Humid green tint
+    draw_set_alpha(0.18);
+    draw_set_color(make_color_rgb(50, 108, 60));
     draw_rectangle(0, cay, gw, cab, false);
     draw_set_alpha(1);
     // Dialogue (alternating — Hayes)
@@ -287,7 +287,7 @@ case 2: // THE PROMISE — Hayes grips Dan's shoulder
     break;
 
 // ───────────────────────────────────────────────────────────
-case 3: // INCOMING — shell hits
+case 3: // INCOMING — the ambush / mortars erupt
 // ───────────────────────────────────────────────────────────
     // Flash white/orange with shockwave rings
     var fl = 0.6 + sin(current_time * 0.04) * 0.38;
@@ -371,7 +371,7 @@ case 4: // HAYES SAVES DAN — dark rescue
     draw_set_alpha(1);
     cs_box("HAYES", make_color_rgb(100, 180, 100),
            "DANILO!  STAY WITH ME!",
-           "I'VE GOT YOU — don't you dare close your eyes.",
+           "Don't you dare close your eyes.",
            "");
     // Narrator tag
     draw_set_alpha(0.75);
@@ -379,11 +379,11 @@ case 4: // HAYES SAVES DAN — dark rescue
     draw_rectangle(70, cay+14, 780, cay+44, false);
     draw_set_alpha(1);
     draw_set_color(make_color_rgb(170,140,80));
-    draw_text_transformed(90, cay+18, "He carried you two miles through enemy fire.", 1.0, 1.0, 0);
+    draw_text_transformed(90, cay+18, "The bunker came down behind you.", 1.0, 1.0, 0);
     break;
 
 // ───────────────────────────────────────────────────────────
-case 5: // THE DEBT — hospital/barracks, ominous Hayes
+case 5: // THE DEBT — field hospital, Da Nang; ominous Hayes
 // ───────────────────────────────────────────────────────────
     // Recovery room — muted, grey-green walls
     draw_set_color(make_color_rgb(38, 42, 34));
@@ -424,13 +424,13 @@ case 5: // THE DEBT — hospital/barracks, ominous Hayes
     draw_rectangle(1360, cay + cah * 0.2, 1380, cab, false);
     draw_rectangle(1590, cay + cah * 0.2, 1610, cab, false);
     draw_rectangle(1358, cay + cah * 0.2, 1612, cay + cah * 0.22, false);
-    // Sepia tint (lighter)
-    draw_set_alpha(0.15);
-    draw_set_color(make_color_rgb(140, 90, 25));
+    // Humid green tint (lighter)
+    draw_set_alpha(0.12);
+    draw_set_color(make_color_rgb(55, 110, 65));
     draw_rectangle(0, cay, gw, cab, false);
     draw_set_alpha(1);
     cs_box("HAYES", make_color_rgb(100, 180, 100),
-           "Rest up, Private.",
+           "Rest up, Danilo.",
            "You owe me a debt now.",
            "Don't forget that.");
     draw_set_alpha(0.75);
@@ -438,13 +438,13 @@ case 5: // THE DEBT — hospital/barracks, ominous Hayes
     draw_rectangle(70, cay+14, 820, cay+70, false);
     draw_set_alpha(1);
     draw_set_color(make_color_rgb(170,140,80));
-    draw_text_transformed(90, cay+18, "The nightmares started three months later.", 1.0, 1.0, 0);
+    draw_text_transformed(90, cay+18, "He carried you two miles through the paddies.", 1.0, 1.0, 0);
     draw_set_color(make_color_rgb(140,112,64));
-    draw_text_transformed(90, cay+42, "Always the same foxhole.  Always Hayes.", 1.0, 1.0, 0);
+    draw_text_transformed(90, cay+42, "You were awake for every step.", 1.0, 1.0, 0);
     break;
 
 // ───────────────────────────────────────────────────────────
-case 6: // THE QUESTION — mystery reveal, setup for next level
+case 6: // THE NIGHTMARES — black panel, Hayes haunting the dark
 // ───────────────────────────────────────────────────────────
     // Pure black — only text
     // Silhouette of Hayes (very faint, far right)
@@ -453,176 +453,160 @@ case 6: // THE QUESTION — mystery reveal, setup for next level
     draw_set_alpha(1);
 
     draw_set_halign(fa_center);
-    var ty = cay + cah * 0.12;
+    var ty = cay + cah * 0.18;
     var tg = 48;  // line gap
 
     draw_set_color(make_color_rgb(155, 120, 50));
-    draw_text_transformed(mid, ty,        "Hayes was declared Killed in Action.", 1.1, 1.1, 0);
-    draw_set_color(make_color_rgb(180, 145, 60));
-    draw_text_transformed(mid, ty + tg,   "February 14th, 1945.", 1.3, 1.3, 0);
+    draw_text_transformed(mid, ty,        "The nightmares started three months later.", 1.2, 1.2, 0);
 
     draw_set_color(make_color_rgb(90, 78, 55));
-    draw_rectangle(mid - 200, ty + tg * 2 + 8, mid + 200, ty + tg * 2 + 10, false);
+    draw_rectangle(mid - 200, ty + tg * 1.6 + 8, mid + 200, ty + tg * 1.6 + 10, false);
+
+    draw_set_color(make_color_rgb(180, 145, 60));
+    draw_text_transformed(mid, ty + tg * 2.5, "Always the same bunker.", 1.35, 1.35, 0);
+    draw_set_color(make_color_rgb(200, 160, 66));
+    draw_text_transformed(mid, ty + tg * 3.6, "Always Hayes.", 1.35, 1.35, 0);
+
+    draw_set_color(make_color_rgb(90, 78, 55));
+    draw_rectangle(mid - 200, ty + tg * 5.0 + 8, mid + 200, ty + tg * 5.0 + 10, false);
 
     draw_set_color(make_color_rgb(130, 100, 42));
-    draw_text_transformed(mid, ty + tg * 2.7, "The letters started arriving last year.", 1.0, 1.0, 0);
-    draw_set_color(make_color_rgb(160, 125, 52));
-    draw_text_transformed(mid, ty + tg * 3.6, "Signed only:  \"H\"", 1.2, 1.2, 0);
-
-    draw_set_color(make_color_rgb(90, 78, 55));
-    draw_rectangle(mid - 200, ty + tg * 4.4 + 8, mid + 200, ty + tg * 4.4 + 10, false);
-
-    draw_set_color(make_color_rgb(160, 50, 50));
-    draw_text_transformed(mid, ty + tg * 5.0, "Someone has been engineering your breakdown.", 1.1, 1.1, 0);
-    draw_set_color(make_color_rgb(200, 60, 60));
-    draw_text_transformed(mid, ty + tg * 5.9, "Someone who knows everything about that foxhole.", 1.1, 1.1, 0);
-
-    draw_set_color(make_color_rgb(90, 78, 55));
-    draw_rectangle(mid - 200, ty + tg * 6.8 + 8, mid + 200, ty + tg * 6.8 + 10, false);
-
-    draw_set_color(make_color_rgb(210, 175, 90));
-    draw_text_transformed(mid, ty + tg * 7.5, "Who survived the Ardennes?", 1.4, 1.4, 0);
+    draw_text_transformed(mid, ty + tg * 5.8, "Every night.  For fifteen years.", 1.05, 1.05, 0);
 
     draw_set_halign(fa_left);
     break;
 
 // ───────────────────────────────────────────────────────────
-case 7: // SNAP BACK — NEW YORK, 1961
+case 7: // KILLED IN ACTION — the river at night, memorial card
 // ───────────────────────────────────────────────────────────
-    // Industrial interior — fire spreading
-    draw_set_color(make_color_rgb(22, 15, 10));
+    // Near-black night over the river
+    draw_set_color(make_color_rgb(6, 10, 10));
     draw_rectangle(0, cay, gw, cab, false);
-    // Fire glow from multiple sources
-    for (var _fi = 0; _fi < 5; _fi++) {
-        var _fa = 0.45 + abs(sin(current_time * 0.022 + _fi * 1.1)) * 0.3;
-        draw_set_alpha(_fa);
-        draw_set_color(make_color_rgb(210, 80 + _fi * 14, 15));
-        draw_ellipse(_fi * 380 + 60, cay + cah * 0.52, _fi * 380 + 280, cab + 40, false);
+    // Dark river band across the lower third
+    draw_set_color(make_color_rgb(12, 26, 26));
+    draw_rectangle(0, cay + cah * 0.66, gw, cab, false);
+    // Slow moonlight glints drifting on the water
+    for (var _kg = 0; _kg < 7; _kg++) {
+        var _ka = 0.10 + 0.08 * abs(sin(current_time * 0.004 + _kg * 1.3));
+        draw_set_alpha(_ka);
+        draw_set_color(make_color_rgb(120, 160, 150));
+        draw_ellipse(_kg * 290 + 40 + sin(current_time * 0.003 + _kg) * 24,
+                     cay + cah * 0.70 + (_kg mod 3) * 22,
+                     _kg * 290 + 220 + sin(current_time * 0.003 + _kg) * 24,
+                     cay + cah * 0.72 + (_kg mod 3) * 22, false);
     }
     draw_set_alpha(1);
-    // Warehouse pipes / beams silhouette
-    draw_set_color(make_color_rgb(14, 10, 6));
-    draw_rectangle(0,    cay + cah * 0.1, 60,   cay + cah * 0.9, false);
-    draw_rectangle(gw - 60, cay + cah * 0.1, gw, cay + cah * 0.9, false);
-    for (var _b = 0; _b < 6; _b++) {
-        draw_rectangle(0, cay + _b * (cah / 5.5), gw, cay + _b * (cah / 5.5) + 8, false);
-    }
-    // Emergency alarm pulse
-    var _alm = 0.22 + sin(current_time * 0.04) * 0.18;
-    draw_set_alpha(_alm);
-    draw_set_color(make_color_rgb(200, 18, 18));
-    draw_rectangle(0, cay, gw, cab, false);
-    draw_set_alpha(1);
-    // Location title
+    // Far treeline silhouette above the water
+    draw_set_color(make_color_rgb(4, 8, 6));
+    draw_rectangle(0, cay + cah * 0.58, gw, cay + cah * 0.67, false);
+    // Memorial text
     draw_set_halign(fa_center);
-    draw_set_color(make_color_rgb(255, 80, 55));
-    draw_text_transformed(mid + 3, cay + cah * 0.18 + 3, "NEW YORK  —  1961", 2.8, 2.8, 0);
-    draw_set_color(make_color_rgb(255, 130, 100));
-    draw_text_transformed(mid,     cay + cah * 0.18,     "NEW YORK  —  1961", 2.8, 2.8, 0);
-    draw_set_color(make_color_rgb(220, 200, 180));
-    draw_text_transformed(mid, cay + cah * 0.38, "The flashback breaks.", 1.1, 1.1, 0);
-    draw_set_color(make_color_rgb(180, 160, 140));
-    draw_text_transformed(mid, cay + cah * 0.50, "The depot is real.  And it's burning.", 1.0, 1.0, 0);
-    // Alarm strip at bottom of content area
-    draw_set_color(make_color_rgb(180, 15, 15));
-    draw_rectangle(0, cab - 38, gw, cab, false);
-    draw_set_color(c_white);
-    draw_text_transformed(mid, cab - 34, "[ STRUCTURAL BREACH  —  EVACUATE IMMEDIATELY ]", 0.92, 0.92, 0);
+    var _ky = cay + cah * 0.14;
+    var _kt = 48;
+    draw_set_color(make_color_rgb(155, 120, 50));
+    draw_text_transformed(mid, _ky,            "Sgt. Hayes was declared Killed in Action.", 1.15, 1.15, 0);
+    draw_set_color(make_color_rgb(180, 145, 60));
+    draw_text_transformed(mid, _ky + _kt,      "March 3rd, 1969.", 1.3, 1.3, 0);
+    draw_set_color(make_color_rgb(90, 78, 55));
+    draw_rectangle(mid - 200, _ky + _kt * 2 + 8, mid + 200, _ky + _kt * 2 + 10, false);
+    draw_set_color(make_color_rgb(150, 170, 160));
+    draw_text_transformed(mid, _ky + _kt * 2.8, "The river took him.", 1.25, 1.25, 0);
+    draw_set_color(make_color_rgb(95, 105, 95));
+    draw_text_transformed(mid, _ky + _kt * 3.8, "The body was never recovered.", 1.0, 1.0, 0);
     draw_set_halign(fa_left);
     break;
 
 // ───────────────────────────────────────────────────────────
-case 8: // THE DOCUMENT — Dan finds the clue
+case 8: // 1983 — THE LETTERS — a lamplit room, fifteen years later
 // ───────────────────────────────────────────────────────────
-    // Dark smoky room, fire left side
-    draw_set_color(make_color_rgb(18, 12, 8));
+    // Dark room, cold lamp glow left side
+    draw_set_color(make_color_rgb(12, 12, 16));
     draw_rectangle(0, cay, gw, cab, false);
-    draw_set_alpha(0.5 + abs(sin(current_time * 0.025)) * 0.25);
-    draw_set_color(make_color_rgb(210, 75, 12));
+    draw_set_alpha(0.4 + abs(sin(current_time * 0.008)) * 0.1);
+    draw_set_color(make_color_rgb(170, 150, 90));
     draw_ellipse(-60, cay + cah * 0.28, 320, cab + 60, false);
     draw_set_alpha(1);
-    // Smoke wisps
+    // Cigarette-smoke wisps
     for (var _sm = 0; _sm < 5; _sm++) {
         draw_set_alpha(0.14);
-        draw_set_color(make_color_rgb(90, 78, 65));
+        draw_set_color(make_color_rgb(80, 80, 88));
         draw_circle(240 + _sm * 340 + sin(current_time * 0.006 + _sm) * 18,
                     cay + cah * 0.25 - _sm * 10, 22 + _sm * 9, false);
     }
     draw_set_alpha(1);
-    // Document (aged paper, center-screen)
+    // Era card
+    draw_set_halign(fa_center);
+    draw_set_color(make_color_rgb(150, 150, 170));
+    draw_text_transformed(mid, cay + 10, "FIFTEEN YEARS LATER   ·   1983", 1.15, 1.15, 0);
+    draw_set_halign(fa_left);
+    // The letter (plain paper, center-screen)
     var _dx  = mid - 265;
     var _dw  = 530;
-    var _dy  = cay + cah * 0.08;
-    var _dh  = cah * 0.68;
+    var _dy  = cay + cah * 0.12;
+    var _dh  = cah * 0.62;
     // Paper shadow
-    draw_set_color(make_color_rgb(12, 8, 4));
+    draw_set_color(make_color_rgb(6, 6, 8));
     draw_rectangle(_dx + 8, _dy + 8, _dx + _dw + 8, _dy + _dh + 8, false);
     // Paper body
     draw_set_color(make_color_rgb(218, 205, 175));
     draw_rectangle(_dx, _dy, _dx + _dw, _dy + _dh, false);
-    // Burn damage — corners
-    draw_set_color(make_color_rgb(75, 48, 20));
+    // Handling stains — corners
+    draw_set_color(make_color_rgb(150, 132, 100));
     draw_ellipse(_dx + _dw - 55, _dy + _dh - 45, _dx + _dw + 20, _dy + _dh + 22, false);
-    draw_set_color(make_color_rgb(55, 35, 14));
+    draw_set_color(make_color_rgb(160, 142, 108));
     draw_ellipse(_dx - 20, _dy + 20, _dx + 45, _dy + 90, false);
-    // Paper text
+    // Letter text
     draw_set_color(make_color_rgb(28, 18, 10));
     draw_set_halign(fa_center);
-    draw_text_transformed(mid, _dy + 14, "OPERATION ARDENNES ECHO", 0.82, 0.82, 0);
-    draw_text_transformed(mid, _dy + 30, "CLASSIFICATION: ULTRA — EYES ONLY", 0.72, 0.72, 0);
+    draw_text_transformed(mid, _dy + 14, "NO RETURN ADDRESS", 0.82, 0.82, 0);
+    draw_text_transformed(mid, _dy + 30, "POSTMARK:  [ ILLEGIBLE ]", 0.72, 0.72, 0);
     draw_rectangle(_dx + 18, _dy + 46, _dx + _dw - 18, _dy + 48, false);
-    draw_text_transformed(mid, _dy + 60,  "HARRINGTON BUILDING", 1.5, 1.5, 0);
-    draw_text_transformed(mid, _dy + 90,  "52nd Floor — Manhattan", 1.0, 1.0, 0);
-    draw_rectangle(_dx + 18, _dy + 112, _dx + _dw - 18, _dy + 114, false);
-    draw_text_transformed(mid, _dy + 126, "Contact:  H", 1.2, 1.2, 0);
-    draw_text_transformed(mid, _dy + 154, "Authorization:  [ REDACTED ]", 0.88, 0.88, 0);
-    draw_text_transformed(mid, _dy + 178, "Midnight.  Come alone.", 0.95, 0.95, 0);
+    draw_text_transformed(mid, _dy + 60,  "You still dream about", 1.2, 1.2, 0);
+    draw_text_transformed(mid, _dy + 90,  "the river, don't you?", 1.2, 1.2, 0);
+    draw_rectangle(_dx + 18, _dy + 116, _dx + _dw - 18, _dy + 118, false);
+    draw_text_transformed(mid, _dy + 130, "You still owe a debt.", 1.0, 1.0, 0);
+    draw_text_transformed(mid, _dy + 158, "Signed:  \"H\"", 1.2, 1.2, 0);
     draw_set_halign(fa_left);
     // Narration
-    cs_narrate("One address.  One name:  H.", "Someone wanted you to find this.");
+    cs_narrate("The letters started arriving last year.  Signed only:  \"H\".",
+               "Someone has been engineering your breakdown.");
     break;
 
 // ───────────────────────────────────────────────────────────
-case 9: // GET OUT — building coming down
+case 9: // THE QUESTION — who really walked away from the bunker?
 // ───────────────────────────────────────────────────────────
-    // Red alarm flash
-    var _alp = 0.55 + sin(current_time * 0.045) * 0.38;
+    // Slow red pulse over black
+    var _alp = 0.10 + abs(sin(current_time * 0.004)) * 0.08;
     draw_set_alpha(_alp);
-    draw_set_color(make_color_rgb(165, 12, 12));
-    draw_rectangle(0, cay, gw, cab, false);
-    draw_set_alpha(_alp * 0.4);
-    draw_set_color(c_white);
+    draw_set_color(make_color_rgb(120, 12, 12));
     draw_rectangle(0, cay, gw, cab, false);
     draw_set_alpha(1);
-    // Falling debris / crack lines
-    draw_set_color(make_color_rgb(30, 20, 12));
-    for (var _cr = 0; _cr < 10; _cr++) {
-        var _crx = _cr * (gw / 9.0);
-        var _cry = cay + (_cr * 47) mod (cah - 40);
-        draw_line_width(_crx, cay, _crx - 30 + (_cr * 23) mod 60, cab, 2 + (_cr mod 3));
-        draw_rectangle(_crx + 10, _cry, _crx + 28, _cry + 14, false);
-    }
-    // Big warning text
+    // Faint Hayes silhouette, dead center, watching
+    draw_set_alpha(0.10 + abs(sin(current_time * 0.003)) * 0.05);
+    cs_hayes(mid, gy, -1, true);
+    draw_set_alpha(1);
+    // Text
     draw_set_halign(fa_center);
-    draw_set_color(make_color_rgb(255, 255, 255));
-    draw_text_transformed(mid + 5, cay + cah * 0.28 + 5, "GET OUT", 5.5, 5.5, 0);
-    draw_set_color(make_color_rgb(255, 40, 20));
-    draw_text_transformed(mid,     cay + cah * 0.28,     "GET OUT", 5.5, 5.5, 0);
-    draw_set_color(c_white);
-    draw_text_transformed(mid, cay + cah * 0.60, "60 seconds before the building comes down.", 1.05, 1.05, 0);
-    draw_set_color(make_color_rgb(255, 160, 120));
-    draw_text_transformed(mid, cay + cah * 0.73, "Find a vehicle.  NOW.", 1.2, 1.2, 0);
+    draw_set_color(make_color_rgb(200, 60, 60));
+    draw_text_transformed(mid, cay + cah * 0.20, "Someone who knows exactly what happened", 1.15, 1.15, 0);
+    draw_set_color(make_color_rgb(220, 70, 70));
+    draw_text_transformed(mid, cay + cah * 0.30, "at that river.", 1.15, 1.15, 0);
+    draw_set_color(make_color_rgb(90, 78, 55));
+    draw_rectangle(mid - 200, cay + cah * 0.44, mid + 200, cay + cah * 0.44 + 2, false);
+    draw_set_color(make_color_rgb(210, 175, 90));
+    draw_text_transformed(mid, cay + cah * 0.56, "Who really walked away", 1.6, 1.6, 0);
+    draw_text_transformed(mid, cay + cah * 0.68, "from the bunker?", 1.6, 1.6, 0);
     draw_set_halign(fa_left);
     break;
 
 } // end switch
 
 // ─────────────────────────────────────────────────────────────
-// SEPIA WARM TINT (WWII panels only — not present-day panels 7-9)
+// HUMID JUNGLE TINT (Vietnam flashback panels only — not 7-9)
 // ─────────────────────────────────────────────────────────────
 if (panel != 3 && panel != 6 && panel < 7) {
-    draw_set_alpha(0.18);
-    draw_set_color(make_color_rgb(155, 95, 25));
+    draw_set_alpha(0.14);
+    draw_set_color(make_color_rgb(45, 105, 55));
     draw_rectangle(0, cay, gw, cab, false);
     draw_set_alpha(1);
 }

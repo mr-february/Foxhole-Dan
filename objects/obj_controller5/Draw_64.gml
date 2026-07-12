@@ -27,9 +27,9 @@ if (phase == 0) {
             _sub2 = "Someone had been watching.";
             break;
         case 2:
-            _main = "Reyes had his discharge papers.";
+            _main = "Harrington's people had given Reyes everything.";
             _sub  = "His address. His habits. His schedule.";
-            _sub2 = "He'd been planning this longer than the rooftop.";
+            _sub2 = "Project FOXHOLE had been planning this longer than the rooftop.";
             break;
         case 3:
             _main = "Dan thought about running.";
@@ -231,14 +231,14 @@ if (phase == 3) {
         _scol = make_color_rgb(200, 180, 100);
     }
     if (narrative_slide == 3) {
-        _main = "The village. 2004.";
+        _main = "The village. 1968.";
         _mcol = make_color_rgb(220, 80, 80);
         _sub  = "The orders Dan gave. The ones they were told to forget.";
         _sub2 = "Reyes never did.";
     }
     if (narrative_slide == 4) {
         _main = "Dan had made the call.";
-        _sub  = "Twelve civilians. One insurgent.";
+        _sub  = "Twelve civilians. One sniper.";
         _sub2 = "He never lost sleep over it.";
     }
     if (narrative_slide == 5) {
