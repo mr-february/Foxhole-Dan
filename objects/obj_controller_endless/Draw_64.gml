@@ -37,16 +37,27 @@ if (global.game_state == 2) {
         draw_set_color(make_color_rgb(150, 150, 160));
         draw_text_transformed(gw/2, gh/2 + 140, "UP/DOWN letter   LEFT/RIGHT move   ENTER/A submit", 0.8, 0.8, 0);
     } else if (submit_state == 2) {
-        // Submitted
+        var mine = initials[0] + initials[1] + initials[2];
         draw_set_color(make_color_rgb(80, 220, 80));
-        draw_text_transformed(gw/2, gh/2 + 30, "SCORE SUBMITTED  —  " + initials[0] + initials[1] + initials[2], 1.1, 1.1, 0);
-        // Leaderboard status (if the net layer is present).
+        draw_text_transformed(gw/2, gh/2 + 20, "SCORE SUBMITTED  —  " + mine, 1.1, 1.1, 0);
         if (variable_global_exists("lb_status")) {
             draw_set_color(make_color_rgb(150, 170, 200));
-            draw_text_transformed(gw/2, gh/2 + 66, "LEADERBOARD: " + string(global.lb_status), 0.8, 0.8, 0);
+            draw_text_transformed(gw/2, gh/2 + 54, "GLOBAL LEADERBOARD  ·  " + string(global.lb_status), 0.8, 0.8, 0);
+        }
+        // Live top-8 (populated by the submit response, offline-safe).
+        if (variable_global_exists("lb_list") && is_array(global.lb_list)) {
+            var n = min(array_length(global.lb_list), 8);
+            for (var li = 0; li < n; li++) {
+                var e = global.lb_list[li];
+                var nm = (is_struct(e) && variable_struct_exists(e, "initials")) ? e.initials : "AAA";
+                var sc = (is_struct(e) && variable_struct_exists(e, "score")) ? e.score : 0;
+                var wv = (is_struct(e) && variable_struct_exists(e, "wave")) ? e.wave : 0;
+                draw_set_color((nm == mine) ? make_color_rgb(255, 220, 80) : c_white);
+                draw_text_transformed(gw/2, gh/2 + 86 + li * 22, string(li + 1) + ".   " + string(nm) + "    " + string(sc) + "   (W" + string(wv) + ")", 0.78, 0.78, 0);
+            }
         }
         draw_set_color(make_color_rgb(180, 180, 190));
-        draw_text_transformed(gw/2, gh/2 + 110, "R  play again      ESC  main menu", 0.9, 0.9, 0);
+        draw_text_transformed(gw/2, gh/2 + 286, "R  play again      ESC  main menu", 0.9, 0.9, 0);
     }
 
     draw_set_halign(fa_left); draw_set_valign(fa_top); draw_set_color(c_white);

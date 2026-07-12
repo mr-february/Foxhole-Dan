@@ -40,10 +40,8 @@ if (global.game_state == 2) {
             ini_open("foxhole_dan.ini");
             ini_write_string("saves", "last_initials", istr);
             ini_close();
-            // Online submit (no-op/offline-safe if the leaderboard isn't configured).
-            if (script_exists(asset_get_index("scr_lb_submit"))) {
-                scr_lb_submit("endless", istr, global.score, wave);
-            }
+            // Online submit (offline-safe: fails soft to local scores if no board).
+            scr_lb_submit("endless", istr, global.score, wave);
             run_submitted = true;
             submit_state  = 2;
         }

@@ -1,0 +1,9 @@
+{
+  "name": "foxhole-dan-leaderboard",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Serverless leaderboard API for Foxhole Dan (static game served from html5game/).",
+  "dependencies": {
+    "@vercel/kv": "^1.0.1"
+  }
+}
