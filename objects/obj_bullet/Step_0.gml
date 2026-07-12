@@ -7,25 +7,33 @@ if (place_meeting(x, y, obj_platform)) {
     exit;
 }
 
-var hit = instance_place(x, y, obj_enemy_soldier);
-if (hit != noone) {
-    hit.hp -= 25;
-    hit.hit_flash = 10;
-    var dmg = instance_create_layer(hit.x, hit.y - 28, "Instances", obj_damage_number);
-    dmg.amount = 25;
-    repeat (irandom_range(4, 8)) {
-        instance_create_layer(x, y, "Instances", obj_blood_particle);
+// All masked humanoid enemies (soldier + the new roster) hit via the par_enemy parent.
+// Boss is handled in its own block below (needs i_frames tuning); the spriteless
+// bomber is handled by the distance check further down.
+var hit = instance_place(x, y, par_enemy);
+if (hit != noone && hit.object_index != obj_boss) {
+    var _hif = variable_instance_exists(hit, "i_frames") ? hit.i_frames : 0;
+    if (_hif == 0) {
+        hit.hp -= 25;
+        hit.hit_flash = 10;
+        var dmg = instance_create_layer(hit.x, hit.y - 28, "Instances", obj_damage_number);
+        dmg.amount = 25;
+        repeat (irandom_range(4, 8)) {
+            instance_create_layer(x, y, "Instances", obj_blood_particle);
+        }
+        if (hit.hp <= 0) {
+            var _sv = variable_instance_exists(hit, "score_value") ? hit.score_value : 100;
+            var _fc = variable_instance_exists(hit, "facing") ? hit.facing : 1;
+            scr_award_kill(hit, _sv);
+            scr_spawn_gore(hit.x, hit.y, _fc);
+            instance_destroy(hit);
+        } else {
+            global.shake_mag = max(global.shake_mag, 2.5);
+            audio_play_sound(snd_bullet_impact, 8, false);
+        }
+        instance_destroy();
+        exit;
     }
-    if (hit.hp <= 0) {
-        scr_award_kill(hit, 100);
-        scr_spawn_gore(hit.x, hit.y, hit.facing);
-        instance_destroy(hit);
-    } else {
-        global.shake_mag = max(global.shake_mag, 2.5);
-        audio_play_sound(snd_bullet_impact, 8, false);
-    }
-    instance_destroy();
-    exit;
 }
 
 var boss = instance_place(x, y, obj_boss);

@@ -27,24 +27,19 @@ if (fuse <= 0) {
         }
     } else {
         // Player grenade — damages all enemy types
-        with (obj_enemy_soldier) {
-            if (point_distance(x, y, other.x, other.y) < _rad) {
+        // All damageable enemies via par_enemy (soldier, vehicle, and the new roster).
+        // Boss is immune to grenade splash (handled only by direct fire).
+        with (par_enemy) {
+            if (object_index == obj_boss) continue;
+            var _is_veh = (object_index == obj_enemy_vehicle);
+            var _gr = _is_veh ? (_rad * 1.25) : _rad;
+            if (point_distance(x, y, other.x, other.y) < _gr) {
                 hp      -= 40;
-                i_frames = max(i_frames, 35);
+                i_frames = max(i_frames, _is_veh ? 30 : 35);
                 if (hp <= 0) {
-                    scr_award_kill(id, 100);
-                    scr_spawn_gore(x, y, facing);
-                    instance_destroy();
-                }
-            }
-        }
-        with (obj_enemy_vehicle) {
-            if (point_distance(x, y, other.x, other.y) < _rad * 1.25) {
-                hp      -= 40;
-                i_frames = max(i_frames, 30);
-                if (hp <= 0) {
-                    // Vehicle: no human gore/corpse — its Destroy event spawns the explosion + debris.
-                    scr_award_kill(id, 200);
+                    scr_award_kill(id, score_value);
+                    // Vehicles use their Destroy event for the explosion; humanoids get gore.
+                    if (!_is_veh) scr_spawn_gore(x, y, facing);
                     instance_destroy();
                 }
             }
