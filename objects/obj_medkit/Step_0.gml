@@ -13,5 +13,7 @@ if (p != noone) {
     ];
     global.memory_text  = _mems[irandom(array_length(_mems) - 1)];
     global.memory_timer = 210;
+    global.pickup_flash_timer = 20;
+    global.pickup_flash_col   = make_color_rgb(255, 110, 110);
     instance_destroy();
 }

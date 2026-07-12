@@ -1,3 +1,5 @@
+if (fire_flash > 0) fire_flash--;
+
 // Initialise stats based on tower_type (runs once after spawner sets tower_type)
 if (!initialized) {
     initialized = true;
@@ -53,4 +55,5 @@ if (_target != noone) {
     _p.is_aoe   = (tower_type == 1);
     _p.aoe_rad  = aoe_radius;
     fire_timer  = fire_rate;
+    fire_flash  = 8;
 }

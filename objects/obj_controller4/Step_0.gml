@@ -1,3 +1,60 @@
+if (global.game_state == 0) global.run_time++;
+
+// === PAUSE TOGGLE ===
+{
+    var _gp4 = gamepad_is_connected(0);
+    var _esc = keyboard_check_pressed(vk_escape)
+             || (_gp4 && gamepad_button_check_pressed(0, gp_select));
+    if (_esc) {
+        if (global.game_state == 0)      { global.game_state = 4; pause_sel = 0; pause_settings = false; }
+        else if (global.game_state == 4) {
+            if (pause_settings) pause_settings = false;
+            else global.game_state = 0;
+        }
+    }
+    if (global.game_state == 4) {
+        var _pu4 = keyboard_check_pressed(vk_up)    || keyboard_check_pressed(ord("W"))
+                 || (_gp4 && gamepad_button_check_pressed(0, gp_padu));
+        var _pd4 = keyboard_check_pressed(vk_down)  || keyboard_check_pressed(ord("S"))
+                 || (_gp4 && gamepad_button_check_pressed(0, gp_padd));
+        var _pl4 = keyboard_check_pressed(vk_left)  || keyboard_check_pressed(ord("A"))
+                 || (_gp4 && gamepad_button_check_pressed(0, gp_padl));
+        var _pr4 = keyboard_check_pressed(vk_right) || keyboard_check_pressed(ord("D"))
+                 || (_gp4 && gamepad_button_check_pressed(0, gp_padr));
+        var _pc4 = keyboard_check_pressed(vk_space) || keyboard_check_pressed(vk_return)
+                 || (_gp4 && gamepad_button_check_pressed(0, gp_face1));
+
+        if (!pause_settings) {
+            if (_pu4) pause_sel = max(pause_sel - 1, 0);
+            if (_pd4) pause_sel = min(pause_sel + 1, 2);
+            if (_pc4) {
+                if (pause_sel == 0) { global.game_state = 0; }
+                else if (pause_sel == 1) { pause_settings = true; pause_settings_sel = 0; }
+                else { global.game_state = 0; room_goto(Room0); }
+            }
+        } else {
+            if (_pu4 || _pd4) pause_settings_sel = 1 - pause_settings_sel;
+            var _step4 = 0.05;
+            if (_pl4) {
+                if (pause_settings_sel == 0) global.vol_music = max(0, global.vol_music - _step4);
+                else                         global.vol_sfx   = max(0, global.vol_sfx   - _step4);
+            }
+            if (_pr4) {
+                if (pause_settings_sel == 0) global.vol_music = min(1, global.vol_music + _step4);
+                else                         global.vol_sfx   = min(1, global.vol_sfx   + _step4);
+            }
+            if (_pl4 || _pr4) {
+                audio_group_set_gain(audiogroup_default, global.vol_sfx, 0);
+                if (global.music_inst >= 0) {
+                    var _mg4 = (global.vol_sfx > 0.001) ? clamp(global.vol_music / global.vol_sfx, 0, 5) : 0;
+                    audio_sound_gain(global.music_inst, _mg4, 0);
+                }
+            }
+        }
+        exit;
+    }
+}
+
 // === INPUT ===
 var gp   = gamepad_is_connected(0);
 var dead = 0.2;
@@ -8,6 +65,9 @@ var key_down_p  = keyboard_check_pressed(vk_down)  || keyboard_check_pressed(ord
 var key_left_p  = keyboard_check_pressed(vk_left)  || keyboard_check_pressed(ord("A"));
 var key_right_p = keyboard_check_pressed(vk_right) || keyboard_check_pressed(ord("D"));
 var key_space_p = keyboard_check_pressed(vk_space) || keyboard_check_pressed(vk_return);
+
+// SPACE skips the intro overlay
+if (intro_timer > 0 && key_space_p) intro_timer = 0;
 
 // held inputs
 var key_left_h  = keyboard_check(vk_left)  || keyboard_check(ord("A"));
@@ -49,16 +109,24 @@ if (phase == 0 && intro_timer <= 0) {
     if (key_up_p   && active_strand > 0) active_strand--;
     if (key_down_p && active_strand < 2) active_strand++;
 
-    // Strand 0: mash SPACE — fills fast on press, decays slowly
+    // Passive decay — incomplete strands bleed even when not active
+    for (var _pi = 0; _pi < 3; _pi++) {
+        if (!rope_done[_pi] && _pi != active_strand) {
+            rope_progress[@ _pi] = max(rope_progress[_pi] - 0.002, 0.0);
+            if (_pi == 2) strand2_hold = round(rope_progress[2] * strand2_need);
+        }
+    }
+
+    // Strand 0: mash SPACE — fills fast on press, decays at pressure rate
     if (active_strand == 0 && !rope_done[0]) {
         if (key_space_p) {
             rope_progress[@ 0] = min(rope_progress[0] + 0.09, 1.0);
         }
         if (rope_progress[0] >= 1.0) rope_done[@ 0] = true;  // check before decay
-        rope_progress[@ 0] = max(rope_progress[0] - 0.004, 0.0);
+        rope_progress[@ 0] = max(rope_progress[0] - 0.006, 0.0);
     }
 
-    // Strand 1: alternate LEFT / RIGHT
+    // Strand 1: alternate LEFT / RIGHT — wrong direction penalises
     if (active_strand == 1 && !rope_done[1]) {
         if (key_right_p && strand1_expect == 1) {
             strand1_expect     = -1;
@@ -66,17 +134,19 @@ if (phase == 0 && intro_timer <= 0) {
         } else if (key_left_p && strand1_expect == -1) {
             strand1_expect     = 1;
             rope_progress[@ 1] = min(rope_progress[1] + 0.055, 1.0);
+        } else if ((key_right_p && strand1_expect == -1) || (key_left_p && strand1_expect == 1)) {
+            rope_progress[@ 1] = max(rope_progress[1] - 0.08, 0.0);
         }
         if (rope_progress[1] >= 1.0) rope_done[@ 1] = true;  // check before decay
-        rope_progress[@ 1] = max(rope_progress[1] - 0.003, 0.0);
+        rope_progress[@ 1] = max(rope_progress[1] - 0.005, 0.0);
     }
 
-    // Strand 2: hold J+K (or LB+RB) simultaneously
+    // Strand 2: hold J+K (or LB+RB) simultaneously — releases now hurt more
     if (active_strand == 2 && !rope_done[2]) {
         if (key_j_h && key_k_h) {
             strand2_hold++;
         } else {
-            strand2_hold = max(strand2_hold - 4, 0);
+            strand2_hold = max(strand2_hold - 6, 0);
         }
         rope_progress[@ 2] = clamp(strand2_hold / strand2_need, 0, 1);
         if (strand2_hold >= strand2_need) rope_done[@ 2] = true;
@@ -150,7 +220,7 @@ if (phase == 1 && intro_timer <= 0) {
                 code_cursor       = 0;
                 code_input        = [-1, -1, -1, -1];
                 code_hidden       = false;
-                code_show_timer   = 90;  // briefly re-show the code
+                code_show_timer   = 30;  // brief flash — pay attention or lose it
             }
         }
     }
@@ -188,6 +258,11 @@ if (phase == 2) {
         if (slide_fade_in >= 240) {
             global.game_state = 0;
             try { steam_set_achievement("ach_room4"); } catch (_ex) {}
+            if (os_browser == browser_not_a_browser) {
+                ini_open("foxhole_dan.ini");
+                if (4 > ini_read_real("stats", "deepest_room", 0)) ini_write_real("stats", "deepest_room", 4);
+                ini_close();
+            }
             room_goto(Room13);  // -> THE MOUNTAIN (climb to his home), then the siege
         }
     }

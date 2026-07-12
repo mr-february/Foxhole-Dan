@@ -9,3 +9,4 @@ aoe_radius   = 0;
 sell_value   = 0;
 proj_spd     = 9;   // overwritten by init block in Step_0
 aim_dir      = 0;   // visual barrel direction
+fire_flash   = 0;   // frames of muzzle flash remaining

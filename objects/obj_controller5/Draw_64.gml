@@ -72,20 +72,62 @@ if (phase == 1) {
     draw_set_alpha(0.60);
     draw_rectangle(8, 8, 330, 80, false);
     draw_set_alpha(1);
-    draw_set_color(make_color_rgb(200, 180, 60));
-    draw_text_transformed(16, 12, "AMMO CACHE  " + string(currency), 1.1, 1.1, 0);
+    var _cps = 1.1 + (currency_pop / 16.0) * 0.30;
+    draw_set_color((currency_pop > 8) ? make_color_rgb(255, 235, 120) : make_color_rgb(200, 180, 60));
+    draw_text_transformed(16, 12, "AMMO CACHE  " + string(currency), _cps, _cps, 0);
     draw_set_color(make_color_rgb(220, 220, 80));
     draw_text_transformed(16, 46, "SCORE  " + string(global.score), 1.0, 1.0, 0);
 
-    // ---------- Wave indicator ----------
+    // ---------- House HP bar (top center) ----------
+    var _hhouse = instance_find(obj_td_house, 0);
+    if (_hhouse != noone) {
+        var _hhp  = _hhouse.hp;
+        var _hmhp = _hhouse.max_hp;
+        var _hpct = clamp(_hhp / _hmhp, 0, 1);
+        var _hbw  = 320; var _hbh = 22;
+        var _hbx  = gw / 2 - _hbw / 2;
+        var _hby  = 8;
+        draw_set_color(make_color_rgb(0, 0, 0));
+        draw_set_alpha(0.60);
+        draw_rectangle(_hbx - 74, _hby, _hbx + _hbw + 4, _hby + _hbh + 2, false);
+        draw_set_alpha(1);
+        // Bar background
+        draw_set_color(make_color_rgb(30, 30, 30));
+        draw_rectangle(_hbx, _hby + 2, _hbx + _hbw, _hby + 2 + _hbh, false);
+        // Bar fill — green → yellow → red based on HP
+        var _hfr = round(lerp(220, 60, _hpct));
+        var _hfg = round(lerp(40,  200, _hpct));
+        draw_set_color(make_color_rgb(_hfr, _hfg, 40));
+        draw_rectangle(_hbx, _hby + 2, _hbx + _hbw * _hpct, _hby + 2 + _hbh, false);
+        // Bar border
+        draw_set_color(make_color_rgb(160, 140, 80));
+        draw_rectangle(_hbx, _hby + 2, _hbx + _hbw, _hby + 2 + _hbh, true);
+        // Label
+        draw_set_halign(fa_right);
+        draw_set_color(make_color_rgb(180, 165, 90));
+        draw_text_transformed(_hbx - 4, _hby + 4, "HOME", 0.82, 0.82, 0);
+        // HP value
+        draw_set_halign(fa_left);
+        draw_set_color((_hpct < 0.25) ? make_color_rgb(255, 80, 80) : make_color_rgb(200, 190, 140));
+        draw_text_transformed(_hbx + _hbw + 8, _hby + 4, string(_hhp) + " / " + string(_hmhp), 0.75, 0.75, 0);
+        draw_set_halign(fa_left);
+    }
+
+    // ---------- Wave indicator + hostiles remaining ----------
     draw_set_color(make_color_rgb(0, 0, 0));
     draw_set_alpha(0.60);
-    draw_rectangle(gw - 260, 8, gw - 8, 62, false);
+    draw_rectangle(gw - 260, 8, gw - 8, (wave_state == 1) ? 86 : 62, false);
     draw_set_alpha(1);
-    var _wdisp = (wave < 6) ? ("WAVE " + string(wave + 1) + " / 6") : "FINAL WAVE";
+    var _wdisp = (wave < 5) ? ("WAVE " + string(wave + 1) + " / 6") : "FINAL WAVE";
     draw_set_color(make_color_rgb(160, 210, 255));
     draw_set_halign(fa_right);
     draw_text_transformed(gw - 16, 12, _wdisp, 1.1, 1.1, 0);
+    if (wave_state == 1) {
+        var _hostiles = enemies_left + instance_number(obj_td_enemy)
+                      + (instance_exists(obj_td_reyes) ? 1 : 0);
+        draw_set_color(make_color_rgb(255, 110, 90));
+        draw_text_transformed(gw - 16, 44, "HOSTILES  " + string(_hostiles), 0.95, 0.95, 0);
+    }
     draw_set_halign(fa_left);
 
     // ---------- Build phase countdown ----------
@@ -317,6 +359,15 @@ if (phase == 4) {
     }
     draw_set_halign(fa_left);
     draw_set_valign(fa_top);
+    draw_set_alpha(1);
+}
+
+// Room fade-in on entry
+if (room_fade > 0) {
+    room_fade--;
+    draw_set_color(c_black);
+    draw_set_alpha(room_fade / 45.0);
+    draw_rectangle(0, 0, gw, gh, false);
     draw_set_alpha(1);
 }
 

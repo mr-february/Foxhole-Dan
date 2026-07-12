@@ -1,11 +1,13 @@
+if (global.hitstop_timer > 0) exit;
+
 // === INPUT — keyboard ===
 var key_right  = keyboard_check(vk_right) || keyboard_check(ord("D"));
 var key_left   = keyboard_check(vk_left)  || keyboard_check(ord("A"));
 var key_up     = keyboard_check(vk_up)    || keyboard_check(ord("W"));
 var key_down   = keyboard_check(vk_down)  || keyboard_check(ord("S"));
-var key_jump   = keyboard_check_pressed(vk_space) || keyboard_check_pressed(vk_up) || keyboard_check_pressed(ord("W"));
-var key_shoot  = keyboard_check(ord("J")) || mouse_check_button(mb_left);
-var key_roll   = keyboard_check_pressed(vk_shift);
+var key_jump   = keyboard_check_pressed(global.key_jump);
+var key_shoot  = keyboard_check(global.key_shoot) || mouse_check_button(mb_left);
+var key_roll   = keyboard_check_pressed(global.key_roll);
 
 // === INPUT — gamepad (device 0) ===
 var gp = gamepad_is_connected(0);
@@ -25,8 +27,7 @@ if (gp) {
     if (gamepad_button_check_pressed(0, gp_face1)) key_jump  = true;  // A / Cross
     if (gamepad_button_check(0, gp_shoulderr))     key_shoot = true;  // RB / R1
     if (gamepad_button_check(0, gp_shoulderrb))    key_shoot = true;  // RT / R2
-    if (gamepad_axis_value(0, gp_axisrtrigger) > 0.3) key_shoot = true; // RT axis fallback
-    if (gamepad_button_check_pressed(0, gp_thumbl))   key_roll  = true; // L3
+    if (gamepad_button_check_pressed(0, gp_stickl))   key_roll  = true; // L3
 }
 
 // === HORIZONTAL MOVEMENT ===
@@ -163,16 +164,17 @@ x = clamp(x, 0, room_width);
 if (!instance_exists(obj_controller3)) {
     var cam_w = camera_get_view_width(view_camera[0]);
     var cam_h = camera_get_view_height(view_camera[0]);
-    var look_ahead = facing * 260;
+    var look_ahead = facing * 150;
     var target_cx = clamp(x + look_ahead - cam_w / 2, 0, room_width - cam_w);
     var target_cy = clamp(y - cam_h * 0.72, 0, room_height - cam_h);
     var cur_cx = camera_get_view_x(view_camera[0]);
     var cur_cy = camera_get_view_y(view_camera[0]);
-    camera_set_view_pos(view_camera[0], lerp(cur_cx, target_cx, 0.12), lerp(cur_cy, target_cy, 0.12));
+    camera_set_view_pos(view_camera[0], lerp(cur_cx, target_cx, 0.09), lerp(cur_cy, target_cy, 0.09));
     if (global.shake_mag > 0.5) {
+        var _sm = global.shake_mag * global.shake_intensity;
         camera_set_view_pos(view_camera[0],
-            camera_get_view_x(view_camera[0]) + random_range(-global.shake_mag, global.shake_mag),
-            camera_get_view_y(view_camera[0]) + random_range(-global.shake_mag, global.shake_mag));
+            camera_get_view_x(view_camera[0]) + random_range(-_sm, _sm),
+            camera_get_view_y(view_camera[0]) + random_range(-_sm, _sm));
     }
 }
 
@@ -181,44 +183,46 @@ if (!instance_exists(obj_controller3)) {
 var aim_x = key_right - key_left;
 var aim_y = key_down - key_up;
 if (gp) {
-    var rx = gamepad_axis_value(0, gp_axisrh);
-    var ry = gamepad_axis_value(0, gp_axisrv);
-    if (abs(rx) > dead || abs(ry) > dead) {
-        aim_dir = point_direction(0, 0, rx, ry);
+    var rx2 = gamepad_axis_value(0, gp_axisrh);
+    var ry2 = gamepad_axis_value(0, gp_axisrv);
+    if (abs(rx2) > dead || abs(ry2) > dead) {
+        aim_dir = point_direction(0, 0, rx2, ry2);
     } else if (aim_x != 0 || aim_y != 0) {
         aim_dir = point_direction(0, 0, aim_x, -aim_y);
     } else {
         aim_dir = (facing == 1) ? 0 : 180;
     }
 } else {
-    if (aim_x != 0 || aim_y != 0) {
-        aim_dir = point_direction(0, 0, aim_x, -aim_y);
-    } else {
-        aim_dir = point_direction(x, y - 16, mouse_x, mouse_y);
-    }
+    aim_dir = point_direction(x, y - 16, mouse_x, mouse_y);
 }
 
 // === SHOOTING ===
-// Auto-reload when empty
-if (ammo <= 0 && reload_timer == 0) reload_timer = 110;
+// Auto-reload when empty (suppressed during rage — infinite ammo)
+if (ammo <= 0 && reload_timer == 0 && global.rage_timer <= 0) reload_timer = 110;
 if (reload_timer > 0) {
     reload_timer--;
     if (reload_timer == 0) ammo = max_ammo;
 }
 
 if (shoot_timer > 0) shoot_timer--;
-if (key_shoot && shoot_timer <= 0 && !crouching && ammo > 0 && reload_timer == 0) {
+if (recoil > 0) recoil--;
+if (key_shoot && shoot_timer <= 0 && !crouching && (ammo > 0 || global.rage_timer > 0) && reload_timer == 0) {
     var b = instance_create_layer(x, y - 16, "Instances", obj_bullet);
     b.direction   = aim_dir;
     b.speed       = 14;
     b.image_angle = aim_dir;
-    shoot_timer   = shoot_delay;
-    ammo--;
+    shoot_timer   = (global.rage_timer > 0) ? max(4, shoot_delay / 2) : shoot_delay;
+    if (global.rage_timer <= 0) ammo--;
+    recoil = 5;
+    hspd  -= lengthdir_x(0.55, aim_dir);
+    global.shake_mag = max(global.shake_mag, 1.4);
+    var _sc  = instance_create_layer(x + facing * 2, y - 18, "Instances", obj_shell_casing);
+    _sc.hspd = -facing * random_range(2.5, 5.5);
     audio_play_sound(snd_gunshot, 10, false);
 }
 
 // === GRENADE (K / gamepad LB) ===
-var key_grenade = keyboard_check_pressed(ord("K"));
+var key_grenade = keyboard_check_pressed(global.key_grenade);
 if (gp && gamepad_button_check_pressed(0, gp_shoulderlb)) key_grenade = true;
 if (grenade_cd > 0) grenade_cd--;
 if (key_grenade && grenade_count > 0 && grenade_cd == 0 && !crouching) {
@@ -307,6 +311,10 @@ if (hp <= 0) {
     if (global.game_state != 2) {
         global.total_deaths++;
         if (global.total_deaths == 25) { try { steam_set_achievement("ach_deaths"); } catch (_ex) {} }
+        ini_open("foxhole_dan.ini");
+        ini_write_real("stats", "lifetime_deaths", ini_read_real("stats", "lifetime_deaths", 0) + 1);
+        ini_close();
+        global.pstat_lifetime_deaths += 1;
         global.game_state = 2;
         audio_stop_all();
         audio_play_sound(snd_music_death, 100, false);

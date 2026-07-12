@@ -13,9 +13,9 @@ facing       = 1;
 // Difficulty scaling
 var _d = variable_global_exists("difficulty") ? global.difficulty : 1;
 //                  Easy  Normal  Hard  Brutal
-var _hp_tab  = [200,  140,   100,   70];
-var _obs_tab = [10,    18,    25,   35];   // obstacle hit damage
-var _bul_tab = [8,     14,    20,   28];   // enemy bullet damage
+var _hp_tab  = [300,  220,   150,  100];
+var _obs_tab = [8,     12,    20,   30];   // obstacle hit damage
+var _bul_tab = [5,      8,    14,   22];   // enemy bullet damage
 hp           = _hp_tab[_d];
 max_hp       = _hp_tab[_d];
 obs_dmg      = _obs_tab[_d];
@@ -43,3 +43,6 @@ if (!variable_global_exists("combo_timer"))    global.combo_timer    = 0;
 if (!variable_global_exists("run_kills"))      global.run_kills      = 0;
 if (!variable_global_exists("run_time"))       global.run_time       = 0;
 if (!variable_global_exists("run_hits_taken")) global.run_hits_taken = 0;
+
+mouse_x_prev = mouse_x;
+mouse_y_prev = mouse_y;

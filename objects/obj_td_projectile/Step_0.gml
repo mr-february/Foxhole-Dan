@@ -14,15 +14,7 @@ if (_dist <= proj_spd + 4) {
             if (_e == noone) continue;
             if (point_distance(x, y, _e.x, _e.y) < aoe_rad) {
                 _e.hp -= damage;
-                if (_e.hp <= 0) {
-                    var _ctrl = instance_find(obj_controller5, 0);
-                    if (_ctrl != noone) _ctrl.currency += _e.reward;
-                    global.score += (_e.enemy_type == 1) ? 150 : 100;
-                    global.kill_flash_timer = 5;
-                    with (_e) { instance_destroy(); }
-                } else {
-                    _e.hit_flash = 8;
-                }
+                _e.hit_flash = 8;
             }
         }
         if (instance_exists(obj_td_reyes)) {
@@ -34,16 +26,7 @@ if (_dist <= proj_spd + 4) {
     } else {
         if (instance_exists(target)) {
             target.hp -= damage;
-            if (target.object_index == obj_td_reyes) target.hit_flash = 10;
-            if (target.hp <= 0) {
-                if (target.object_index == obj_td_enemy) {
-                    var _ctrl2 = instance_find(obj_controller5, 0);
-                    if (_ctrl2 != noone) _ctrl2.currency += target.reward;
-                    global.score += (target.enemy_type == 1) ? 150 : 100;
-                    global.kill_flash_timer = 5;
-                }
-                with (target) { instance_destroy(); }
-            }
+            target.hit_flash = (target.object_index == obj_td_reyes) ? 10 : 8;
         }
     }
     instance_destroy();

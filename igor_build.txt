@@ -1,0 +1,255 @@
+Options: C:\ProgramData\GameMakerStudio2\Cache\runtimes\runtime-2024.14.4.268\bin\platform_setting_defaults.json
+Options: C:\Users\avkov\AppData\Roaming\GameMakerStudio2\dkovak7911_5059456\local_settings.json
+Options: Default
+Failed to load Options from Default
+Setting up the Asset compiler
+C:\ProgramData\GameMakerStudio2\Cache\runtimes\runtime-2024.14.4.268/bin/assetcompiler/windows/x64/GMAssetCompiler.dll  /c /mv=1 /zpex /iv=0 /rv=0 /bv=0 /j=8  /gn="Foxhole-Dan" /td="C:\Users\avkov\GameMakerProjects\Foxhole-Dan\html5game\cache" /cd="C:\Users\avkov\GameMakerProjects\Foxhole-Dan\html5game\cache" /rtp="C:\ProgramData\GameMakerStudio2\Cache\runtimes\runtime-2024.14.4.268" /zpuf="C:\Users\avkov\AppData\Roaming\GameMakerStudio2\dkovak7911_5059456" /prefabs="" /projecttool=""   /ic /wt /m=html5 /tgt=32 /nodnd /cfg="Default" /nocache_html5  /o="C:\Users\avkov\GameMakerProjects\Foxhole-Dan\html5game\html5game" /HTMLRunner="C:\ProgramData\GameMakerStudio2\Cache\runtimes\runtime-2024.14.4.268/html5/scripts.html5.zip" /sh=True /optionsini="C:\Users\avkov\GameMakerProjects\Foxhole-Dan\html5game\html5game\options.ini" /obob=False  /obpp=False  /obru=False  /obdn=False  /obcc=False  /objsd=False  /cvm  /obfuscate /baseproject="C:\ProgramData\GameMakerStudio2\Cache\runtimes\runtime-2024.14.4.268\BaseProject\BaseProject.yyp" "C:\Users\avkov\GameMakerProjects\Foxhole-Dan\Foxhole-Dan.yyp" /preprocess="C:\Users\avkov\GameMakerProjects\Foxhole-Dan\html5game\cache"
+Found Project Format 2
++++ GMSC serialisation:  SUCCESSFUL LOAD AND LINK TIME: 698.9022ms
+Success
+finished adding assets from C:/Users/avkov/GameMakerProjects/Foxhole-Dan/Foxhole-Dan.yyp.
+Release build
+Options: C:\Users\avkov\GameMakerProjects\Foxhole-Dan\html5game\cache\ExtensionOptions.json
+OptionsIni
+Options: C:\Users\avkov\GameMakerProjects\Foxhole-Dan\html5game\cache\PlatformOptions.json
+C:\ProgramData\GameMakerStudio2\Cache\runtimes\runtime-2024.14.4.268/bin/assetcompiler/windows/x64/GMAssetCompiler.dll  /c /mv=1 /zpex /iv=0 /rv=0 /bv=0 /j=8  /gn="Foxhole-Dan" /td="C:\Users\avkov\GameMakerProjects\Foxhole-Dan\html5game\cache" /cd="C:\Users\avkov\GameMakerProjects\Foxhole-Dan\html5game\cache" /rtp="C:\ProgramData\GameMakerStudio2\Cache\runtimes\runtime-2024.14.4.268" /zpuf="C:\Users\avkov\AppData\Roaming\GameMakerStudio2\dkovak7911_5059456" /prefabs="" /projecttool=""   /ic /wt /m=html5 /tgt=32 /nodnd /cfg="Default" /nocache_html5  /o="C:\Users\avkov\GameMakerProjects\Foxhole-Dan\html5game\html5game" /HTMLRunner="C:\ProgramData\GameMakerStudio2\Cache\runtimes\runtime-2024.14.4.268/html5/scripts.html5.zip" /sh=True /optionsini="C:\Users\avkov\GameMakerProjects\Foxhole-Dan\html5game\html5game\options.ini" /obob=False  /obpp=False  /obru=False  /obdn=False  /obcc=False  /objsd=False  /cvm  /obfuscate /baseproject="C:\ProgramData\GameMakerStudio2\Cache\runtimes\runtime-2024.14.4.268\BaseProject\BaseProject.yyp" "C:\Users\avkov\GameMakerProjects\Foxhole-Dan\Foxhole-Dan.yyp" /bt=exe /rt=vm
+Looking for built-in fallback image in C:\ProgramData\GameMakerStudio2\Cache\runtimes\runtime-2024.14.4.268\bin\BuiltinImages
+Saving HTML5 file... C:\Users\avkov\GameMakerProjects\Foxhole-Dan\html5game\html5game\html5game\Foxhole-Dan.js
+Looking for built-in particle images in C:\ProgramData\GameMakerStudio2\Cache\runtimes\runtime-2024.14.4.268\bin\assetcompiler\ParticleImages
+Looking for built-in font images in C:\ProgramData\GameMakerStudio2\Cache\runtimes\runtime-2024.14.4.268\bin\assetcompiler\BuiltinFonts
+Fonts - Texture group not found in FONT_builtin.yy
+Texture Group - __YY__0fallbacktexture.png_YYG_AUTO_GEN_TEX_GROUP_NAME_
+Texture Group - Default
+Converting snd_enemy_die3 to MP3 with quality 4, mono @ 44100Hz
+Converting snd_bullet_impact to MP3 with quality 4, mono @ 44100Hz
+Converting snd_enemy_die2 to MP3 with quality 4, mono @ 44100Hz
+Converting snd_brake to MP3 with quality 4, mono @ 44100Hz
+Converting snd_enemy_die to MP3 with quality 4, mono @ 44100Hz
+Converting snd_engine to MP3 with quality 4, mono @ 44100Hz
+Converting snd_gunshot to MP3 with quality 4, mono @ 44100Hz
+Converting snd_explosion to MP3 with quality 4, mono @ 44100Hz
+Converting snd_enemy_die to Ogg with quality 4, mono @ 44100Hz
+Converting snd_enemy_die3 to Ogg with quality 4, mono @ 44100Hz
+Converting snd_brake to Ogg with quality 4, mono @ 44100Hz
+Converting snd_enemy_die2 to Ogg with quality 4, mono @ 44100Hz
+Converting snd_gunshot to Ogg with quality 4, mono @ 44100Hz
+Converting snd_bullet_impact to Ogg with quality 4, mono @ 44100Hz
+Converting snd_explosion to Ogg with quality 4, mono @ 44100Hz
+Converting snd_engine to Ogg with quality 4, mono @ 44100Hz
+Warning: Source audio file 'C:/Users/avkov/GameMakerProjects/Foxhole-Dan/sounds/snd_enemy_die2/snd_enemy_die2.wav' is malformed - forcing conversion
+Warning: Source audio file 'C:/Users/avkov/GameMakerProjects/Foxhole-Dan/sounds/snd_brake/snd_brake.wav' is malformed - forcing conversion
+Warning: Source audio file 'C:/Users/avkov/GameMakerProjects/Foxhole-Dan/sounds/snd_enemy_die/snd_enemy_die.wav' is malformed - forcing conversion
+Warning: Source audio file 'C:/Users/avkov/GameMakerProjects/Foxhole-Dan/sounds/snd_engine/snd_engine.wav' is malformed - forcing conversion
+Warning: Source audio file 'C:/Users/avkov/GameMakerProjects/Foxhole-Dan/sounds/snd_enemy_die3/snd_enemy_die3.wav' is malformed - forcing conversion
+Converting snd_enemy_die2 to Wav 16bit mono @ 44100Hz
+Converting snd_brake to Wav 16bit mono @ 44100Hz
+Converting snd_enemy_die to Wav 16bit mono @ 44100Hz
+Converting snd_engine to Wav 16bit mono @ 44100Hz
+Converting snd_enemy_die3 to Wav 16bit mono @ 44100Hz
+Converting snd_music_title to MP3 with quality 4, mono @ 44100Hz
+Converting snd_music_room5 to MP3 with quality 4, mono @ 44100Hz
+Converting snd_music_death to MP3 with quality 4, mono @ 44100Hz
+Converting snd_music_room1 to MP3 with quality 4, mono @ 44100Hz
+Converting snd_music_room2 to MP3 with quality 4, mono @ 44100Hz
+Converting snd_music_death to Ogg with quality 4, mono @ 44100Hz
+Converting snd_music_title to Ogg with quality 4, mono @ 44100Hz
+Converting snd_music_room5 to Ogg with quality 4, mono @ 44100Hz
+Converting snd_music_room3 to MP3 with quality 4, mono @ 44100Hz
+Converting snd_music_cutscene to MP3 with quality 4, mono @ 44100Hz
+Converting snd_music_room4 to MP3 with quality 4, mono @ 44100Hz
+Converting snd_music_room1 to Ogg with quality 4, mono @ 44100Hz
+Converting snd_ptsd_horn to MP3 with quality 4, mono @ 44100Hz
+Converting snd_music_room2 to Ogg with quality 4, mono @ 44100Hz
+Converting snd_music_room4 to Ogg with quality 4, mono @ 44100Hz
+Converting snd_ptsd_ring to MP3 with quality 4, mono @ 44100Hz
+Converting snd_music_room3 to Ogg with quality 4, mono @ 44100Hz
+Converting snd_ptsd_horn to Ogg with quality 4, mono @ 44100Hz
+Converting snd_ptsd_ring to Ogg with quality 4, mono @ 44100Hz
+Converting snd_music_cutscene to Ogg with quality 4, mono @ 44100Hz
+Warning: Source audio file 'C:/Users/avkov/GameMakerProjects/Foxhole-Dan/sounds/snd_ptsd_horn/snd_ptsd_horn.wav' is malformed - forcing conversion
+Converting snd_ptsd_horn to Wav 16bit mono @ 44100Hz
+Warning: Source audio file 'C:/Users/avkov/GameMakerProjects/Foxhole-Dan/sounds/snd_ptsd_ring/snd_ptsd_ring.wav' is malformed - forcing conversion
+Converting snd_ptsd_ring to Wav 16bit mono @ 44100Hz
+Converting snd_player_hurt to MP3 with quality 4, mono @ 44100Hz
+Converting snd_player_hurt to Ogg with quality 4, mono @ 44100Hz
+Converting snd_vehicle_gun to MP3 with quality 4, mono @ 44100Hz
+Converting snd_vehicle_gun to Ogg with quality 4, mono @ 44100Hz
+Converting snd_roll to MP3 with quality 4, mono @ 44100Hz
+Converting snd_roll to Ogg with quality 4, mono @ 44100Hz
+0 Compressing texture... writing texture Foxhole-Dan_texture_0.png... 
+1 Compressing texture... writing texture Foxhole-Dan_texture_1.png... 
+Obfuscating...
+Unknown identifier in compile_if_weak_ref(ds_grid_to_mp_grid
+Unknown identifier in compile_if_weak_ref(json_stringify
+Unknown identifier in compile_if_weak_ref(json_parse
+Unknown identifier in compile_if_weak_ref(move_random
+Unknown identifier in compile_if_weak_ref(place_free
+Unknown identifier in compile_if_weak_ref(place_empty
+Unknown identifier in compile_if_weak_ref(place_meeting
+Unknown identifier in compile_if_weak_ref(place_snapped
+Unknown identifier in compile_if_weak_ref(move_snap
+Unknown identifier in compile_if_weak_ref(move_towards_point
+Unknown identifier in compile_if_weak_ref(move_contact_solid
+Unknown identifier in compile_if_weak_ref(move_contact_all
+Unknown identifier in compile_if_weak_ref(move_outside_solid
+Unknown identifier in compile_if_weak_ref(move_outside_all
+Unknown identifier in compile_if_weak_ref(move_and_collide
+Unknown identifier in compile_if_weak_ref(move_bounce_solid
+Unknown identifier in compile_if_weak_ref(move_bounce_all
+Unknown identifier in compile_if_weak_ref(move_wrap
+Unknown identifier in compile_if_weak_ref(motion_set
+Unknown identifier in compile_if_weak_ref(motion_add
+Unknown identifier in compile_if_weak_ref(distance_to_point
+Unknown identifier in compile_if_weak_ref(distance_to_object
+Unknown identifier in compile_if_weak_ref(path_start
+Unknown identifier in compile_if_weak_ref(path_end
+Unknown identifier in compile_if_weak_ref(mp_linear_step
+Unknown identifier in compile_if_weak_ref(mp_linear_path
+Unknown identifier in compile_if_weak_ref(mp_linear_step_object
+Unknown identifier in compile_if_weak_ref(mp_linear_path_object
+Unknown identifier in compile_if_weak_ref(mp_potential_settings
+Unknown identifier in compile_if_weak_ref(mp_potential_step
+Unknown identifier in compile_if_weak_ref(mp_potential_path
+Unknown identifier in compile_if_weak_ref(mp_potential_step_object
+Unknown identifier in compile_if_weak_ref(mp_potential_path_object
+Unknown identifier in compile_if_weak_ref(mp_grid_add_instances
+Unknown identifier in compile_if_weak_ref(mp_grid_path
+Unknown identifier in compile_if_weak_ref(flexpanel_node_set_measure_function
+Unknown identifier in compile_if_weak_ref(collision_point
+Unknown identifier in compile_if_weak_ref(collision_point_list
+Unknown identifier in compile_if_weak_ref(collision_rectangle
+Unknown identifier in compile_if_weak_ref(collision_rectangle_list
+Unknown identifier in compile_if_weak_ref(collision_circle
+Unknown identifier in compile_if_weak_ref(collision_circle_list
+Unknown identifier in compile_if_weak_ref(collision_ellipse
+Unknown identifier in compile_if_weak_ref(collision_ellipse_list
+Unknown identifier in compile_if_weak_ref(collision_line
+Unknown identifier in compile_if_weak_ref(collision_line_list
+Unknown identifier in compile_if_weak_ref(instance_position
+Unknown identifier in compile_if_weak_ref(instance_position_list
+Unknown identifier in compile_if_weak_ref(instance_nearest
+Unknown identifier in compile_if_weak_ref(instance_furthest
+Unknown identifier in compile_if_weak_ref(instance_place
+Unknown identifier in compile_if_weak_ref(instance_place_list
+Unknown identifier in compile_if_weak_ref(instance_copy
+Unknown identifier in compile_if_weak_ref(instance_change
+Unknown identifier in compile_if_weak_ref(instance_destroy
+Unknown identifier in compile_if_weak_ref(position_empty
+Unknown identifier in compile_if_weak_ref(position_meeting
+Unknown identifier in compile_if_weak_ref(position_destroy
+Unknown identifier in compile_if_weak_ref(position_change
+Unknown identifier in compile_if_weak_ref(instance_id_get
+Unknown identifier in compile_if_weak_ref(instance_deactivate_all
+Unknown identifier in compile_if_weak_ref(instance_deactivate_object
+Unknown identifier in compile_if_weak_ref(instance_deactivate_region
+Unknown identifier in compile_if_weak_ref(instance_deactivate_layer
+Unknown identifier in compile_if_weak_ref(instance_activate_all
+Unknown identifier in compile_if_weak_ref(instance_activate_object
+Unknown identifier in compile_if_weak_ref(instance_activate_region
+Unknown identifier in compile_if_weak_ref(instance_activate_layer
+Unknown identifier in compile_if_weak_ref(draw_self
+Unknown identifier in compile_if_weak_ref(draw_sprite
+Unknown identifier in compile_if_weak_ref(draw_sprite_pos
+Unknown identifier in compile_if_weak_ref(draw_sprite_ext
+Unknown identifier in compile_if_weak_ref(draw_sprite_stretched
+Unknown identifier in compile_if_weak_ref(draw_sprite_stretched_ext
+Unknown identifier in compile_if_weak_ref(draw_sprite_part
+Unknown identifier in compile_if_weak_ref(draw_sprite_part_ext
+Unknown identifier in compile_if_weak_ref(draw_sprite_general
+Unknown identifier in compile_if_weak_ref(draw_sprite_tiled
+Unknown identifier in compile_if_weak_ref(draw_sprite_tiled_ext
+Unknown identifier in compile_if_weak_ref(array_sort
+Unknown identifier in compile_if_weak_ref(array_create_ext
+Unknown identifier in compile_if_weak_ref(array_find_index
+Unknown identifier in compile_if_weak_ref(array_any
+Unknown identifier in compile_if_weak_ref(array_all
+Unknown identifier in compile_if_weak_ref(array_foreach
+Unknown identifier in compile_if_weak_ref(array_reduce
+Unknown identifier in compile_if_weak_ref(array_filter
+Unknown identifier in compile_if_weak_ref(array_filter_ext
+Unknown identifier in compile_if_weak_ref(array_map
+Unknown identifier in compile_if_weak_ref(array_map_ext
+Unknown identifier in compile_if_weak_ref(struct_foreach
+Unknown identifier in compile_if_weak_ref(string_foreach
+Unknown identifier in compile_if_weak_ref(event_inherited
+Unknown identifier in compile_if_weak_ref(event_perform
+Unknown identifier in compile_if_weak_ref(event_perform_async
+Unknown identifier in compile_if_weak_ref(event_user
+Unknown identifier in compile_if_weak_ref(event_perform_object
+Unknown identifier in compile_if_weak_ref(alarm_get
+Unknown identifier in compile_if_weak_ref(alarm_set
+Unknown identifier in compile_if_weak_ref(physics_fixture_bind
+Unknown identifier in compile_if_weak_ref(physics_fixture_bind_ext
+Unknown identifier in compile_if_weak_ref(physics_apply_force
+Unknown identifier in compile_if_weak_ref(physics_apply_impulse
+Unknown identifier in compile_if_weak_ref(physics_apply_angular_impulse
+Unknown identifier in compile_if_weak_ref(physics_apply_local_force
+Unknown identifier in compile_if_weak_ref(physics_apply_local_impulse
+Unknown identifier in compile_if_weak_ref(physics_apply_torque
+Unknown identifier in compile_if_weak_ref(physics_mass_properties
+Unknown identifier in compile_if_weak_ref(physics_draw_debug
+Unknown identifier in compile_if_weak_ref(physics_test_overlap
+Unknown identifier in compile_if_weak_ref(physics_get_friction
+Unknown identifier in compile_if_weak_ref(physics_get_density
+Unknown identifier in compile_if_weak_ref(physics_get_restitution
+Unknown identifier in compile_if_weak_ref(physics_set_friction
+Unknown identifier in compile_if_weak_ref(physics_set_density
+Unknown identifier in compile_if_weak_ref(physics_set_restitution
+Unknown identifier in compile_if_weak_ref(skeleton_animation_set
+Unknown identifier in compile_if_weak_ref(skeleton_animation_get
+Unknown identifier in compile_if_weak_ref(skeleton_animation_mix
+Unknown identifier in compile_if_weak_ref(skeleton_animation_set_ext
+Unknown identifier in compile_if_weak_ref(skeleton_animation_get_ext
+Unknown identifier in compile_if_weak_ref(skeleton_animation_get_duration
+Unknown identifier in compile_if_weak_ref(skeleton_animation_get_frames
+Unknown identifier in compile_if_weak_ref(skeleton_animation_clear
+Unknown identifier in compile_if_weak_ref(skeleton_skin_set
+Unknown identifier in compile_if_weak_ref(skeleton_skin_get
+Unknown identifier in compile_if_weak_ref(skeleton_skin_create
+Unknown identifier in compile_if_weak_ref(skeleton_attachment_set
+Unknown identifier in compile_if_weak_ref(skeleton_attachment_get
+Unknown identifier in compile_if_weak_ref(skeleton_attachment_create
+Unknown identifier in compile_if_weak_ref(skeleton_attachment_create_colour
+Unknown identifier in compile_if_weak_ref(skeleton_attachment_create_color
+Unknown identifier in compile_if_weak_ref(skeleton_attachment_replace
+Unknown identifier in compile_if_weak_ref(skeleton_attachment_replace_colour
+Unknown identifier in compile_if_weak_ref(skeleton_attachment_replace_color
+Unknown identifier in compile_if_weak_ref(skeleton_attachment_destroy
+Unknown identifier in compile_if_weak_ref(skeleton_attachment_exists
+Unknown identifier in compile_if_weak_ref(skeleton_collision_draw_set
+Unknown identifier in compile_if_weak_ref(skeleton_bone_data_get
+Unknown identifier in compile_if_weak_ref(skeleton_bone_data_set
+Unknown identifier in compile_if_weak_ref(skeleton_bone_state_get
+Unknown identifier in compile_if_weak_ref(skeleton_bone_state_set
+Unknown identifier in compile_if_weak_ref(skeleton_slot_data_instance
+Unknown identifier in compile_if_weak_ref(skeleton_slot_colour_set
+Unknown identifier in compile_if_weak_ref(skeleton_slot_color_set
+Unknown identifier in compile_if_weak_ref(skeleton_slot_colour_get
+Unknown identifier in compile_if_weak_ref(skeleton_slot_color_get
+Unknown identifier in compile_if_weak_ref(skeleton_slot_alpha_get
+Unknown identifier in compile_if_weak_ref(skeleton_animation_get_frame
+Unknown identifier in compile_if_weak_ref(skeleton_animation_set_frame
+Unknown identifier in compile_if_weak_ref(skeleton_animation_is_looping
+Unknown identifier in compile_if_weak_ref(skeleton_animation_is_finished
+Unknown identifier in compile_if_weak_ref(skeleton_animation_get_position
+Unknown identifier in compile_if_weak_ref(skeleton_animation_set_position
+Unknown identifier in compile_if_weak_ref(skeleton_animation_get_event_frames
+Unknown identifier in compile_if_weak_ref(skeleton_get_minmax
+Unknown identifier in compile_if_weak_ref(skeleton_get_num_bounds
+Unknown identifier in compile_if_weak_ref(skeleton_get_bounds
+Unknown identifier in compile_if_weak_ref(skeleton_find_slot
+Unknown identifier in compile_if_weak_ref(draw_tilemap
+Unknown identifier in compile_if_weak_ref(draw_tile
+Unknown identifier in compile_if_weak_ref(_rL2
+Done! 
+Stats : GMA : Elapsed=8599.8927
+Stats : GMA : sp=15,au=21,bk=0,pt=0,sc=0,sh=0,fo=1,tl=0,ob=44,ro=7,da=0,ex=0,ma=0,fm=0x901C697809A4
+[Deploy] Copy Assets/Included files to target dir
+PlatformOptions
+DoIndexFile
+DoSplash
+DoCodeInjection
+DoIcon
+Igor complete.
+The given key (targetType) was not present in the dictionary.
+Igor complete.

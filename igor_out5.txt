@@ -1,0 +1,10 @@
+Options: C:\ProgramData\GameMakerStudio2\Cache\runtimes\runtime-2024.14.4.268\bin\platform_setting_defaults.json
+Options: C:\Users\avkov\AppData\Roaming\GameMakerStudio2\um.json\local_settings.json
+Failed to load Options from C:\Users\avkov\AppData\Roaming\GameMakerStudio2\um.json\local_settings.json
+Options: Default
+Failed to load Options from Default
+Setting up the Asset compiler
+C:\ProgramData\GameMakerStudio2\Cache\runtimes\runtime-2024.14.4.268/bin/assetcompiler/windows/x64/GMAssetCompiler.dll  /c /mv=1 /zpex /iv=0 /rv=0 /bv=0 /j=8  /gn="Foxhole-Dan" /td="C:\Users\avkov\GameMakerProjects\Foxhole-Dan\html5game\cache" /cd="C:\Users\avkov\GameMakerProjects\Foxhole-Dan\html5game\cache" /rtp="C:\ProgramData\GameMakerStudio2\Cache\runtimes\runtime-2024.14.4.268" /zpuf="C:\Users\avkov\AppData\Roaming\GameMakerStudio2\um.json" /prefabs="" /projecttool=""   /wt /m=html5 /tgt=32 /nodnd /cfg="Default" /nocache_html5  /o="C:\Users\avkov\GameMakerProjects\Foxhole-Dan\html5game\html5game" /HTMLRunner="C:\ProgramData\GameMakerStudio2\Cache\runtimes\runtime-2024.14.4.268/html5/scripts.html5.zip" /sh=True /optionsini="C:\Users\avkov\GameMakerProjects\Foxhole-Dan\html5game\html5game\options.ini" /obob=True  /obpp=False  /obru=True  /obdn=False  /obcc=False  /objsd=False  /v /cvm  /obfuscate /baseproject="C:\ProgramData\GameMakerStudio2\Cache\runtimes\runtime-2024.14.4.268\BaseProject\BaseProject.yyp" "C:\Users\avkov\GameMakerProjects\Foxhole-Dan\Foxhole-Dan.yyp" /preprocess="C:\Users\avkov\GameMakerProjects\Foxhole-Dan\html5game\cache"
+Reason Code - 0000002A
+Permission Error : Unable to obtain permission to execute
+C:\ProgramData\GameMakerStudio2\Cache\runtimes\runtime-2024.14.4.268/bin/assetcompiler/windows/x64/GMAssetCompiler.dll exited with non-zero status (-1)

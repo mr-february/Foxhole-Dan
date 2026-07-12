@@ -1,0 +1,295 @@
+Options: C:\ProgramData\GameMakerStudio2\Cache\runtimes\runtime-2024.14.4.268\bin\platform_setting_defaults.json
+Options: C:\Users\avkov\AppData\Roaming\GameMakerStudio2\dkovak7911_5059456\local_settings.json
+Options: Default
+Failed to load Options from Default
+Setting up the Asset compiler
+C:\ProgramData\GameMakerStudio2\Cache\runtimes\runtime-2024.14.4.268/bin/assetcompiler/windows/x64/GMAssetCompiler.dll  /c /mv=1 /zpex /iv=0 /rv=0 /bv=0 /j=8  /gn="Foxhole-Dan" /td="C:\Users\avkov\GameMakerProjects\Foxhole-Dan\html5game\cache" /cd="C:\Users\avkov\GameMakerProjects\Foxhole-Dan\html5game\cache" /rtp="C:\ProgramData\GameMakerStudio2\Cache\runtimes\runtime-2024.14.4.268" /zpuf="C:\Users\avkov\AppData\Roaming\GameMakerStudio2\dkovak7911_5059456" /prefabs="" /projecttool=""   /wt /m=html5 /tgt=32 /nodnd /cfg="Default" /nocache_html5  /o="C:\Users\avkov\GameMakerProjects\Foxhole-Dan\html5game\html5game" /HTMLRunner="C:\ProgramData\GameMakerStudio2\Cache\runtimes\runtime-2024.14.4.268/html5/scripts.html5.zip" /sh=True /optionsini="C:\Users\avkov\GameMakerProjects\Foxhole-Dan\html5game\html5game\options.ini" /obob=False  /obpp=False  /obru=False  /obdn=False  /obcc=False  /objsd=False  /cvm  /obfuscate /baseproject="C:\ProgramData\GameMakerStudio2\Cache\runtimes\runtime-2024.14.4.268\BaseProject\BaseProject.yyp" "C:\Users\avkov\GameMakerProjects\Foxhole-Dan\Foxhole-Dan.yyp" /preprocess="C:\Users\avkov\GameMakerProjects\Foxhole-Dan\html5game\cache"
+Found Project Format 2
++++ GMSC serialisation:  SUCCESSFUL LOAD AND LINK TIME: 264.4363ms
+Success
+finished adding assets from C:/Users/avkov/GameMakerProjects/Foxhole-Dan/Foxhole-Dan.yyp.
+Release build
+Options: C:\Users\avkov\GameMakerProjects\Foxhole-Dan\html5game\cache\ExtensionOptions.json
+OptionsIni
+Options: C:\Users\avkov\GameMakerProjects\Foxhole-Dan\html5game\cache\PlatformOptions.json
+C:\ProgramData\GameMakerStudio2\Cache\runtimes\runtime-2024.14.4.268/bin/assetcompiler/windows/x64/GMAssetCompiler.dll  /c /mv=1 /zpex /iv=0 /rv=0 /bv=0 /j=8  /gn="Foxhole-Dan" /td="C:\Users\avkov\GameMakerProjects\Foxhole-Dan\html5game\cache" /cd="C:\Users\avkov\GameMakerProjects\Foxhole-Dan\html5game\cache" /rtp="C:\ProgramData\GameMakerStudio2\Cache\runtimes\runtime-2024.14.4.268" /zpuf="C:\Users\avkov\AppData\Roaming\GameMakerStudio2\dkovak7911_5059456" /prefabs="" /projecttool=""   /wt /m=html5 /tgt=32 /nodnd /cfg="Default" /nocache_html5  /o="C:\Users\avkov\GameMakerProjects\Foxhole-Dan\html5game\html5game" /HTMLRunner="C:\ProgramData\GameMakerStudio2\Cache\runtimes\runtime-2024.14.4.268/html5/scripts.html5.zip" /sh=True /optionsini="C:\Users\avkov\GameMakerProjects\Foxhole-Dan\html5game\html5game\options.ini" /obob=False  /obpp=False  /obru=False  /obdn=False  /obcc=False  /objsd=False  /cvm  /obfuscate /baseproject="C:\ProgramData\GameMakerStudio2\Cache\runtimes\runtime-2024.14.4.268\BaseProject\BaseProject.yyp" "C:\Users\avkov\GameMakerProjects\Foxhole-Dan\Foxhole-Dan.yyp" /bt=run /rt=vm
+Looking for built-in fallback image in C:\ProgramData\GameMakerStudio2\Cache\runtimes\runtime-2024.14.4.268\bin\BuiltinImages
+Saving HTML5 file... C:\Users\avkov\GameMakerProjects\Foxhole-Dan\html5game\html5game\html5game\Foxhole-Dan.js
+Looking for built-in particle images in C:\ProgramData\GameMakerStudio2\Cache\runtimes\runtime-2024.14.4.268\bin\assetcompiler\ParticleImages
+Looking for built-in font images in C:\ProgramData\GameMakerStudio2\Cache\runtimes\runtime-2024.14.4.268\bin\assetcompiler\BuiltinFonts
+Fonts - Texture group not found in FONT_builtin.yy
+Texture Group - __YY__0fallbacktexture.png_YYG_AUTO_GEN_TEX_GROUP_NAME_
+Texture Group - Default
+Rebuild cache file C:\Users\avkov\GameMakerProjects\Foxhole-Dan\html5game\cache\Default\TextureGroups\_2048_0\__YY__0fallbacktexture.png_YYG_AUTO_GEN_TEX_GROUP_NAME_.texturePreview.xml due to changed texture format
+Rebuild cache file C:\Users\avkov\GameMakerProjects\Foxhole-Dan\html5game\cache\Default\TextureGroups\_2048_131\Default.texturePreview.xml due to changed texture format
+0 Compressing texture... writing texture Foxhole-Dan_texture_0.png... 
+1 Compressing texture... writing texture Foxhole-Dan_texture_1.png... 
+Obfuscating...
+Unknown identifier in compile_if_weak_ref(ds_grid_to_mp_grid
+Unknown identifier in compile_if_weak_ref(json_stringify
+Unknown identifier in compile_if_weak_ref(json_parse
+Unknown identifier in compile_if_weak_ref(move_random
+Unknown identifier in compile_if_weak_ref(place_free
+Unknown identifier in compile_if_weak_ref(place_empty
+Unknown identifier in compile_if_weak_ref(place_meeting
+Unknown identifier in compile_if_weak_ref(place_snapped
+Unknown identifier in compile_if_weak_ref(move_snap
+Unknown identifier in compile_if_weak_ref(move_towards_point
+Unknown identifier in compile_if_weak_ref(move_contact_solid
+Unknown identifier in compile_if_weak_ref(move_contact_all
+Unknown identifier in compile_if_weak_ref(move_outside_solid
+Unknown identifier in compile_if_weak_ref(move_outside_all
+Unknown identifier in compile_if_weak_ref(move_and_collide
+Unknown identifier in compile_if_weak_ref(move_bounce_solid
+Unknown identifier in compile_if_weak_ref(move_bounce_all
+Unknown identifier in compile_if_weak_ref(move_wrap
+Unknown identifier in compile_if_weak_ref(motion_set
+Unknown identifier in compile_if_weak_ref(motion_add
+Unknown identifier in compile_if_weak_ref(distance_to_point
+Unknown identifier in compile_if_weak_ref(distance_to_object
+Unknown identifier in compile_if_weak_ref(path_start
+Unknown identifier in compile_if_weak_ref(path_end
+Unknown identifier in compile_if_weak_ref(mp_linear_step
+Unknown identifier in compile_if_weak_ref(mp_linear_path
+Unknown identifier in compile_if_weak_ref(mp_linear_step_object
+Unknown identifier in compile_if_weak_ref(mp_linear_path_object
+Unknown identifier in compile_if_weak_ref(mp_potential_settings
+Unknown identifier in compile_if_weak_ref(mp_potential_step
+Unknown identifier in compile_if_weak_ref(mp_potential_path
+Unknown identifier in compile_if_weak_ref(mp_potential_step_object
+Unknown identifier in compile_if_weak_ref(mp_potential_path_object
+Unknown identifier in compile_if_weak_ref(mp_grid_add_instances
+Unknown identifier in compile_if_weak_ref(mp_grid_path
+Unknown identifier in compile_if_weak_ref(flexpanel_node_set_measure_function
+Unknown identifier in compile_if_weak_ref(collision_point
+Unknown identifier in compile_if_weak_ref(collision_point_list
+Unknown identifier in compile_if_weak_ref(collision_rectangle
+Unknown identifier in compile_if_weak_ref(collision_rectangle_list
+Unknown identifier in compile_if_weak_ref(collision_circle
+Unknown identifier in compile_if_weak_ref(collision_circle_list
+Unknown identifier in compile_if_weak_ref(collision_ellipse
+Unknown identifier in compile_if_weak_ref(collision_ellipse_list
+Unknown identifier in compile_if_weak_ref(collision_line
+Unknown identifier in compile_if_weak_ref(collision_line_list
+Unknown identifier in compile_if_weak_ref(instance_position
+Unknown identifier in compile_if_weak_ref(instance_position_list
+Unknown identifier in compile_if_weak_ref(instance_nearest
+Unknown identifier in compile_if_weak_ref(instance_furthest
+Unknown identifier in compile_if_weak_ref(instance_place
+Unknown identifier in compile_if_weak_ref(instance_place_list
+Unknown identifier in compile_if_weak_ref(instance_copy
+Unknown identifier in compile_if_weak_ref(instance_change
+Unknown identifier in compile_if_weak_ref(instance_destroy
+Unknown identifier in compile_if_weak_ref(position_empty
+Unknown identifier in compile_if_weak_ref(position_meeting
+Unknown identifier in compile_if_weak_ref(position_destroy
+Unknown identifier in compile_if_weak_ref(position_change
+Unknown identifier in compile_if_weak_ref(instance_id_get
+Unknown identifier in compile_if_weak_ref(instance_deactivate_all
+Unknown identifier in compile_if_weak_ref(instance_deactivate_object
+Unknown identifier in compile_if_weak_ref(instance_deactivate_region
+Unknown identifier in compile_if_weak_ref(instance_deactivate_layer
+Unknown identifier in compile_if_weak_ref(instance_activate_all
+Unknown identifier in compile_if_weak_ref(instance_activate_object
+Unknown identifier in compile_if_weak_ref(instance_activate_region
+Unknown identifier in compile_if_weak_ref(instance_activate_layer
+Unknown identifier in compile_if_weak_ref(draw_self
+Unknown identifier in compile_if_weak_ref(draw_sprite
+Unknown identifier in compile_if_weak_ref(draw_sprite_pos
+Unknown identifier in compile_if_weak_ref(draw_sprite_ext
+Unknown identifier in compile_if_weak_ref(draw_sprite_stretched
+Unknown identifier in compile_if_weak_ref(draw_sprite_stretched_ext
+Unknown identifier in compile_if_weak_ref(draw_sprite_part
+Unknown identifier in compile_if_weak_ref(draw_sprite_part_ext
+Unknown identifier in compile_if_weak_ref(draw_sprite_general
+Unknown identifier in compile_if_weak_ref(draw_sprite_tiled
+Unknown identifier in compile_if_weak_ref(draw_sprite_tiled_ext
+Unknown identifier in compile_if_weak_ref(array_sort
+Unknown identifier in compile_if_weak_ref(array_create_ext
+Unknown identifier in compile_if_weak_ref(array_find_index
+Unknown identifier in compile_if_weak_ref(array_any
+Unknown identifier in compile_if_weak_ref(array_all
+Unknown identifier in compile_if_weak_ref(array_foreach
+Unknown identifier in compile_if_weak_ref(array_reduce
+Unknown identifier in compile_if_weak_ref(array_filter
+Unknown identifier in compile_if_weak_ref(array_filter_ext
+Unknown identifier in compile_if_weak_ref(array_map
+Unknown identifier in compile_if_weak_ref(array_map_ext
+Unknown identifier in compile_if_weak_ref(struct_foreach
+Unknown identifier in compile_if_weak_ref(string_foreach
+Unknown identifier in compile_if_weak_ref(event_inherited
+Unknown identifier in compile_if_weak_ref(event_perform
+Unknown identifier in compile_if_weak_ref(event_perform_async
+Unknown identifier in compile_if_weak_ref(event_user
+Unknown identifier in compile_if_weak_ref(event_perform_object
+Unknown identifier in compile_if_weak_ref(alarm_get
+Unknown identifier in compile_if_weak_ref(alarm_set
+Unknown identifier in compile_if_weak_ref(physics_fixture_bind
+Unknown identifier in compile_if_weak_ref(physics_fixture_bind_ext
+Unknown identifier in compile_if_weak_ref(physics_apply_force
+Unknown identifier in compile_if_weak_ref(physics_apply_impulse
+Unknown identifier in compile_if_weak_ref(physics_apply_angular_impulse
+Unknown identifier in compile_if_weak_ref(physics_apply_local_force
+Unknown identifier in compile_if_weak_ref(physics_apply_local_impulse
+Unknown identifier in compile_if_weak_ref(physics_apply_torque
+Unknown identifier in compile_if_weak_ref(physics_mass_properties
+Unknown identifier in compile_if_weak_ref(physics_draw_debug
+Unknown identifier in compile_if_weak_ref(physics_test_overlap
+Unknown identifier in compile_if_weak_ref(physics_get_friction
+Unknown identifier in compile_if_weak_ref(physics_get_density
+Unknown identifier in compile_if_weak_ref(physics_get_restitution
+Unknown identifier in compile_if_weak_ref(physics_set_friction
+Unknown identifier in compile_if_weak_ref(physics_set_density
+Unknown identifier in compile_if_weak_ref(physics_set_restitution
+Unknown identifier in compile_if_weak_ref(skeleton_animation_set
+Unknown identifier in compile_if_weak_ref(skeleton_animation_get
+Unknown identifier in compile_if_weak_ref(skeleton_animation_mix
+Unknown identifier in compile_if_weak_ref(skeleton_animation_set_ext
+Unknown identifier in compile_if_weak_ref(skeleton_animation_get_ext
+Unknown identifier in compile_if_weak_ref(skeleton_animation_get_duration
+Unknown identifier in compile_if_weak_ref(skeleton_animation_get_frames
+Unknown identifier in compile_if_weak_ref(skeleton_animation_clear
+Unknown identifier in compile_if_weak_ref(skeleton_skin_set
+Unknown identifier in compile_if_weak_ref(skeleton_skin_get
+Unknown identifier in compile_if_weak_ref(skeleton_skin_create
+Unknown identifier in compile_if_weak_ref(skeleton_attachment_set
+Unknown identifier in compile_if_weak_ref(skeleton_attachment_get
+Unknown identifier in compile_if_weak_ref(skeleton_attachment_create
+Unknown identifier in compile_if_weak_ref(skeleton_attachment_create_colour
+Unknown identifier in compile_if_weak_ref(skeleton_attachment_create_color
+Unknown identifier in compile_if_weak_ref(skeleton_attachment_replace
+Unknown identifier in compile_if_weak_ref(skeleton_attachment_replace_colour
+Unknown identifier in compile_if_weak_ref(skeleton_attachment_replace_color
+Unknown identifier in compile_if_weak_ref(skeleton_attachment_destroy
+Unknown identifier in compile_if_weak_ref(skeleton_attachment_exists
+Unknown identifier in compile_if_weak_ref(skeleton_collision_draw_set
+Unknown identifier in compile_if_weak_ref(skeleton_bone_data_get
+Unknown identifier in compile_if_weak_ref(skeleton_bone_data_set
+Unknown identifier in compile_if_weak_ref(skeleton_bone_state_get
+Unknown identifier in compile_if_weak_ref(skeleton_bone_state_set
+Unknown identifier in compile_if_weak_ref(skeleton_slot_data_instance
+Unknown identifier in compile_if_weak_ref(skeleton_slot_colour_set
+Unknown identifier in compile_if_weak_ref(skeleton_slot_color_set
+Unknown identifier in compile_if_weak_ref(skeleton_slot_colour_get
+Unknown identifier in compile_if_weak_ref(skeleton_slot_color_get
+Unknown identifier in compile_if_weak_ref(skeleton_slot_alpha_get
+Unknown identifier in compile_if_weak_ref(skeleton_animation_get_frame
+Unknown identifier in compile_if_weak_ref(skeleton_animation_set_frame
+Unknown identifier in compile_if_weak_ref(skeleton_animation_is_looping
+Unknown identifier in compile_if_weak_ref(skeleton_animation_is_finished
+Unknown identifier in compile_if_weak_ref(skeleton_animation_get_position
+Unknown identifier in compile_if_weak_ref(skeleton_animation_set_position
+Unknown identifier in compile_if_weak_ref(skeleton_animation_get_event_frames
+Unknown identifier in compile_if_weak_ref(skeleton_get_minmax
+Unknown identifier in compile_if_weak_ref(skeleton_get_num_bounds
+Unknown identifier in compile_if_weak_ref(skeleton_get_bounds
+Unknown identifier in compile_if_weak_ref(skeleton_find_slot
+Unknown identifier in compile_if_weak_ref(draw_tilemap
+Unknown identifier in compile_if_weak_ref(draw_tile
+Unknown identifier in compile_if_weak_ref(_rL2
+Done! 
+Stats : GMA : Elapsed=2382.5824
+Stats : GMA : sp=15,au=21,bk=0,pt=0,sc=0,sh=0,fo=1,tl=0,ob=44,ro=7,da=0,ex=0,ma=0,fm=0x901C697809A4
+[Deploy] Copy Assets/Included files to target dir
+PlatformOptions
+DoIndexFile
+DoSplash
+DoCodeInjection
+DoIcon
+Igor complete.
+C:\ProgramData\GameMakerStudio2\Cache\runtimes\runtime-2024.14.4.268/bin/webserver/windows/x64/GMWebServer.exe  -v -root "C:\Users\avkov\GameMakerProjects\Foxhole-Dan\html5game\html5game" -port 51264 -cidr 192.168.4.0/24
+[GMWebServer] GMWebServer Starting........
+[GMWebServer] Unhandled exception. System.Net.Sockets.SocketException (10048): Only one usage of each socket address (protocol/network address/port) is normally permitted.
+[GMWebServer]    at System.Net.Sockets.Socket.UpdateStatusAfterSocketErrorAndThrowException(SocketError error, Boolean disconnectOnFailure, String callerName)
+[GMWebServer]    at System.Net.Sockets.Socket.DoBind(EndPoint endPointSnapshot, SocketAddress socketAddress)
+[GMWebServer]    at System.Net.Sockets.Socket.Bind(EndPoint localEP)
+[GMWebServer]    at System.Net.Sockets.TcpListener.Start(Int32 backlog)
+[GMWebServer]    at GMWebServer.yyWebServer.DoServer()
+[GMWebServer]    at GMWebServer.Program.Main(String[] _args)
+C:\ProgramData\GameMakerStudio2\Cache\runtimes\runtime-2024.14.4.268/bin/webserver/windows/x64/GMWebServer.exe  -v -root "C:\Users\avkov\GameMakerProjects\Foxhole-Dan\html5game\html5game" -port 57648 -cidr 192.168.4.0/24
+[GMWebServer] GMWebServer Starting........
+[GMWebServer] GMWebServer started successfully on port 57648
+Attempting to open browser - "" with URL "http://127.0.0.1:57648/index.html" 
+Igor complete
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] 127.0.0.1 : 3.90 KB : /index.html
+[GMWebServer] 127.0.0.1 : 2.86 MB : /html5game/Foxhole-Dan.js
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] 127.0.0.1 : 5.05 KB : /html5game/snd_bullet_impact.ogg
+[GMWebServer] 127.0.0.1 : 30.73 KB : /html5game/snd_brake.ogg
+[GMWebServer] 127.0.0.1 : 10.12 KB : /html5game/snd_enemy_die.ogg
+[GMWebServer] 127.0.0.1 : 12.44 KB : /html5game/snd_enemy_die3.ogg
+[GMWebServer] 127.0.0.1 : 12.39 KB : /html5game/snd_enemy_die2.ogg
+[GMWebServer] 127.0.0.1 : 5.68 KB : /html5game/snd_gunshot.ogg
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] 127.0.0.1 : 34.25 KB : /html5game/snd_engine.ogg
+[GMWebServer] 127.0.0.1 : 9.71 KB : /html5game/snd_explosion.ogg
+[GMWebServer] 127.0.0.1 : 733.68 KB : /html5game/snd_music_cutscene.ogg
+[GMWebServer] 127.0.0.1 : 875.90 KB : /html5game/snd_music_room1.ogg
+[GMWebServer] 127.0.0.1 : 1.73 MB : /html5game/snd_music_room2.ogg
+[GMWebServer] 127.0.0.1 : 989.92 KB : /html5game/snd_music_room3.ogg
+[GMWebServer] 127.0.0.1 : 195.33 KB : /html5game/snd_music_room4.ogg
+[GMWebServer] 127.0.0.1 : 74.85 KB : /html5game/snd_music_death.ogg
+[GMWebServer] 127.0.0.1 : 1.21 MB : /html5game/snd_music_room5.ogg
+[GMWebServer] 127.0.0.1 : 1.78 MB : /html5game/snd_music_title.ogg
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] 127.0.0.1 : 6.37 KB : /html5game/snd_player_hurt.ogg
+[GMWebServer] 127.0.0.1 : 5.79 KB : /html5game/snd_ptsd_horn.ogg
+[GMWebServer] 127.0.0.1 : 7.27 KB : /html5game/snd_ptsd_ring.ogg
+[GMWebServer] 127.0.0.1 : 5.63 KB : /html5game/snd_roll.ogg
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] 127.0.0.1 : 4.89 KB : /html5game/snd_vehicle_gun.ogg
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] 127.0.0.1 : 25.63 KB : /html5game/sound/worklets/audio-worklet.js
+[GMWebServer] 127.0.0.1 : 3.61 KB : /html5game/Foxhole-Dan_texture_0.png
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] 127.0.0.1 : 345.78 KB : /html5game/Foxhole-Dan_texture_1.png
+[GMWebServer] 127.0.0.1 : 9.44 KB : /favicon.ico
+[GMWebServer] 127.0.0.1 : 930 bytes : /html5game/particles/IDR_GIF3.png
+[GMWebServer] 127.0.0.1 : 266 bytes : /html5game/particles/IDR_GIF2.png
+[GMWebServer] 127.0.0.1 : 301 bytes : /html5game/particles/IDR_GIF4.png
+[GMWebServer] 127.0.0.1 : 301 bytes : /html5game/particles/IDR_GIF5.png
+[GMWebServer] 127.0.0.1 : 1.06 KB : /html5game/particles/IDR_GIF6.png
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] 127.0.0.1 : 1.26 KB : /html5game/particles/IDR_GIF7.png
+[GMWebServer] 127.0.0.1 : 2.10 KB : /html5game/particles/IDR_GIF8.png
+[GMWebServer] 127.0.0.1 : 1.59 KB : /html5game/particles/IDR_GIF9.png
+[GMWebServer] 127.0.0.1 : 2.70 KB : /html5game/particles/IDR_GIF10.png
+[GMWebServer] 127.0.0.1 : 3.39 KB : /html5game/particles/IDR_GIF11.png
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] Connecting to Client 127.0.0.1
+[GMWebServer] 127.0.0.1 : 3.44 KB : /html5game/particles/IDR_GIF12.png
+[GMWebServer] 127.0.0.1 : 2.41 KB : /html5game/particles/IDR_GIF13.png
+[GMWebServer] 127.0.0.1 : 3.58 KB : /html5game/particles/IDR_GIF14.png
+[GMWebServer] 127.0.0.1 : 3.41 KB : /html5game/particles/IDR_GIF15.png

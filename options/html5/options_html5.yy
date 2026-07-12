@@ -16,7 +16,7 @@
   "option_html5_icon":"${base_options_dir}/html5/fav.ico",
   "option_html5_index":"",
   "option_html5_interpolate_pixels":true,
-  "option_html5_jsprepend":"",
+  "option_html5_jsprepend":"(function(){function r(){var c=document.getElementById('canvas');if(!c)return;c.style.bottom='';c.style.right='';var a=1920/768,w=window.innerWidth,h=window.innerHeight;c.style.width=(w/h>a?h*a:w)+'px';c.style.height=(w/h>a?h:w/a)+'px';}if(document.body)document.body.style.background='#000000';r();window.addEventListener('resize',r);}());",
   "option_html5_loadingbar":"",
   "option_html5_localrunalert":true,
   "option_html5_outputdebugtoconsole":true,

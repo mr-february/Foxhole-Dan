@@ -35,12 +35,14 @@ instance_create_layer(200, 468, "Instances", obj_dan);
 
 // === ZONE 1: First contact (x~600-900) ===
 instance_create_layer(650,  468, "Instances", obj_enemy_soldier);
+instance_create_layer(750,  468, "Instances", obj_enemy_soldier);
 instance_create_layer(820,  468, "Instances", obj_enemy_soldier);
 // Medkit pickup on ledge
 instance_create_layer(464,  388, "Instances", obj_medkit);
 
 // === ZONE 2: Elevated fight (x~900-1300) ===
 instance_create_layer(950,  308, "Instances", obj_enemy_soldier);  // upper ledge
+instance_create_layer(1020, 308, "Instances", obj_enemy_soldier);  // upper ledge second
 instance_create_layer(1100, 468, "Instances", obj_enemy_soldier);
 instance_create_layer(1200, 468, "Instances", obj_enemy_soldier);
 // Ammo box on upper platform
@@ -48,23 +50,30 @@ instance_create_layer(864,  308, "Instances", obj_ammo_box);
 
 // === ZONE 3: Mid gauntlet (x~1300-1800) ===
 instance_create_layer(1380, 388, "Instances", obj_enemy_soldier);  // ledge patrol
+instance_create_layer(1450, 468, "Instances", obj_enemy_soldier);
 instance_create_layer(1500, 468, "Instances", obj_enemy_soldier);
+instance_create_layer(1600, 388, "Instances", obj_enemy_soldier);
 instance_create_layer(1650, 468, "Instances", obj_enemy_soldier);
 // Clarity (PTSD relief) before sniper section
 instance_create_layer(1250, 468, "Instances", obj_clarity);
 
 // === ZONE 4: Sniper nest (x~1800-2200) ===
-instance_create_layer(1850, 268, "Instances", obj_enemy_soldier);  // perched high
+instance_create_layer(1850, 268, "Instances", obj_enemy_sniper);   // perched high — the nest finally has a sniper in it
+instance_create_layer(1960, 268, "Instances", obj_enemy_soldier);  // perched high second
 instance_create_layer(2000, 468, "Instances", obj_enemy_soldier);
-instance_create_layer(2100, 468, "Instances", obj_enemy_soldier);
+instance_create_layer(2080, 468, "Instances", obj_enemy_soldier);
+instance_create_layer(2150, 468, "Instances", obj_enemy_soldier);
 // Medkit after gauntlet
 instance_create_layer(2250, 468, "Instances", obj_medkit);
 
 // === ZONE 5: Pre-boss push (x~2300-3200) ===
 instance_create_layer(2400, 468, "Instances", obj_enemy_soldier);
+instance_create_layer(2490, 468, "Instances", obj_enemy_soldier);
 instance_create_layer(2550, 468, "Instances", obj_enemy_soldier);
 instance_create_layer(2650, 388, "Instances", obj_enemy_soldier);
 instance_create_layer(2850, 468, "Instances", obj_enemy_soldier);
+instance_create_layer(2950, 388, "Instances", obj_enemy_soldier);
+instance_create_layer(2700, 468, "Instances", obj_enemy_heavy);   // tanky ranged threat before the boss push
 // Ammo resupply
 instance_create_layer(2750, 468, "Instances", obj_ammo_box);
 // Final clarity before boss
@@ -81,6 +90,10 @@ b1.bomb_timer = 220;
 var b2 = instance_create_layer(2200, 150, "Instances", obj_enemy_bomber);
 b2.facing   = -1;
 b2.bomb_timer = 300;
+// Zone 4 extra bomber
+var b4 = instance_create_layer(1650, 160, "Instances", obj_enemy_bomber);
+b4.facing     = -1;
+b4.bomb_timer = 260;
 // Pre-boss gauntlet bomber (lower, more aggressive)
 var b3 = instance_create_layer(3000, 200, "Instances", obj_enemy_bomber);
 b3.facing     = 1;

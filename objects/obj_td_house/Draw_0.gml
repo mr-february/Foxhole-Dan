@@ -6,6 +6,29 @@
 draw_set_color(make_color_rgb(28, 72, 28));
 draw_rectangle(0, 0, room_width, room_height, false);
 
+// Shell craters and burnt patches — remnants of the assault
+var _seed_save2 = random_get_seed();
+random_set_seed(6147);
+for (var _cr = 0; _cr < 22; _cr++) {
+    var _crx = random(room_width);
+    var _cry = random(room_height);
+    var _crr = 8 + random(16);
+    draw_set_color(make_color_rgb(18, 46, 18));
+    draw_ellipse(_crx - _crr, _cry - _crr * 0.55, _crx + _crr, _cry + _crr * 0.55, false);
+    draw_set_color(make_color_rgb(10, 28, 10));
+    draw_ellipse(_crx - _crr * 0.45, _cry - _crr * 0.28, _crx + _crr * 0.45, _cry + _crr * 0.28, false);
+}
+for (var _bp = 0; _bp < 14; _bp++) {
+    var _bpx = random(room_width);
+    var _bpy = random(room_height);
+    var _bpr = 14 + random(26);
+    draw_set_color(make_color_rgb(20, 52, 20));
+    draw_set_alpha(0.55);
+    draw_ellipse(_bpx - _bpr, _bpy - _bpr * 0.55, _bpx + _bpr, _bpy + _bpr * 0.55, false);
+    draw_set_alpha(1);
+}
+random_set_seed(_seed_save2);
+
 // Roads (horizontal + vertical from edges to house)
 draw_set_color(make_color_rgb(68, 68, 75));
 draw_rectangle(0,    354, room_width, 406, false);  // horizontal

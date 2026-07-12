@@ -1,5 +1,22 @@
 if (global.shake_mag > 0.05)  global.shake_mag  *= 0.82; else global.shake_mag  = 0;
 if (global.flash_timer > 0)   global.flash_timer--;
+if (global.game_state == 0)   global.run_time++;
+
+if (global.streak_timer > 0) {
+    global.streak_timer--;
+    if (global.streak_timer == 0) global.streak = 0;
+}
+
+// PTSD panic audio — fires once when stress crosses the redline
+var _dp3 = instance_find(obj_dan, 0);
+if (_dp3 != noone && global.game_state == 0) {
+    if (_dp3.ptsd_meter > _dp3.ptsd_max * 0.85 && !ptsd_panic_played) {
+        ptsd_panic_played = true;
+        audio_play_sound(snd_ptsd_ring, 7, false);
+        global.shake_mag = max(global.shake_mag, 3.0);
+    }
+    if (_dp3.ptsd_meter < _dp3.ptsd_max * 0.60) ptsd_panic_played = false;
+}
 
 // === RISING ARTILLERY BARRAGE ===
 if (global.game_state == 0) {
@@ -19,9 +36,10 @@ if (p != noone && global.game_state == 0) {
     cam_y = lerp(cam_y, target, 0.10);
     camera_set_view_pos(view_camera[0], 0, cam_y);
     if (global.shake_mag > 0.5) {
+        var _sm3 = global.shake_mag * global.shake_intensity;
         camera_set_view_pos(view_camera[0],
-            camera_get_view_x(view_camera[0]) + random_range(-global.shake_mag, global.shake_mag),
-            camera_get_view_y(view_camera[0]) + random_range(-global.shake_mag, global.shake_mag));
+            camera_get_view_x(view_camera[0]) + random_range(-_sm3, _sm3),
+            camera_get_view_y(view_camera[0]) + random_range(-_sm3, _sm3));
     }
 
     // Barrage damage — catching Dan in the danger zone
@@ -31,8 +49,8 @@ if (p != noone && global.game_state == 0) {
         global.shake_mag = max(global.shake_mag, 5.0);
     }
 
-    // Dan reaches exit platform — start capture transition
-    if (p.y < 280 && transition_timer == 0) {
+    // Dan reaches exit platform — start capture transition (captain must be defeated first)
+    if (p.y < 280 && transition_timer == 0 && !instance_exists(obj_enemy_captain)) {
         global.game_state    = 1;  // triggers narrative overlay in Draw_64
         global.checkpoint3_y = 0;  // clear — level complete
         transition_timer     = 1;
@@ -44,6 +62,11 @@ if (transition_timer > 0) {
     transition_timer++;
     if (transition_timer >= 240) {  // 4 seconds of text
         try { steam_set_achievement("ach_room3"); } catch (_ex) {}
+        if (os_browser == browser_not_a_browser) {
+            ini_open("foxhole_dan.ini");
+            if (3 > ini_read_real("stats", "deepest_room", 0)) ini_write_real("stats", "deepest_room", 3);
+            ini_close();
+        }
         room_goto(Room9);  // -> DUST-OFF (chopper)
         exit;
     }

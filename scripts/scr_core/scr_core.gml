@@ -29,8 +29,14 @@ function scr_award_kill(_enemy, _base_score) {
     global.run_kills++;
     global.score += _base_score * global.combo_mult;
     global.kill_flash_timer = 5;
-    global.shake_mag   = max(global.shake_mag, 8.0);
-    global.flash_timer = max(global.flash_timer, 10);
+    global.shake_mag     = max(global.shake_mag, 8.0);
+    global.hitstop_timer = max(global.hitstop_timer, 5);
+    global.flash_timer   = max(global.flash_timer, 10);
+    // Pre-existing streak/Rage Mode system — kept alive alongside the new combo
+    // multiplier so both HUD elements (COMBO and STREAK) and Rage Mode still work.
+    global.streak++;
+    global.streak_timer = 180;
+    if (global.streak >= 5 && global.rage_timer <= 0) global.rage_timer = 360;
     // NOTE: death SOUND lives in scr_spawn_gore (humanoid kills only), so
     // vehicles/boss keep their own explosion/cutscene audio instead.
 }

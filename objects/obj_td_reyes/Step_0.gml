@@ -1,6 +1,14 @@
 if (hp <= 0) {
     global.score += 500;
     global.kill_flash_timer = 5;
+    repeat (22) {
+        instance_create_layer(x + irandom_range(-10, 10), y + irandom_range(-10, 10),
+                              "Instances", obj_blood_particle);
+    }
+    repeat (4) {
+        instance_create_layer(x, y, "Instances", obj_gore_part);
+    }
+    audio_play_sound(choose(snd_enemy_die, snd_enemy_die2, snd_enemy_die3), 9, false);
     instance_destroy();
     exit;
 }

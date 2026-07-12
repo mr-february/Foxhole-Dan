@@ -1,7 +1,11 @@
 audio_stop_all();
-audio_play_sound(snd_music_room5, 100, true);
-depth   = -9999;
-visible = true;
+global.music_inst = audio_play_sound(snd_music_room5, 100, true);
+depth     = -9999;
+visible   = true;
+room_fade = 45;
+
+if (!variable_global_exists("vol_sfx"))   global.vol_sfx   = 0.8;
+if (!variable_global_exists("vol_music")) global.vol_music = 0.8;
 
 // === INTRO ===
 phase        = 0;    // 0=intro  1=play  2=reyes_warning  3=win  4=lose
@@ -35,6 +39,8 @@ reyes_spawned        = false;
 
 // === CURRENCY ===
 currency       = 150;
+currency_prev  = 150;
+currency_pop   = 0;
 selected_tower = 0;    // 0=MG 1=Artillery 2=Barricade
 tower_costs    = [80, 180, 40];
 tower_names    = ["MG NEST", "ARTILLERY", "BARRICADE"];

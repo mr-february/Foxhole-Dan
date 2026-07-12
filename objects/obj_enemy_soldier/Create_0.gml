@@ -24,3 +24,16 @@ cover_timer   = 0;
 flicker_timer = 0;                          // frames remaining in current flicker
 flicker_cd    = irandom_range(600, 1500);   // cooldown before next flicker (10-25 sec)
 score_value   = 100;                        // base points before combo multiplier
+
+alerted     = false;
+alert_timer = 0;
+burst_left  = 0;
+burst_gap   = 0;
+
+// Positional escalation — Room1 enemies deeper into the level fight harder
+if (room == Room1) {
+    var _esc = clamp(x / 3500.0, 0, 1);
+    move_spd    += _esc * 0.9;
+    aggro_range += _esc * 60;
+    shoot_timer  = max(20, shoot_timer - floor(_esc * 25));
+}

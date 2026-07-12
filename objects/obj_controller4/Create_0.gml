@@ -1,12 +1,21 @@
 audio_stop_all();
-audio_play_sound(snd_music_room4, 100, true);
-depth   = -9999;
-visible = true;
+global.music_inst = audio_play_sound(snd_music_room4, 100, true);
+depth     = -9999;
+visible   = true;
+room_fade = 45;
+
+if (!variable_global_exists("vol_sfx"))   global.vol_sfx   = 0.8;
+if (!variable_global_exists("vol_music")) global.vol_music = 0.8;
+
+pause_sel          = 0;
+pause_settings     = false;
+pause_settings_sel = 0;
 
 var _d = variable_global_exists("difficulty") ? global.difficulty : 1;
 //                              Easy    Normal  Hard    Brutal
 var _time_tab = [240 * 60,  180 * 60,  140 * 60,  100 * 60];
 bomb_frames_left = _time_tab[_d];
+timer_max        = bomb_frames_left;
 timer_red        = false;
 
 // phase: 0=ropes, 1=bomb, 2=win, 3=dead

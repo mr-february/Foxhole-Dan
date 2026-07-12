@@ -10,6 +10,7 @@ crouching  = false;
 aim_dir      = 0;
 shoot_timer  = 0;
 shoot_delay  = 12;
+recoil       = 0;
 
 hp       = 100;
 max_hp   = 100;
@@ -50,3 +51,7 @@ if (!variable_global_exists("combo_timer"))        global.combo_timer        = 0
 if (!variable_global_exists("run_kills"))          global.run_kills          = 0;
 if (!variable_global_exists("run_time"))           global.run_time           = 0;
 if (!variable_global_exists("run_hits_taken"))     global.run_hits_taken     = 0;
+if (!variable_global_exists("streak"))             global.streak             = 0;
+if (!variable_global_exists("streak_timer"))       global.streak_timer       = 0;
+if (!variable_global_exists("pickup_flash_timer")) global.pickup_flash_timer = 0;
+if (!variable_global_exists("pickup_flash_col"))   global.pickup_flash_col   = c_white;

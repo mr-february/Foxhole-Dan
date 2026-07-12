@@ -27,7 +27,7 @@ var eng_vol = 0.35 + (move_spd / 8.5) * 0.50;       // volume rises with speed
 audio_sound_gain(engine_snd, eng_vol, 0);
 
 // === JUMP (Space / gamepad A only — separate from acceleration) ===
-var key_jump = keyboard_check_pressed(vk_space);
+var key_jump = keyboard_check_pressed(global.key_jump);
 if (gamepad_is_connected(0)) {
     key_jump = key_jump || gamepad_button_check_pressed(0, gp_face1);
 }
@@ -63,21 +63,64 @@ if (on_ground && instance_place(x, y, obj_obstacle) != noone && i_frames == 0) {
 }
 
 // === ENEMY BULLET HIT ===
-var eb = instance_place(x, y, obj_enemy_veh_bullet);
+var eb = noone;
+with (obj_enemy_veh_bullet) {
+    if (instance_place(x, y, obj_dan_vehicle) != noone) { eb = id; break; }
+}
 if (eb != noone && i_frames == 0) {
     hp      -= bullet_dmg;
     i_frames = 22;
+    global.shake_mag = max(global.shake_mag, 5.0);
     instance_destroy(eb);
 }
 
-// === MOUSE AIM (MG on pintle, pivot at x-23, y-47) ===
-var _raw    = point_direction(x - 23, y - 47, mouse_x, mouse_y);
-var _signed = (_raw > 180) ? _raw - 360 : _raw;
-aim_dir     = clamp(_signed, -60, 60);
+// === VEHICLE REPAIR PICKUP ===
+with (obj_medkit) {
+    if (abs(x - other.x) < 60) {
+        other.hp = min(other.hp + 60, other.max_hp);
+        instance_destroy();
+        break;
+    }
+}
+
+// === AMMO RESUPPLY PICKUP ===
+with (obj_ammo_box) {
+    if (abs(x - other.x) < 60) {
+        other.ammo = other.max_ammo;
+        other.reload_timer = 0;
+        instance_destroy();
+        break;
+    }
+}
+
+// === AIM — gamepad stick > mouse (when moved) > keyboard sweep ===
+var _mouse_moved = (mouse_x != mouse_x_prev || mouse_y != mouse_y_prev);
+mouse_x_prev = mouse_x;
+mouse_y_prev = mouse_y;
+
+var _cur = (aim_dir > 180) ? aim_dir - 360 : aim_dir;
+
+if (gamepad_is_connected(0)) {
+    var _rx = gamepad_axis_value(0, gp_axisrh);
+    var _ry = gamepad_axis_value(0, gp_axisrv);
+    if (abs(_rx) > 0.2 || abs(_ry) > 0.2) {
+        var _raw = point_direction(0, 0, _rx, _ry);
+        _cur = clamp((_raw > 180) ? _raw - 360 : _raw, -60, 60);
+    }
+} else if (_mouse_moved) {
+    var _raw = point_direction(x - 23, y - 47, mouse_x, mouse_y);
+    _cur = clamp((_raw > 180) ? _raw - 360 : _raw, -60, 60);
+} else {
+    // Keyboard sweep: Left arrow = aim up, Right arrow = aim down
+    if (keyboard_check(vk_left))  _cur = max(_cur - 2, -60);
+    if (keyboard_check(vk_right)) _cur = min(_cur + 2,  60);
+}
+
+aim_dir = _cur;
 if (aim_dir < 0) aim_dir += 360;
 
 // === SHOOT ===
-var key_shoot = keyboard_check(ord("J")) || mouse_check_button(mb_left);
+var key_shoot = keyboard_check(global.key_shoot) || mouse_check_button(mb_left);
 if (gamepad_is_connected(0)) {
     key_shoot = key_shoot
              || gamepad_button_check(0, gp_shoulderrb)
@@ -99,12 +142,13 @@ if (key_shoot && shoot_timer <= 0 && ammo > 0 && reload_timer == 0) {
     ammo--;
     shoot_timer = shoot_delay;
     shoot_flash = 5;
+    global.shake_mag = max(global.shake_mag, 1.2);
     audio_play_sound(snd_vehicle_gun, 10, false);
 }
 if (shoot_flash > 0) shoot_flash--;
 
 // === SECONDARY (bomb drop — K / gamepad LB) ===
-var key_bomb = keyboard_check_pressed(ord("K"));
+var key_bomb = keyboard_check_pressed(global.key_grenade);
 if (gamepad_is_connected(0)) key_bomb = key_bomb || gamepad_button_check_pressed(0, gp_shoulderlb);
 if (bomb_cd > 0) bomb_cd--;
 if (key_bomb && bomb_count > 0 && bomb_cd == 0) {
@@ -136,12 +180,20 @@ var eff_spd = clamp(move_spd + (_gnd_f - _gnd) * 0.20, 0.6, 14.0);
 x          += eff_spd;
 wheel_spin += eff_spd * 2.5;
 
-// === CAMERA ===
-camera_set_view_pos(view_camera[0], x - 280, 0);
+// === CAMERA — with screen shake (explosions, hits, gunfire) ===
+var _cam_x = x - 280;
+if (global.shake_mag > 0.5) {
+    var _sm = global.shake_mag * global.shake_intensity;
+    _cam_x += random_range(-_sm, _sm);
+}
+camera_set_view_pos(view_camera[0], _cam_x, 0);
 
 // === WIN ===
 if (x >= 11600 && global.game_state == 0) {
     global.game_state = 3;
     try { steam_set_achievement("ach_room2"); } catch (_ex) {}
+    ini_open("foxhole_dan.ini");
+    if (2 > ini_read_real("stats", "deepest_room", 0)) ini_write_real("stats", "deepest_room", 2);
+    ini_close();
     instance_create_layer(0, 0, "Instances", obj_cutscene2);
 }

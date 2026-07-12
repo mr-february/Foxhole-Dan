@@ -2,12 +2,26 @@ var bx = x;
 var by = y;
 var f  = facing;
 
-// Phase 2 enrage glow
-if (phase == 2) {
-    var rage = 0.3 + abs(sin(current_time * 0.008)) * 0.4;
-    draw_set_color(make_color_rgb(220, 40, 0));
-    draw_set_alpha(rage * 0.35);
-    draw_circle(bx, by - 28, 36, false);
+// Phase 2+ enrage glow — phase 3 burns hotter and wider
+if (phase >= 2) {
+    var rage = 0.3 + abs(sin(current_time * ((phase == 3) ? 0.014 : 0.008))) * 0.4;
+    draw_set_color((phase == 3) ? make_color_rgb(255, 20, 0) : make_color_rgb(220, 40, 0));
+    draw_set_alpha(rage * ((phase == 3) ? 0.45 : 0.35));
+    draw_circle(bx, by - 28, (phase == 3) ? 44 : 36, false);
+    draw_set_alpha(1);
+}
+
+// Charge windup telegraph — expanding warning ring + ground stomp lines
+if (charge_windup > 0) {
+    var _wu = 1.0 - (charge_windup / 22.0);
+    draw_set_color(make_color_rgb(255, 120, 0));
+    draw_set_alpha(0.65 * _wu);
+    draw_circle(bx, by - 28, 20 + _wu * 30, true);
+    draw_circle(bx, by - 28, 24 + _wu * 30, true);
+    draw_set_alpha(0.85);
+    draw_set_color(make_color_rgb(255, 200, 60));
+    draw_line_width(bx - f * 8, by - 2, bx - f * (20 + _wu * 18), by - 2, 2);
+    draw_line_width(bx - f * 6, by - 7, bx - f * (16 + _wu * 14), by - 7, 2);
     draw_set_alpha(1);
 }
 
@@ -36,7 +50,7 @@ draw_set_color(make_color_rgb(50, 50, 50));
 draw_rectangle(bx - 14, by - 22, bx + 14, by - 8, false);
 
 // Body armor (heavy plating)
-var armor_col = (phase == 2) ? make_color_rgb(120, 20, 20) : make_color_rgb(50, 60, 50);
+var armor_col = (phase >= 2) ? ((phase == 3) ? make_color_rgb(150, 12, 12) : make_color_rgb(120, 20, 20)) : make_color_rgb(50, 60, 50);
 draw_set_color(armor_col);
 draw_rectangle(bx - 18, by - 42, bx + 18, by - 22, false);
 

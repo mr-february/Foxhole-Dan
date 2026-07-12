@@ -26,6 +26,15 @@ for (var _s = 0; _s < 120; _s++) {
 draw_set_alpha(1);
 random_set_seed(_seed_save);
 
+// Distant lightning — triple-sine product creates pseudo-random irregular flashes
+var _lf = sin(_t * 0.31) * sin(_t * 0.73) * sin(_t * 0.17);
+if (_lf > 0.82) {
+    draw_set_alpha(min((_lf - 0.82) / 0.18 * 0.50, 0.50));
+    draw_set_color(make_color_rgb(160, 190, 255));
+    draw_rectangle(0, 290, gw, 490, false);
+    draw_set_alpha(1);
+}
+
 // Distant city glow on horizon
 draw_set_color(make_color_rgb(255, 120, 40));
 draw_set_alpha(0.18);
@@ -326,7 +335,7 @@ if (phase == 0 || phase == 1) {
     var _tbh  = 20;
     var _tbx  = gw / 2 - _tbw / 2;
     var _tby  = 12;
-    var _tpct = clamp(bomb_frames_left / (180 * 60), 0, 1);
+    var _tpct = clamp(bomb_frames_left / timer_max, 0, 1);
     var _tclr = make_color_rgb(lerp(220, 60, 1 - _tpct), lerp(60, 220, _tpct), 40);
 
     draw_set_color(make_color_rgb(20, 20, 20));
@@ -440,11 +449,11 @@ if (phase == 1) {
     // ---- Step 0: Wire Selection ----
     if (bomb_step == 0) {
         var _wire_clue_texts = [
-            "\"The blood never washed out of his uniform.\"",
-            "\"He said the river would keep them safe.\"",
-            "\"The jungle swallowed everything. Even the truth.\"",
-            "\"One flash of light in the dark. Then silence.\"",
-            "\"They waved a cloth. We didn't stop.\"",
+            "\"The blood never washed out. Couldn't get the red out.\"",
+            "\"He said the blue river would keep them safe.\"",
+            "\"The green jungle swallowed everything. Even the truth.\"",
+            "\"One yellow flash of light in the dark. Then silence.\"",
+            "\"They waved a white cloth. We didn't stop.\"",
         ];
 
         draw_set_color(c_black);
@@ -463,6 +472,8 @@ if (phase == 1) {
         draw_text_transformed(gw/2, gh/2 - 125, "Field manual, page 47:", 0.82, 0.82, 0);
         draw_set_color(c_white);
         draw_text_transformed(gw/2, gh/2 - 96, _wire_clue_texts[wire_correct], 0.95, 0.95, 0);
+        draw_set_color(make_color_rgb(140, 120, 70));
+        draw_text_transformed(gw/2, gh/2 - 68, "Find the colour in the memory.", 0.78, 0.78, 0);
 
         // Wire options
         var _wire_names2  = ["RED", "BLUE", "GREEN", "YELLOW", "WHITE"];
@@ -804,6 +815,81 @@ if (global.memory_timer > 0) {
     draw_text_transformed(gw / 2, _ckpt ? gh * 0.50 : gh * 0.72,
         global.memory_text, _ckpt ? 1.4 : 1.05, _ckpt ? 1.4 : 1.05, 0);
     draw_set_halign(fa_left);
+    draw_set_alpha(1);
+}
+// Room fade-in on entry
+if (room_fade > 0) {
+    room_fade--;
+    draw_set_color(c_black);
+    draw_set_alpha(room_fade / 45.0);
+    draw_rectangle(0, 0, gw, gh, false);
+    draw_set_alpha(1);
+}
+
+// ============================================================
+// PAUSE OVERLAY
+// ============================================================
+if (global.game_state == 4) {
+    draw_set_color(c_black);
+    draw_set_alpha(0.80);
+    draw_rectangle(0, 0, gw, gh, false);
+    draw_set_alpha(1);
+
+    var _pw = 480; var _ph = 300;
+    var _px = gw / 2 - _pw / 2;
+    var _py = gh / 2 - _ph / 2;
+    draw_set_color(make_color_rgb(20, 20, 28));
+    draw_rectangle(_px, _py, _px + _pw, _py + _ph, false);
+    draw_set_color(make_color_rgb(180, 160, 80));
+    draw_rectangle(_px, _py, _px + _pw, _py + _ph, true);
+
+    draw_set_halign(fa_center);
+    draw_set_valign(fa_middle);
+    draw_set_color(make_color_rgb(220, 200, 80));
+    draw_text_transformed(gw / 2, _py + 44, "PAUSED", 2.2, 2.2, 0);
+
+    if (!pause_settings) {
+        var _items = ["RESUME", "SETTINGS", "QUIT TO MENU"];
+        for (var _pi = 0; _pi < 3; _pi++) {
+            var _iy = _py + 120 + _pi * 52;
+            var _sel = (pause_sel == _pi);
+            draw_set_color(_sel ? make_color_rgb(255, 220, 80) : make_color_rgb(160, 148, 90));
+            draw_text_transformed(gw / 2, _iy, _items[_pi], _sel ? 1.05 : 0.95, _sel ? 1.05 : 0.95, 0);
+            if (_sel) {
+                draw_set_color(make_color_rgb(220, 200, 80));
+                draw_text_transformed(gw / 2 - 140, _iy, ">", 1.05, 1.05, 0);
+                draw_text_transformed(gw / 2 + 140, _iy, "<", 1.05, 1.05, 0);
+            }
+        }
+        draw_set_color(make_color_rgb(90, 80, 48));
+        draw_text_transformed(gw / 2, _py + _ph - 28, "W/S move  |  SPACE select  |  ESC resume", 0.70, 0.70, 0);
+    } else {
+        draw_set_color(make_color_rgb(180, 165, 90));
+        draw_text_transformed(gw / 2, _py + 104, "AUDIO SETTINGS", 1.0, 1.0, 0);
+
+        var _snames = ["MUSIC", "SFX"];
+        var _svals  = [global.vol_music, global.vol_sfx];
+        for (var _si4 = 0; _si4 < 2; _si4++) {
+            var _sy4 = _py + 162 + _si4 * 62;
+            var _ssl = (pause_settings_sel == _si4);
+            draw_set_color(_ssl ? make_color_rgb(255, 220, 80) : make_color_rgb(160, 148, 90));
+            draw_text_transformed(gw / 2, _sy4 - 16, _snames[_si4], 0.90, 0.90, 0);
+            var _bw4 = 280; var _bh4 = 16;
+            var _bx4 = gw / 2 - _bw4 / 2;
+            draw_set_color(make_color_rgb(30, 30, 30));
+            draw_rectangle(_bx4, _sy4 + 2, _bx4 + _bw4, _sy4 + 2 + _bh4, false);
+            draw_set_color(_ssl ? make_color_rgb(220, 180, 40) : make_color_rgb(100, 90, 48));
+            draw_rectangle(_bx4, _sy4 + 2, _bx4 + _bw4 * _svals[_si4], _sy4 + 2 + _bh4, false);
+            draw_set_color(make_color_rgb(100, 90, 50));
+            draw_rectangle(_bx4, _sy4 + 2, _bx4 + _bw4, _sy4 + 2 + _bh4, true);
+            draw_set_color(_ssl ? make_color_rgb(255, 220, 80) : make_color_rgb(140, 130, 70));
+            draw_text_transformed(gw / 2 + _bw4 / 2 + 20, _sy4 + 2, string(round(_svals[_si4] * 100)) + "%", 0.80, 0.80, 0);
+        }
+        draw_set_color(make_color_rgb(90, 80, 48));
+        draw_text_transformed(gw / 2, _py + _ph - 28, "W/S select  |  A/D adjust  |  ESC back", 0.70, 0.70, 0);
+    }
+    draw_set_halign(fa_left);
+    draw_set_valign(fa_top);
     draw_set_alpha(1);
 }
 draw_set_color(c_white);

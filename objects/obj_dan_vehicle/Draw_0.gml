@@ -261,16 +261,10 @@ if (shoot_flash > 0) {
     draw_circle(_flx, _fly, 4 * _mfa, false);
     draw_set_alpha(1);
 }
-// Mouse crosshair
+// Aim dot at barrel tip
 draw_set_color(make_color_rgb(255, 215, 70));
-draw_set_alpha(0.75);
-var _crx = mouse_x;
-var _cry = mouse_y;
-draw_line(_crx - 8, _cry, _crx - 3, _cry);
-draw_line(_crx + 3, _cry, _crx + 8, _cry);
-draw_line(_crx, _cry - 8, _crx, _cry - 3);
-draw_line(_crx, _cry + 3, _crx, _cry + 8);
-draw_circle(_crx, _cry, 3, true);
+draw_set_alpha(0.85);
+draw_circle(_btip_x, _btip_y, 3, true);
 draw_set_alpha(1);
 // Ammo box (belt-fed)
 draw_set_color(make_color_rgb(76, 90, 48));

@@ -12,3 +12,9 @@ repeat (irandom_range(8, 13)) {
 global.shake_mag   = max(global.shake_mag, 20.0);
 global.flash_timer = max(global.flash_timer, 25);
 audio_play_sound(snd_explosion, 10, false);
+
+// Kill streak
+global.streak++;
+global.run_kills++;
+global.streak_timer = 180;
+global.score       += 10 * min(global.streak - 1, 10);

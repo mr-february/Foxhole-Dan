@@ -192,12 +192,41 @@ if (phase >= 3 && phase <= 5) {
 }
 
 // =========================================================
+// SLOW VIGNETTE — the room closes in as the scene wears on
+// =========================================================
+var _vig = 0;
+if (phase >= 2) _vig = 0.10;
+if (phase >= 4) _vig = 0.20;
+if (phase >= 5) _vig = 0.28;
+if (_vig > 0) {
+    draw_set_color(c_black);
+    draw_set_alpha(_vig);
+    draw_rectangle(0,        0,  gw,      90, false);
+    draw_rectangle(0,  gh - 90,  gw,      gh, false);
+    draw_rectangle(0,        0,  110,     gh, false);
+    draw_rectangle(gw - 110, 0,  gw,      gh, false);
+    draw_set_alpha(1);
+}
+
+// =========================================================
 // FADE OVERLAY
 // =========================================================
 if (fade_alpha > 0) {
     draw_set_alpha(fade_alpha);
     draw_set_color(c_black);
     draw_rectangle(0, 0, gw, gh, false);
+    draw_set_alpha(1);
+}
+
+// =========================================================
+// CLOSING LINE — alone on black before the title screen
+// =========================================================
+if (phase == 6) {
+    var _ca6 = clamp(phase_timer / 70.0, 0, 1);
+    if (phase_timer > 150) _ca6 = clamp(1.0 - (phase_timer - 150) / 50.0, 0, 1);
+    draw_set_alpha(_ca6 * 0.70);
+    draw_set_color(make_color_rgb(160, 152, 138));
+    draw_text_transformed(gw / 2, gh / 2, "Some wars never end.", 1.0, 1.0, 0);
     draw_set_alpha(1);
 }
 

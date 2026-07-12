@@ -7,9 +7,10 @@ if (place_meeting(x, y, obj_platform)) {
     exit;
 }
 
-// All masked humanoid enemies (soldier + the new roster) hit via the par_enemy parent.
-// Boss is handled in its own block below (needs i_frames tuning); the spriteless
-// bomber is handled by the distance check further down.
+// All masked humanoid enemies (soldier + the new roster, incl. sniper/heavy/captain)
+// hit via the par_enemy parent. Boss/Handler are handled in their own blocks below
+// (need i_frames tuning); the spriteless bomber is handled by the distance check
+// further down.
 var hit = instance_place(x, y, par_enemy);
 if (hit != noone && hit.object_index != obj_boss) {
     var _hif = variable_instance_exists(hit, "i_frames") ? hit.i_frames : 0;
@@ -81,16 +82,16 @@ if (bomber != noone) {
         global.flash_timer = max(global.flash_timer, 14);
         // Bomber uses inline gore (no scr_spawn_gore), so play its death sound here.
         audio_play_sound(choose(snd_enemy_die, snd_enemy_die2, snd_enemy_die3), 9, false);
-        repeat (irandom_range(3, 5)) {
+        repeat (irandom_range(8, 14)) {
             instance_create_layer(bomber.x, bomber.y, "Instances", obj_gore_part);
         }
-        repeat (irandom_range(8, 14)) {
+        repeat (irandom_range(24, 40)) {
             instance_create_layer(bomber.x, bomber.y, "Instances", obj_blood_particle);
         }
         instance_create_layer(bomber.x, bomber.y, "Instances", obj_gore_decal);
         instance_destroy(bomber);
     } else {
-        global.shake_mag = max(global.shake_mag, 2.5);
+        global.shake_mag = max(global.shake_mag, 4.0);
         audio_play_sound(snd_bullet_impact, 8, false);
     }
     instance_destroy();

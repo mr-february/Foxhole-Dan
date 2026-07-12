@@ -67,6 +67,7 @@
     {"id":{"name":"obj_dan","path":"objects/obj_dan/obj_dan.yy",},},
     {"id":{"name":"obj_enemy_bomber","path":"objects/obj_enemy_bomber/obj_enemy_bomber.yy",},},
     {"id":{"name":"obj_enemy_bullet","path":"objects/obj_enemy_bullet/obj_enemy_bullet.yy",},},
+    {"id":{"name":"obj_enemy_captain","path":"objects/obj_enemy_captain/obj_enemy_captain.yy",},},
     {"id":{"name":"obj_enemy_soldier","path":"objects/obj_enemy_soldier/obj_enemy_soldier.yy",},},
     {"id":{"name":"obj_enemy_veh_bullet","path":"objects/obj_enemy_veh_bullet/obj_enemy_veh_bullet.yy",},},
     {"id":{"name":"obj_enemy_vehicle","path":"objects/obj_enemy_vehicle/obj_enemy_vehicle.yy",},},

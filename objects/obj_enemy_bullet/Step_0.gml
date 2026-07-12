@@ -8,7 +8,8 @@ if (place_meeting(x, y, obj_platform)) {
 
 var p = instance_place(x, y, obj_dan);
 if (p != noone && p.i_frames == 0) {
-    p.hp         -= 10;
+    var _dmg = variable_instance_exists(id, "dmg") ? dmg : 10;
+    p.hp         -= _dmg;
     p.ptsd_meter  = min(p.ptsd_meter + 18, p.ptsd_max);
     p.i_frames    = 40;
     global.shake_mag = max(global.shake_mag, 7.0);

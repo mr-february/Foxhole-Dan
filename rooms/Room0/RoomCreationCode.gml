@@ -1,4 +1,7 @@
 global.game_state       = 0;
+global.vol_sfx          = 0.8;
+global.vol_music        = 0.8;
+global.music_inst       = -1;
 global.score            = 0;
 scr_init_run();
 global.kill_flash_timer = 0;
@@ -6,4 +9,9 @@ global.memory_text      = "";
 global.memory_timer     = 0;
 global.checkpoint3_y    = 0;
 global.high_score       = 0;
+global.streak             = 0;
+global.streak_timer       = 0;
+global.pickup_flash_timer = 0;
+global.pickup_flash_col   = c_white;
+if (!variable_global_exists("pending_score")) global.pending_score = 0;
 instance_create_layer(0, 0, "Instances", obj_title_controller);

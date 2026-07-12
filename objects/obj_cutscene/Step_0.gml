@@ -18,6 +18,11 @@ if (press) {
     if (panel >= panels) {
         global.game_state = 0;
         try { steam_set_achievement("ach_room1"); } catch (_ex) {}
+        if (os_browser == browser_not_a_browser) {
+            ini_open("foxhole_dan.ini");
+            if (1 > ini_read_real("stats", "deepest_room", 0)) ini_write_real("stats", "deepest_room", 1);
+            ini_close();
+        }
         room_goto(Room7);  // -> COLD SWEAT (stealth)
     }
 }

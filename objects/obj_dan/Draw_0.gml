@@ -112,11 +112,14 @@ if (i_frames > 0 && (i_frames mod 6) < 3) {
     var gun_arm_y = by - 20 + bob_off;
     draw_set_color(make_color_rgb(180, 130, 90));
     draw_rectangle(gun_arm_x - 2, gun_arm_y - 2, gun_arm_x + f * 8 + 2, gun_arm_y + 3, false);
-    // Rifle
+    // Rifle — recoil compresses the barrel back along the aim line
     draw_set_color(make_color_rgb(35, 30, 25));
-    var gun_end_x = bx + lengthdir_x(20, aim_dir);
-    var gun_end_y = (by - 18 + bob_off) + lengthdir_y(20, aim_dir);
-    draw_line_width(bx + f * 4, by - 18 + bob_off, gun_end_x, gun_end_y, 3);
+    var gun_len   = 20 - recoil * 1.4;
+    var gun_kick_x = -lengthdir_x(recoil * 0.7, aim_dir);
+    var gun_kick_y = -lengthdir_y(recoil * 0.7, aim_dir);
+    var gun_end_x = bx + gun_kick_x + lengthdir_x(gun_len, aim_dir);
+    var gun_end_y = (by - 18 + bob_off) + gun_kick_y + lengthdir_y(gun_len, aim_dir);
+    draw_line_width(bx + f * 4 + gun_kick_x, by - 18 + bob_off + gun_kick_y, gun_end_x, gun_end_y, 3);
     // Rifle barrel highlight
     draw_set_color(make_color_rgb(60, 58, 50));
     draw_line_width(bx + f * 6, by - 17 + bob_off, gun_end_x, gun_end_y - 1, 1);

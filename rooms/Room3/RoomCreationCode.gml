@@ -119,6 +119,9 @@ instance_create_layer(1472, 1288, "Instances", obj_enemy_soldier);  // L10 right
 instance_create_layer( 768,  968, "Instances", obj_enemy_soldier);  // L12 center — upper push
 instance_create_layer( 832,  488, "Instances", obj_enemy_soldier);  // L15 center — final guard
 
+// === MINIBOSS — captain guards the exit platform ===
+instance_create_layer( 900,  168, "Instances", obj_enemy_captain);  // exit platform — must be defeated to win
+
 // === ENEMIES — BOMBERS (aerial threat, bomb every 2-4 sec) ===
 instance_create_layer( 480, 2200, "Instances", obj_enemy_bomber);  // lower section, above L4
 instance_create_layer( 960, 1550, "Instances", obj_enemy_bomber);  // mid section, above L9

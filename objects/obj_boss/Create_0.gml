@@ -18,3 +18,5 @@ patrol_right = 3800;
 enrage_flash = 0;
 hit_flash    = 0;
 score_value  = 1000;   // base points before combo multiplier
+charge_windup = 0;
+gren_timer    = 0;

@@ -39,7 +39,7 @@ if (aggressive) {
         var b        = instance_create_layer(x + facing * 50, y - 14, "Instances", obj_enemy_veh_bullet);
         b.direction  = (facing == 1) ? 0 : 180;
         b.speed      = 10;
-        shoot_timer  = 70 + irandom(50);
+        shoot_timer  = 90 + irandom(70);
         shoot_flash  = 5;
         audio_play_sound(snd_vehicle_gun, 9, false);
     }

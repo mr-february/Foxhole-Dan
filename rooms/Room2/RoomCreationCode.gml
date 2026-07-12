@@ -27,24 +27,24 @@ var obs_x = [
     820,  960,
     1500, 1620,
     2100,
-    2400, 2480,
+    2400,
     3000,
     3500, 3580,
-    4100, 4200, 4260,
+    4100, 4260,
     4800,
-    5200, 5300,
+    5200,
     5700,
-    6100, 6200,
+    6200,
     6600,
-    7000, 7080,
-    7400, 7500, 7580,
-    8000, 8080,
-    8400, 8480,
-    9000, 9080,
-    9500, 9580, 9660,
-    10200, 10280,
-    10700, 10780, 10860,
-    11300, 11380,
+    7000,
+    7500,
+    8080,
+    8480,
+    9000,
+    9580,
+    10200,
+    10780,
+    11380,
 ];
 for (i = 0; i < array_length(obs_x); i++) {
     var _px = obs_x[i];
@@ -56,23 +56,41 @@ for (i = 0; i < array_length(obs_x); i++) {
 // === ENEMY VEHICLES ===
 var ev_x = [
     1200, 1800,
-    2300, 2700,
+    2700,
     3200, 3600,
-    4000, 4400, 4700,
-    5100, 5500,
-    5900, 6200,
-    6500, 6800,
+    4400, 4700,
+    5100,
+    5900,
+    6500,
     7100,
     7600, 8100,
-    8800, 9200,
-    9700, 10100,
-    10600, 11000, 11200,
+    9200,
+    9700,
+    10600, 11200,
 ];
 for (i = 0; i < array_length(ev_x); i++) {
     var _ex = ev_x[i];
     var _es = clamp(floor(_ex / 200), 0, 59);
     var _ety = lerp(global.terrain_y[_es], global.terrain_y[_es + 1], (_ex - _es * 200) / 200.0);
     instance_create_layer(_ex, _ety - 15, "Instances", obj_enemy_vehicle);
+}
+
+// === REPAIR KITS (picked up by driving over them) ===
+var kit_x = [1000, 3000, 5500, 8000, 10500];
+for (i = 0; i < array_length(kit_x); i++) {
+    var _kx = kit_x[i];
+    var _ks = clamp(floor(_kx / 200), 0, 59);
+    var _kty = lerp(global.terrain_y[_ks], global.terrain_y[_ks + 1], (_kx - _ks * 200) / 200.0);
+    instance_create_layer(_kx, _kty - 5, "Instances", obj_medkit);
+}
+
+// === AMMO CRATES ===
+var ammo_x = [2000, 6000, 9500];
+for (i = 0; i < array_length(ammo_x); i++) {
+    var _ax2 = ammo_x[i];
+    var _as2 = clamp(floor(_ax2 / 200), 0, 59);
+    var _aty = lerp(global.terrain_y[_as2], global.terrain_y[_as2 + 1], (_ax2 - _as2 * 200) / 200.0);
+    instance_create_layer(_ax2, _aty - 5, "Instances", obj_ammo_box);
 }
 
 // === AERIAL BOMBERS ===

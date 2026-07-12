@@ -1,6 +1,9 @@
 // === CIVILIAN FLICKER ===
 if (flicker_cd > 0) {
     flicker_cd--;
+    // High stress accelerates the hallucinations
+    var _pd = instance_find(obj_dan, 0);
+    if (_pd != noone && _pd.ptsd_meter > _pd.ptsd_max * 0.6) flicker_cd -= 2;
 } else if (flicker_timer <= 0 && global.clarity_timer <= 0) {
     flicker_timer = 3;
     flicker_cd    = irandom_range(600, 1500);
@@ -144,6 +147,16 @@ draw_rectangle(hx - 7, hy + 1, hx + 7, hy + 2, false);
 draw_set_color(make_color_rgb(180, 20, 20));
 draw_rectangle(hx - 2, hy - 4, hx + 2, hy - 1, false);
 draw_rectangle(hx - 1, hy - 5, hx + 1, hy,     false);
+
+// === ALERT INDICATOR — spotted Dan, reacting ===
+if (alert_timer > 0) {
+    var _aa = clamp(alert_timer / 8.0, 0, 1);
+    draw_set_alpha(_aa);
+    draw_set_color(make_color_rgb(255, 60, 40));
+    draw_rectangle(bx - 2, by - 52, bx + 2, by - 42, false);
+    draw_rectangle(bx - 2, by - 40, bx + 2, by - 36, false);
+    draw_set_alpha(1);
+}
 
 // === HIT FLASH — redraw soldier silhouette in white ===
 if (hit_flash > 0) {

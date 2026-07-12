@@ -1,3 +1,10 @@
+if (global.game_state == 0) global.run_time++;
+
+// Currency pop — track earnings for the HUD scale punch
+if (currency > currency_prev) currency_pop = 16;
+currency_prev = currency;
+if (currency_pop > 0) currency_pop--;
+
 // ============================================================
 // PHASE 0: INTRO SLIDES
 // ============================================================
@@ -146,12 +153,17 @@ if (phase == 1) {
             if (reyes_spawned) {
                 // Reyes dead — we win
                 try { steam_set_achievement("ach_room5"); } catch (_ex) {}
+                ini_open("foxhole_dan.ini");
+                if (5 > ini_read_real("stats", "deepest_room", 0)) ini_write_real("stats", "deepest_room", 5);
+                ini_close();
                 phase           = 3;
                 end_timer       = 0;
                 narrative_slide = 0;
                 slide_fade_in   = 0;
             } else if (wave < 5) {
-                // Normal wave complete — build phase
+                // Normal wave complete — build phase + bonus currency
+                var _bonus = 30 + wave * 15;
+                currency += _bonus;
                 wave++;
                 wave_state = 0;
                 wave_timer = 900;  // 15-sec build phase between waves

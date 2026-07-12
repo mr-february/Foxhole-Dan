@@ -52,9 +52,15 @@ if (fuse <= 0) {
             _self.i_frames = max(_self.i_frames, 22);
         }
     }
-    global.shake_mag   = max(global.shake_mag, 8.0);
-    global.flash_timer = max(global.flash_timer, 18);
+    global.shake_mag   = max(global.shake_mag, 20.0);
+    global.flash_timer = max(global.flash_timer, 28);
     audio_play_sound(snd_explosion, 10, false);
+    repeat (irandom_range(35, 55)) {
+        instance_create_layer(x, y, "Instances", obj_blood_particle);
+    }
+    repeat (irandom_range(12, 20)) {
+        instance_create_layer(x, y, "Instances", obj_gore_part);
+    }
     var _ex = instance_create_layer(x, y, "Instances", obj_explosion_fx);
     _ex.image_xscale = 1.5;
     _ex.image_yscale = 1.5;
