@@ -62,22 +62,22 @@
   <tpe x="277" y="394" tpage="default_0.png">spr_explosion_fx_Foxhole-Dan_bc091685-4ca0-49f7-89c6-c1a25af1fb56.tpe</tpe>
   <tpe x="336" y="54" tpage="default_0.png">spr_explosion_fx_Foxhole-Dan_6c7827b1-0086-49e4-958f-6e569128c51c.tpe</tpe>
   <tpe x="155" y="470" tpage="default_0.png">res_pt_shape_line.tpe</tpe>
-  <tpe x="350" y="208" tpage="default_0.png">spr_explosion_fx_Foxhole-Dan_375b8092-1b1d-4c42-b178-995f42354642.tpe</tpe>
-  <tpe x="348" y="255" tpage="default_0.png">spr_explosion_fx_Foxhole-Dan_3b2325bf-79d9-40e7-8174-ce6415c0d24e.tpe</tpe>
-  <tpe x="268" y="4" tpage="default_0.png">res_pt_shape_pixel.tpe</tpe>
-  <tpe x="212" y="317" tpage="default_0.png">spr_ammo_box_Foxhole-Dan_0b2d66e2-84d0-4909-8d8b-35aedeb7cfc8.tpe</tpe>
-  <tpe x="212" y="317" tpage="default_0.png">spr_boss_Foxhole-Dan_6def36ab-a5e0-4c5d-bd5d-62093c8e8712.tpe</tpe>
-  <tpe x="212" y="317" tpage="default_0.png">spr_bullet_Foxhole-Dan_4fa89464-7c90-49d7-8e38-1b5cbe755485.tpe</tpe>
-  <tpe x="212" y="317" tpage="default_0.png">spr_clarity_Foxhole-Dan_d17bb0da-25a3-4b24-9ccd-e88a46fe9d21.tpe</tpe>
-  <tpe x="212" y="317" tpage="default_0.png">spr_dan_Foxhole-Dan_d11d085d-74a1-42cc-99db-bc23b2739265.tpe</tpe>
-  <tpe x="212" y="317" tpage="default_0.png">spr_dan_vehicle_Foxhole-Dan_c1c1c1c1-c1c1-4c1c-8c1c-c1c1c1c1c1c1.tpe</tpe>
-  <tpe x="212" y="317" tpage="default_0.png">spr_enemy_bullet_Foxhole-Dan_e039e655-d60a-4d71-a721-c5f3d1d60d25.tpe</tpe>
-  <tpe x="212" y="317" tpage="default_0.png">spr_enemy_soldier_Foxhole-Dan_201fc17a-44c0-4a94-9f3e-24401d3d4fd4.tpe</tpe>
-  <tpe x="212" y="317" tpage="default_0.png">spr_enemy_veh_bullet_Foxhole-Dan_c5c5c5c5-c5c5-4c5c-8c5c-c5c5c5c5c5c5.tpe</tpe>
-  <tpe x="212" y="317" tpage="default_0.png">spr_enemy_vehicle_Foxhole-Dan_c2c2c2c2-c2c2-4c2c-8c2c-c2c2c2c2c2c2.tpe</tpe>
-  <tpe x="244" y="138" tpage="default_0.png">spr_explosion_fx_Foxhole-Dan_73d0cddc-0be3-4f57-965d-5c8c9bd01333.tpe</tpe>
-  <tpe x="212" y="317" tpage="default_0.png">spr_medkit_Foxhole-Dan_7d42473d-c44b-4042-89ee-b39676d8c86a.tpe</tpe>
-  <tpe x="212" y="317" tpage="default_0.png">spr_obstacle_Foxhole-Dan_c3c3c3c3-c3c3-4c3c-8c3c-c3c3c3c3c3c3.tpe</tpe>
-  <tpe x="212" y="317" tpage="default_0.png">spr_platform_Foxhole-Dan_4fc2039f-7e48-44ac-a961-b8e8fa0bc7c1.tpe</tpe>
-  <tpe x="212" y="317" tpage="default_0.png">spr_vehicle_bullet_Foxhole-Dan_c4c4c4c4-c4c4-4c4c-8c4c-c4c4c4c4c4c4.tpe</tpe>
+  <tpe x="348" y="255" tpage="default_0.png">spr_dan_Foxhole-Dan_d11d085d-74a1-42cc-99db-bc23b2739265.tpe</tpe>
+  <tpe x="244" y="138" tpage="default_0.png">spr_explosion_fx_Foxhole-Dan_375b8092-1b1d-4c42-b178-995f42354642.tpe</tpe>
+  <tpe x="266" y="2" tpage="default_0.png">spr_medkit_Foxhole-Dan_7d42473d-c44b-4042-89ee-b39676d8c86a.tpe</tpe>
+  <tpe x="343" y="363" tpage="default_0.png">spr_explosion_fx_Foxhole-Dan_3b2325bf-79d9-40e7-8174-ce6415c0d24e.tpe</tpe>
+  <tpe x="333" y="394" tpage="default_0.png">spr_enemy_bullet_Foxhole-Dan_e039e655-d60a-4d71-a721-c5f3d1d60d25.tpe</tpe>
+  <tpe x="218" y="497" tpage="default_0.png">res_pt_shape_pixel.tpe</tpe>
+  <tpe x="217" y="397" tpage="default_0.png">spr_ammo_box_Foxhole-Dan_0b2d66e2-84d0-4909-8d8b-35aedeb7cfc8.tpe</tpe>
+  <tpe x="217" y="397" tpage="default_0.png">spr_boss_Foxhole-Dan_6def36ab-a5e0-4c5d-bd5d-62093c8e8712.tpe</tpe>
+  <tpe x="217" y="397" tpage="default_0.png">spr_bullet_Foxhole-Dan_4fa89464-7c90-49d7-8e38-1b5cbe755485.tpe</tpe>
+  <tpe x="217" y="397" tpage="default_0.png">spr_clarity_Foxhole-Dan_d17bb0da-25a3-4b24-9ccd-e88a46fe9d21.tpe</tpe>
+  <tpe x="217" y="397" tpage="default_0.png">spr_dan_vehicle_Foxhole-Dan_c1c1c1c1-c1c1-4c1c-8c1c-c1c1c1c1c1c1.tpe</tpe>
+  <tpe x="217" y="397" tpage="default_0.png">spr_enemy_soldier_Foxhole-Dan_201fc17a-44c0-4a94-9f3e-24401d3d4fd4.tpe</tpe>
+  <tpe x="217" y="397" tpage="default_0.png">spr_enemy_veh_bullet_Foxhole-Dan_c5c5c5c5-c5c5-4c5c-8c5c-c5c5c5c5c5c5.tpe</tpe>
+  <tpe x="217" y="397" tpage="default_0.png">spr_enemy_vehicle_Foxhole-Dan_c2c2c2c2-c2c2-4c2c-8c2c-c2c2c2c2c2c2.tpe</tpe>
+  <tpe x="212" y="317" tpage="default_0.png">spr_explosion_fx_Foxhole-Dan_73d0cddc-0be3-4f57-965d-5c8c9bd01333.tpe</tpe>
+  <tpe x="217" y="397" tpage="default_0.png">spr_obstacle_Foxhole-Dan_c3c3c3c3-c3c3-4c3c-8c3c-c3c3c3c3c3c3.tpe</tpe>
+  <tpe x="217" y="397" tpage="default_0.png">spr_platform_Foxhole-Dan_4fc2039f-7e48-44ac-a961-b8e8fa0bc7c1.tpe</tpe>
+  <tpe x="217" y="397" tpage="default_0.png">spr_vehicle_bullet_Foxhole-Dan_c4c4c4c4-c4c4-4c4c-8c4c-c4c4c4c4c4c4.tpe</tpe>
 </TextureGroup>

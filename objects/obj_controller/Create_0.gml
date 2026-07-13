@@ -1,3 +1,5 @@
+visible = true;
+
 audio_stop_all();
 global.music_inst       = audio_play_sound(snd_music_room1, 100, true);
 global.game_state       = 0;  // 0=playing  1=win  2=dead  4=paused
@@ -14,7 +16,6 @@ global.streak             = 0;
 global.streak_timer       = 0;
 global.pickup_flash_timer = 0;
 global.pickup_flash_col   = c_white;
-visible = true;
 room_fade  = 45;
 card_timer = 190;
 ptsd_panic_played = false;
