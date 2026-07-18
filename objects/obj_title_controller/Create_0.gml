@@ -7,6 +7,27 @@ settings_sel = 0;   // 0=music  1=sfx
 
 global.difficulty = 1;  // default Normal
 diff_sel          = 1;  // cursor in difficulty select screen
+level_sel         = 0;  // cursor in dev level-select screen (state 6)
+
+// Dev-only level select — jump straight into any room without playing through
+// everything before it. Gated behind DEBUG_LEVEL_SELECT; flip that macro off
+// before building for the public Vercel push.
+level_list = [
+    { room: Room1,  name: "1  —  THE BUNKER" },
+    { room: Room7,  name: "2  —  COLD SWEAT" },
+    { room: Room2,  name: "3  —  THE RIVER" },
+    { room: Room8,  name: "4  —  OVERWATCH" },
+    { room: Room3,  name: "5  —  THE TOWER" },
+    { room: Room9,  name: "6  —  DUST-OFF" },
+    { room: Room10, name: "7  —  DOWNRIVER" },
+    { room: Room11, name: "8  —  THE FACILITY" },
+    { room: Room12, name: "9  —  INTERROGATION" },
+    { room: Room4,  name: "10  —  THE CHAIR" },
+    { room: Room13, name: "11  —  THE MOUNTAIN" },
+    { room: Room5,  name: "12  —  SIEGE" },
+    { room: Room6,  name: "13  —  HOME" },
+    { room: Room14, name: "14  —  ENDLESS" },
+];
 
 global.high_score = 0;
 endless_unlocked  = 0;

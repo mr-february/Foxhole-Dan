@@ -3,7 +3,9 @@ audio_stop_all();
 audio_play_sound(snd_music_room2, 100, true);
 
 global.game_state = 0;
-depth    = -9999;
+// Very high depth so the world-space terrain (Draw_0) draws first — i.e.
+// behind the chopper cabin and every heli target, instead of on top of them.
+depth    = 10000;
 visible  = true;
 level_no = 6;
 

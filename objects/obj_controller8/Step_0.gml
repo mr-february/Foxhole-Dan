@@ -1,4 +1,5 @@
 // === FX DECAY ===
+if (global.hitstop_timer > 0) global.hitstop_timer--;
 if (global.shake_mag > 0.05) global.shake_mag *= 0.82; else global.shake_mag = 0;
 if (global.flash_timer > 0)  global.flash_timer--;
 

@@ -3,3 +3,4 @@ image_index  = 0;
 depth        = -200;
 image_xscale = 1.5;
 image_yscale = 1.5;
+life         = image_number;  // frame-based lifetime, independent of sequence-driven image_index

@@ -31,6 +31,9 @@ if (gamepad_is_connected(0)) {
 var press_endless = keyboard_check_pressed(ord("E"));
 if (gamepad_is_connected(0)) press_endless = press_endless || gamepad_button_check_pressed(0, gp_shoulderr);
 
+// Dev-only level select — T key, local testing builds only (see scr_debug_config).
+var press_levelselect = DEBUG_LEVEL_SELECT && keyboard_check_pressed(ord("T"));
+
 if (state == 0) {
     if (press_start)    state = 2;   // go to difficulty select before playing
     if (press_controls) state = 1;
@@ -39,12 +42,23 @@ if (state == 0) {
         room_goto(Room14);
     }
     if (press_settings) state = 3;
+    if (press_levelselect) {
+        state     = 6;
+        level_sel = 0;
+    }
     if (keyboard_check_pressed(ord("L"))) {
         state          = 4;
         lb_needs_fetch = true;
         lb_scores      = [];
         lb_error       = false;
     }
+} else if (state == 6) {
+    if (press_up)   level_sel = (level_sel - 1 + array_length(level_list)) mod array_length(level_list);
+    if (press_down) level_sel = (level_sel + 1) mod array_length(level_list);
+    if (press_start) {
+        room_goto(level_list[level_sel].room);
+    }
+    if (press_back) state = 0;
 } else if (state == 1) {
     if (press_back || press_start) state = 0;
 } else if (state == 2) {

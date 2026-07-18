@@ -250,6 +250,14 @@ if (state == 0) {
     draw_set_color(make_color_rgb(100, 200, 140));
     draw_text_transformed(mid, gh * 0.773, "L  ──  LEADERBOARD", 1.12, 1.12, 0);
 
+    // Dev-only level select hint — never shows in the Vercel build (DEBUG_LEVEL_SELECT off)
+    if (DEBUG_LEVEL_SELECT) {
+        draw_set_color(make_color_rgb(0, 0, 0));
+        draw_text_transformed(mid + 2, gh * 0.815 + 2, "T  ──  LEVEL SELECT (DEV)", 0.82, 0.82, 0);
+        draw_set_color(make_color_rgb(150, 150, 155));
+        draw_text_transformed(mid, gh * 0.815, "T  ──  LEVEL SELECT (DEV)", 0.82, 0.82, 0);
+    }
+
     // ENDLESS SURVIVAL — shown once unlocked by beating the story.
     if (endless_unlocked) {
         draw_set_color(make_color_rgb(0, 0, 0));
@@ -618,6 +626,61 @@ if (state == 0) {
     draw_text_transformed(mid, gh * 0.720, "ENTER  ──  SUBMIT  TO  LEADERBOARD", 1.0, 1.0, 0);
     draw_set_color(make_color_rgb(130, 120, 90));
     draw_text_transformed(mid, gh * 0.785, "ESC  ──  SKIP", 0.88, 0.88, 0);
+    draw_set_alpha(1);
+
+    draw_set_halign(fa_left);
+    draw_set_valign(fa_top);
+
+// ═══════════════════════════════════════════════════════
+} else if (state == 6) {
+// DEV LEVEL SELECT — local testing only, jump straight into any room
+// ═══════════════════════════════════════════════════════
+
+    draw_set_alpha(0.84);
+    draw_set_color(make_color_rgb(2, 2, 6));
+    draw_rectangle(0, 0, gw, gh, false);
+    draw_set_alpha(1);
+
+    draw_set_halign(fa_center);
+    draw_set_valign(fa_middle);
+
+    draw_set_color(make_color_rgb(230, 198, 75));
+    draw_text_transformed(mid, 40, "LEVEL SELECT  (DEV)", 2.0, 2.0, 0);
+    draw_set_color(make_color_rgb(150, 115, 28));
+    draw_rectangle(80, 72, gw - 80, 75, false);
+
+    var _lcount  = array_length(level_list);
+    var _row_h   = 44;
+    var _start_y = 92;
+    var _panel_x = mid - 460;
+    var _panel_w = 920;
+
+    for (var _li = 0; _li < _lcount; _li++) {
+        var _ry  = _start_y + _li * _row_h;
+        var _sel = (_li == level_sel);
+
+        draw_set_alpha(_sel ? 0.70 : 0.30);
+        draw_set_color(_sel ? make_color_rgb(18, 16, 8) : make_color_rgb(10, 8, 4));
+        draw_rectangle(_panel_x, _ry, _panel_x + _panel_w, _ry + _row_h - 4, false);
+        draw_set_alpha(1);
+
+        if (_sel) {
+            draw_set_color(make_color_rgb(230, 198, 75));
+            draw_rectangle(_panel_x, _ry, _panel_x + _panel_w, _ry + _row_h - 4, true);
+            draw_text_transformed(_panel_x - 26, _ry + _row_h * 0.46, ">", 1.3, 1.3, 0);
+            draw_text_transformed(_panel_x + _panel_w + 26, _ry + _row_h * 0.46, "<", 1.3, 1.3, 0);
+        }
+
+        draw_set_alpha(_sel ? 1.0 : 0.55);
+        draw_set_color(_sel ? make_color_rgb(255, 235, 150) : make_color_rgb(190, 178, 130));
+        draw_text_transformed(mid, _ry + _row_h * 0.46, level_list[_li].name, _sel ? 1.05 : 0.90, _sel ? 1.05 : 0.90, 0);
+        draw_set_alpha(1);
+    }
+
+    var _bp6 = 0.62 + abs(sin(t * 1.9)) * 0.38;
+    draw_set_alpha(_bp6);
+    draw_set_color(make_color_rgb(185, 158, 68));
+    draw_text_transformed(mid, gh - 38, "W / S  ──  SELECT       SPACE / ENTER  ──  JUMP TO LEVEL       ESC  ──  BACK", 0.90, 0.90, 0);
     draw_set_alpha(1);
 
     draw_set_halign(fa_left);

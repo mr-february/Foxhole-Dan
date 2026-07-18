@@ -7,18 +7,24 @@ var f = facing;
 draw_set_color(make_color_rgb(120, 30, 30));
 draw_rectangle(x - 15 * f, y - 5, x + 15 * f, y + 5, false);
 
-// Head further out
-draw_set_color(make_color_rgb(160, 110, 75));
-draw_rectangle(x + 14 * f, y - 5, x + 22 * f, y + 5, false);
+if (!headless) {
+    // Head further out
+    draw_set_color(make_color_rgb(160, 110, 75));
+    draw_rectangle(x + 14 * f, y - 5, x + 22 * f, y + 5, false);
+
+    // Helmet on the ground
+    draw_set_color(make_color_rgb(40, 50, 28));
+    draw_rectangle(x + 12 * f, y - 9, x + 22 * f, y - 3, false);
+} else {
+    // Ragged neck stump instead of a head
+    draw_set_color(make_color_rgb(90, 15, 15));
+    draw_rectangle(x + 13 * f, y - 3, x + 17 * f, y + 3, false);
+}
 
 // Legs splayed slightly
 draw_set_color(make_color_rgb(50, 60, 40));
 draw_rectangle(x - 5, y + 3, x - 20 * f, y + 10, false);
 draw_rectangle(x - 2, y + 6, x - 18 * f, y + 13, false);
-
-// Helmet on the ground
-draw_set_color(make_color_rgb(40, 50, 28));
-draw_rectangle(x + 12 * f, y - 9, x + 22 * f, y - 3, false);
 
 // Blood pool
 draw_set_color(make_color_rgb(80, 5, 5));

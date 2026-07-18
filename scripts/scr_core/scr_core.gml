@@ -58,6 +58,28 @@ function scr_spawn_gore(_x, _y, _facing) {
     audio_play_sound(choose(snd_enemy_die, snd_enemy_die2, snd_enemy_die3), 9, false);
 }
 
+/// Headshot gore burst — a concentrated head-only explosion instead of a full-body
+/// gore spray, leaving a headless corpse. Used for precision-aimed kills (obj_bullet
+/// hitting the top band of an enemy's hitbox), always an instant kill.
+function scr_spawn_headshot_gore(_x, _y, _facing) {
+    // Bias heavily toward "head" chunks (part_type 0) instead of the normal random mix.
+    repeat (irandom_range(6, 10)) {
+        var _gp = instance_create_layer(_x, _y, "Instances", obj_gore_part);
+        _gp.part_type = 0;
+        _gp.pw = 6;
+        _gp.ph = 8;
+    }
+    // Heavier, tighter blood spray than a body kill.
+    repeat (irandom_range(18, 28)) {
+        instance_create_layer(_x, _y, "Instances", obj_blood_particle);
+    }
+    instance_create_layer(_x, _y, "Instances", obj_gore_decal);
+    var c = instance_create_layer(_x, _y, "Instances", obj_corpse);
+    c.facing   = _facing;
+    c.headless = true;
+    audio_play_sound(choose(snd_enemy_die, snd_enemy_die2, snd_enemy_die3), 9, false);
+}
+
 /// Persist a stat to foxhole_dan.ini [saves] — only if it beats the stored value.
 /// ini_open/ini_close crash on HTML5 (no filesystem) — no-op there.
 function scr_save_stat(_key, _value) {

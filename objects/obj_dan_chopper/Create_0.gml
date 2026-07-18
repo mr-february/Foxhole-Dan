@@ -11,5 +11,6 @@ fire_cd    = 6;                 // door gun is rapid
 fire_timer = 0;
 
 rotor = 0;
+engine_snd = audio_play_sound(snd_engine, 10, true);
 
 if (!variable_global_exists("combo_timer")) scr_init_run();

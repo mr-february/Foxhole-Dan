@@ -1,4 +1,5 @@
 // === SHARED PER-FRAME PLUMBING ===
+if (global.hitstop_timer > 0) global.hitstop_timer--;
 scr_combo_tick();
 global.run_time++;
 

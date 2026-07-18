@@ -1,3 +1,5 @@
+if (global.hitstop_timer > 0) global.hitstop_timer--;
+
 if (global.game_state == 0) global.run_time++;
 
 // === PAUSE ===

@@ -14,6 +14,13 @@ aim_y = clamp(aim_y, 0, room_height);
 scoped = mouse_check_button(mb_right);
 if (gp && gamepad_button_check(0, gp_shoulderl)) scoped = true;
 
+// NOTE: the camera stays fixed at the full room view even while scoped — see
+// obj_controller8 Draw_64 for the Commandos-style scope lens. Zooming the whole
+// camera (the old approach) hid every enemy outside the tiny zoomed rectangle,
+// so the player lost track of who else was closing in on the nest. Now the lens
+// itself zooms in on whatever's under the crosshair while the rest of the street
+// stays visible at normal scale.
+
 // === RELOAD ===
 if (reloading > 0) {
     reloading--;

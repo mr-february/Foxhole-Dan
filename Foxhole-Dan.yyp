@@ -117,6 +117,7 @@
     {"id":{"name":"Room8","path":"rooms/Room8/Room8.yy",},},
     {"id":{"name":"Room9","path":"rooms/Room9/Room9.yy",},},
     {"id":{"name":"scr_core","path":"scripts/scr_core/scr_core.yy",},},
+    {"id":{"name":"scr_debug_config","path":"scripts/scr_debug_config/scr_debug_config.yy",},},
     {"id":{"name":"scr_net","path":"scripts/scr_net/scr_net.yy",},},
     {"id":{"name":"snd_brake","path":"sounds/snd_brake/snd_brake.yy",},},
     {"id":{"name":"snd_bullet_impact","path":"sounds/snd_bullet_impact/snd_bullet_impact.yy",},},

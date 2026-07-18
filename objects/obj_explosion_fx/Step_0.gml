@@ -1,1 +1,2 @@
-if (image_index >= image_number - 1) instance_destroy();
+life--;
+if (life <= 0) instance_destroy();

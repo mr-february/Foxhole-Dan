@@ -1,31 +1,51 @@
 var gw = display_get_gui_width();
 var gh = display_get_gui_height();
 
-// === SCOPE OVERLAY (when scoped) ===
+// === SCOPE OVERLAY (Commandos-style magnifying lens, when scoped) ===
+// The camera no longer zooms (see obj_dan_sniper Step_0) — the whole street stays
+// visible at normal scale so the player can still see enemies closing in from
+// elsewhere. Only the reticle itself shows a magnified close-up of whatever the
+// crosshair is resting on, cropped straight out of this frame's application_surface
+// and stretched into a circular lens.
 if (instance_exists(obj_dan_sniper)) {
     var s = instance_find(obj_dan_sniper, 0);
     if (s.scoped && global.game_state == 0) {
-        // Convert aim world-pos to GUI space (view starts at 0,0 for this fixed room)
-        var sx = s.aim_x, sy = s.aim_y;
-        // Dim everything outside the scope circle
-        draw_set_color(c_black); draw_set_alpha(0.72);
-        draw_rectangle(0, 0, gw, gh, false);
+        var sx = s.aim_x, sy = s.aim_y;   // room coords == screen coords (camera fixed at 0,0, no scaling)
+        var r    = 260;                    // reticle radius — larger, easier to read the lens
+        var zoom = 3.2;                    // lens magnification
+
+        if (!surface_exists(scope_surf)) scope_surf = surface_create(r * 2, r * 2);
+
+        var _crop = (r * 2) / zoom;
+        var _cl = clamp(sx - _crop / 2, 0, room_width  - _crop);
+        var _ct = clamp(sy - _crop / 2, 0, room_height - _crop);
+
+        surface_set_target(scope_surf);
+        draw_clear_alpha(c_black, 0);
+        draw_set_color(c_white);
+        draw_circle(r, r, r, false);                 // builds the circular alpha mask
+        gpu_set_blendmode_ext(bm_dest_alpha, bm_inv_dest_alpha);
+        draw_surface_part_ext(application_surface, _cl, _ct, _crop, _crop, 0, 0, zoom, zoom, c_white, 1);
+        gpu_set_blendmode(bm_normal);
+        surface_reset_target();
+
+        // Faint vignette so the lens edge reads clearly against the un-zoomed street behind it
+        draw_set_color(c_black); draw_set_alpha(0.28);
+        draw_circle(sx, sy, r + 10, false);
         draw_set_alpha(1);
-        // Scope glass (a clear-ish disc)
-        var r = 170;
-        draw_set_color(make_color_rgb(20, 26, 22)); draw_set_alpha(0.25);
-        draw_circle(sx, sy, r, false);
-        draw_set_alpha(1);
-        // Crosshair
+
+        draw_surface(scope_surf, sx - r, sy - r);
+
+        // Bezel + crosshair
         draw_set_color(make_color_rgb(30, 30, 30));
         draw_circle(sx, sy, r, true);
         draw_line(sx - r, sy, sx + r, sy);
         draw_line(sx, sy - r, sx, sy + r);
         draw_set_color(make_color_rgb(220, 40, 40));
-        draw_line(sx - 14, sy, sx - 4, sy); draw_line(sx + 4, sy, sx + 14, sy);
-        draw_line(sx, sy - 14, sx, sy - 4); draw_line(sx, sy + 4, sx, sy + 14);
+        draw_line(sx - 20, sy, sx - 6, sy); draw_line(sx + 6, sy, sx + 20, sy);
+        draw_line(sx, sy - 20, sx, sy - 6); draw_line(sx, sy + 6, sx, sy + 20);
         // Range ticks
-        for (var t = -3; t <= 3; t++) if (t != 0) draw_line(sx + t * 22, sy - 5, sx + t * 22, sy + 5);
+        for (var t = -4; t <= 4; t++) if (t != 0) draw_line(sx + t * 32, sy - 7, sx + t * 32, sy + 7);
     }
 }
 

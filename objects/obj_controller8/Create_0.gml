@@ -25,3 +25,5 @@ street_y    = 660;
 if (!variable_global_exists("combo_timer")) scr_init_run();
 global.shake_mag = 0;
 global.flash_timer = 0;
+
+scope_surf = -1;   // scope lens render target — created lazily in Draw_64, freed in Destroy_0
