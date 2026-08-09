@@ -1,6 +1,12 @@
 // === scr_core — shared run/combo/scoring helpers (Phase 0 foundation refactor) ===
 
 /// Reset per-run stat + combo globals. Call wherever global.score is reset to 0.
+/// Also the lazy safety net for any room entered directly (dev level-select,
+/// the Endless-mode shortcut from the title screen) without ever running
+/// obj_controller's Create_0 (Room1) first — shake_mag/hitstop_timer/flash_timer
+/// are read through max() all over the combat code, which throws a hard GML
+/// exception ("unable to convert undefined to a number") the instant anything
+/// dies or explodes if these were never initialized.
 function scr_init_run() {
     global.combo_count    = 0;
     global.combo_mult     = 1;
@@ -8,6 +14,9 @@ function scr_init_run() {
     global.run_kills      = 0;
     global.run_time       = 0;
     global.run_hits_taken = 0;
+    if (!variable_global_exists("shake_mag"))     global.shake_mag     = 0;
+    if (!variable_global_exists("hitstop_timer")) global.hitstop_timer = 0;
+    if (!variable_global_exists("flash_timer"))   global.flash_timer   = 0;
 }
 
 /// Tick the combo window down. Call once per frame from the active controller Step.
