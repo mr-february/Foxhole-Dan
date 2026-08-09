@@ -16,21 +16,28 @@ x += drift_x;
 y += drift_y + ((target_type == 3) ? sin(bob) * 1.2 : 0);   // choppers weave
 
 // === FIRE at the player's chopper ===
+// A muzzle flash marks the shooter and a visible tracer arcs to the cabin —
+// damage lands when the tracer arrives (obj_heli_tracer), not invisibly here,
+// so the player can always see who's shooting and where the hit came from.
 if (instance_exists(obj_dan_chopper)) {
     var c = instance_find(obj_dan_chopper, 0);
     fire_timer--;
     if (fire_timer <= 0) {
         fire_timer = fire_cd;
-        if (c.i_frames == 0) {
-            c.chopper_hp -= dmg;
-            c.i_frames    = 14;
-            global.shake_mag = max(global.shake_mag, 5.0);
-            global.flash_timer = max(global.flash_timer, 8);
-            audio_play_sound(snd_bullet_impact, 6, false);
-        }
+        muzzle_flash = 6;
+        var _mx = x, _my = y - 22;
+        var _t = instance_create_layer(_mx, _my, "Instances", obj_heli_tracer);
+        _t.target_x   = c.x - 20;
+        _t.target_y   = c.y + 10;
+        _t.direction  = point_direction(_mx, _my, _t.target_x, _t.target_y);
+        _t.speed      = 30;
+        _t.dmg        = dmg;
+        _t.tracer_col = (target_type == 2) ? make_color_rgb(255, 150, 40) : make_color_rgb(120, 255, 140);
+        audio_play_sound(snd_gunshot, 5, false);
     }
 }
 
+if (muzzle_flash > 0) muzzle_flash--;
 if (hit_flash > 0) hit_flash--;
 if (i_frames > 0) i_frames--;
 

@@ -43,4 +43,16 @@ if (hit_flash > 0) {
     draw_rectangle(bx - 20, by - 26, bx + 20, by, false);
     draw_set_alpha(1);
 }
+
+// Muzzle flash — marks this unit as the one currently shooting at the chopper
+if (muzzle_flash > 0) {
+    var _fa = muzzle_flash / 6.0;
+    draw_set_alpha(0.85 * _fa);
+    draw_set_color(make_color_rgb(255, 230, 120));
+    draw_circle(bx, by - 22, 12 * _fa, false);
+    draw_set_alpha(0.5 * _fa);
+    draw_set_color(c_white);
+    draw_circle(bx, by - 22, 18 * _fa, false);
+    draw_set_alpha(1);
+}
 draw_set_color(c_white);

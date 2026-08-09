@@ -18,3 +18,4 @@ dmg       = 8;
 bob       = random(6.28);
 life      = 900;              // failsafe despawn
 setup_done = false;          // per-type stats applied on first Step (after controller sets target_type)
+muzzle_flash = 0;             // brief bright flash at this unit's own position when it fires

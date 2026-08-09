@@ -79,6 +79,7 @@
     {"id":{"name":"obj_grenade","path":"objects/obj_grenade/obj_grenade.yy",},},
     {"id":{"name":"obj_guard","path":"objects/obj_guard/obj_guard.yy",},},
     {"id":{"name":"obj_heli_target","path":"objects/obj_heli_target/obj_heli_target.yy",},},
+    {"id":{"name":"obj_heli_tracer","path":"objects/obj_heli_tracer/obj_heli_tracer.yy",},},
     {"id":{"name":"obj_hook","path":"objects/obj_hook/obj_hook.yy",},},
     {"id":{"name":"obj_medkit","path":"objects/obj_medkit/obj_medkit.yy",},},
     {"id":{"name":"obj_mg_nest","path":"objects/obj_mg_nest/obj_mg_nest.yy",},},
